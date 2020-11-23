@@ -8,10 +8,10 @@ public class Factura {
 	private Date fecha;
 	private int cantVenta; 
 	private String RNC;
-	private int precioTotal;
+	private float precioTotal;
 	private int cid; 
 	private String ssn;
-	public Factura(int fid, String comprobante, Date fecha, int cantVenta, String rNC, int precioTotal, int cid,
+	public Factura(int fid, String comprobante, Date fecha, int cantVenta, String rNC, float precioTotal, int cid,
 			String ssn) {
 		super();
 		this.fid = fid;
@@ -53,10 +53,10 @@ public class Factura {
 	public void setRNC(String rNC) {
 		RNC = rNC;
 	}
-	public int getPrecioTotal() {
+	public float getPrecioTotal() {
 		return precioTotal;
 	}
-	public void setPrecioTotal(int precioTotal) {
+	public void setPrecioTotal(float precioTotal) {
 		this.precioTotal = precioTotal;
 	}
 	public int getCid() {

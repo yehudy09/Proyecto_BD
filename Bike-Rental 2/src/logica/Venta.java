@@ -6,7 +6,7 @@ public class Venta {
 	private int vid; 
 	private int cantVenta; 
 	private Date fechaSalida; 
-	private int descuento;  
+	private float descuento;  
 	private Factura factura;  
 	private Producto producto;
 	
@@ -46,11 +46,11 @@ public class Venta {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public int getDescuento() {
+	public float getDescuento() {
 		return descuento;
 	}
 
-	public void setDescuento(int descuento) {
+	public void setDescuento(float descuento) {
 		this.descuento = descuento;
 	}
 

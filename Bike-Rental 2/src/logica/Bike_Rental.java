@@ -7,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Date;
 
-//.
 
 public class Bike_Rental {
 	private ArrayList<Venta> misVentas; 
@@ -117,7 +116,7 @@ public class Bike_Rental {
 		Bike_Rental.bike = bike;
 	} 
 	
-	public static Bike_Rental getInstance() {
+	public Bike_Rental getInstance() {
 		if (bike == null) {
 			bike = new Bike_Rental();
 		}
@@ -147,28 +146,31 @@ public class Bike_Rental {
 
 	}
 	
-	public void insertCliente(String Fname, String Sname, String Lname, String Calle, String Ciudad, 
-			int CodPostal, String tel) {
-		
-		try {
-			Conexión Connect = new Conexión();
-			Connect.Conectar();
-			Connection aux = null;
-			String sqlInsert = "insert into Cliente (Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel) values (?, ?, ?, ?, ?, ?, ?)";
-			System.out.println("Error");
-			PreparedStatement stmt = aux.prepareStatement(sqlInsert);
-			stmt.setString(1, Fname);
-			stmt.setString(2, Sname);
-			stmt.setString(3, Lname);
-			stmt.setString(4, Calle);
-			stmt.setString(5, Ciudad);
-			stmt.setInt(6, CodPostal);
-			stmt.setString(7, tel);
-			
+	public Cliente crearCliente(String cedula, String fname, String sname, String lname, String calle, String ciudad, String
+			tel, int postalCode) {
+		String id = "CL-"+misClientes.size()+1; 
+		Cliente aux = new Cliente(id, cedula, fname, sname, lname, calle, ciudad, tel, postalCode);
+		misClientes.add(aux);
+		return aux;
+	}
+	
+	
+	public void insertCliente(Cliente c) {
+			String sql = "insert into Cliente (Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel) values (?,?,?,?,?,?,?)";
+			try {
+			Conexión connect = new Conexión();
+			PreparedStatement stmt = connect.Conectar().prepareStatement(sql);
+			stmt.setString(1, c.getFname());
+			stmt.setString(2, c.getSname());
+			stmt.setString(3, c.getLname());
+			stmt.setString(4, c.getCalle());
+			stmt.setString(5, c.getCiudad());
+			stmt.setInt(6, c.getPostalCode());
+			stmt.setString(7, c.getTel());
+			stmt.execute();
 		}catch(SQLException e) {
 			e.printStackTrace();
 			System.out.println("Error");
-		}
-		
+		} 		
 	}
 }

@@ -2,13 +2,13 @@ package logica;
 
 public class Producto {
 
-	private int idProducto;
+	private String idProducto;
 	private String tipo;
 	private String nameProducto;
 	private int precioVenta;
 	private String marca;
 	
-	public Producto(int idProducto, String tipo, String nameProducto, int precioVenta, String marca) {
+	public Producto(String idProducto, String tipo, String nameProducto, int precioVenta, String marca) {
 		super();
 		this.idProducto = idProducto;
 		this.tipo = tipo;
@@ -17,11 +17,11 @@ public class Producto {
 		this.marca = marca;
 	}
 
-	public int getIdProducto() {
+	public String getIdProducto() {
 		return idProducto;
 	}
 
-	public void setIdProducto(int idProducto) {
+	public void setIdProducto(String idProducto) {
 		this.idProducto = idProducto;
 	}
 

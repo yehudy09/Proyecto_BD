@@ -20,7 +20,6 @@ public class Bike_Rental {
 	private ArrayList<Producto> misProductos;
 	private ArrayList<User> misUsers; 
 	public static Bike_Rental bike;
-	private Connection dc; 
 
 	
 	
@@ -35,7 +34,6 @@ public class Bike_Rental {
 		this.misProveedores = new ArrayList<>();
 		this.misProductos = new ArrayList<>();
 		this.misUsers = new ArrayList<>();
-		this.dc = new dbConnection();
 	}
 
 	

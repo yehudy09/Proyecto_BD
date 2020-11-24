@@ -3,74 +3,61 @@ package logica;
 import java.sql.Date;
 
 public class Venta {
-	private int vid; 
+	private String vid; 
 	private int cantVenta; 
 	private Date fechaSalida; 
 	private float descuento;  
-	private Factura factura;  
-	private Producto producto;
-	
-	public Venta(int vid, int cantVenta, Date fechaSalida, int descuento, Factura factura, Producto producto) {
+	private String fid;  
+	private String idProducto;
+	public Venta(String vid, int cantVenta, Date fechaSalida, float descuento, String fid, String idProducto) {
 		super();
-		this.vid = vid; 
+		this.vid = vid;
 		this.cantVenta = cantVenta;
 		this.fechaSalida = fechaSalida;
 		this.descuento = descuento;
-		this.factura = factura;
-		this.producto = producto;
+		this.fid = fid;
+		this.idProducto = idProducto;
 	}
-
-	
-	public int getVid() {
+	public String getVid() {
 		return vid;
 	}
-
-	public void setVid(int vid) {
+	public void setVid(String vid) {
 		this.vid = vid;
 	}
-
-
 	public int getCantVenta() {
 		return cantVenta;
 	}
-
 	public void setCantVenta(int cantVenta) {
 		this.cantVenta = cantVenta;
 	}
-
 	public Date getFechaSalida() {
 		return fechaSalida;
 	}
-
 	public void setFechaSalida(Date fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
-
 	public float getDescuento() {
 		return descuento;
 	}
-
 	public void setDescuento(float descuento) {
 		this.descuento = descuento;
 	}
-
-	public Factura getFactura() {
-		return factura;
+	public String getFid() {
+		return fid;
 	}
-
-	public void setFactura(Factura factura) {
-		this.factura = factura;
+	public void setFid(String fid) {
+		this.fid = fid;
 	}
-
-	public Producto getProducto() {
-		return producto;
+	public String getIdProducto() {
+		return idProducto;
 	}
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	} 
+	public void setIdProducto(String idProducto) {
+		this.idProducto = idProducto;
+	}
 	
 	
+	
+
 	
 	
 

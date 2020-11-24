@@ -128,7 +128,7 @@ public class Bike_Rental {
 		
 		try {
 			Conexión Connect = new Conexión();
-			Connect.Conectar();
+			//Connect.Conectar();
 			Connection aux = null;
 			String sqlInsert = "insert into Factura (comprobante, fecha, cantVenta, RNC, precioTotal, cid, ssn) values (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = aux.prepareStatement(sqlInsert);

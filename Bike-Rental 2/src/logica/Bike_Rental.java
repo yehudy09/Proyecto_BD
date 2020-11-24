@@ -128,7 +128,7 @@ public class Bike_Rental {
 		
 		try {
 			Conexión Connect = new Conexión();
-			//Connect.Conectar();
+			Connect.Conectar();
 			Connection aux = null;
 			String sqlInsert = "insert into Factura (comprobante, fecha, cantVenta, RNC, precioTotal, cid, ssn) values (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = aux.prepareStatement(sqlInsert);
@@ -145,5 +145,30 @@ public class Bike_Rental {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void insertCliente(String Fname, String Sname, String Lname, String Calle, String Ciudad, 
+			int CodPostal, String tel) {
+		
+		try {
+			Conexión Connect = new Conexión();
+			Connect.Conectar();
+			Connection aux = null;
+			String sqlInsert = "insert into Cliente (Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel) values (?, ?, ?, ?, ?, ?, ?)";
+			System.out.println("Error");
+			PreparedStatement stmt = aux.prepareStatement(sqlInsert);
+			stmt.setString(1, Fname);
+			stmt.setString(2, Sname);
+			stmt.setString(3, Lname);
+			stmt.setString(4, Calle);
+			stmt.setString(5, Ciudad);
+			stmt.setInt(6, CodPostal);
+			stmt.setString(7, tel);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error");
+		}
+		
 	}
 }

@@ -11,7 +11,10 @@ import java.sql.SQLException;
 public class Conexión {
 	
 	public static void main(String[] args) {
+		Conectar();
+	}
 		
+	public static void Conectar() { 
 	Connection aux = null;
 	
 	try {

@@ -1,6 +1,12 @@
 package logica;
 
 import java.util.ArrayList;
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Date;
+
 //.
 
 public class Bike_Rental {
@@ -14,6 +20,9 @@ public class Bike_Rental {
 	private ArrayList<Producto> misProductos;
 	private ArrayList<User> misUsers; 
 	public static Bike_Rental bike;
+	private Connection dc; 
+
+	
 	
 	public Bike_Rental() {
 		super();
@@ -26,8 +35,10 @@ public class Bike_Rental {
 		this.misProveedores = new ArrayList<>();
 		this.misProductos = new ArrayList<>();
 		this.misUsers = new ArrayList<>();
+		this.dc = new dbConnection();
 	}
 
+	
 	public ArrayList<Venta> getMisVentas() {
 		return misVentas;
 	}
@@ -114,7 +125,27 @@ public class Bike_Rental {
 		}
 		return bike;
 	}
-	
-	
-	
+	public void insertFactura (String comprobante, Date fecha, int cantVenta, String rnc, float precioTotal,
+			int clientID, String ssn) {
+		
+		try {
+			Conexión Connect = new Conexión();
+			Connect.Conectar();
+			Connection aux = null;
+			String sqlInsert = "insert into Factura (comprobante, fecha, cantVenta, RNC, precioTotal, cid, ssn) values (?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement stmt = aux.prepareStatement(sqlInsert);
+			String stringFecha = fecha.toString();
+			stmt.setString(1, comprobante);
+			stmt.setString(2, stringFecha);
+			stmt.setInt(3, cantVenta);
+			stmt.setString(4, rnc);
+			stmt.setFloat(5, precioTotal);
+			stmt.setInt(6, clientID);
+			stmt.setString(7, ssn);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
 }

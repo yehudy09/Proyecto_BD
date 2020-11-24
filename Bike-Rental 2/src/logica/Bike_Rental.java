@@ -1,7 +1,7 @@
 package logica;
 
 import java.util.ArrayList;
-
+//.
 
 public class Bike_Rental {
 	private ArrayList<Venta> misVentas; 

@@ -1,6 +1,10 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import javax.swing.JOptionPane;
+
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,8 +23,7 @@ public class Bike_Rental {
 	private ArrayList<Producto> misProductos;
 	private ArrayList<User> misUsers; 
 	public static Bike_Rental bike;
-
-	
+	private Connection connect = null;
 	
 	public Bike_Rental() {
 		super();
@@ -122,7 +125,30 @@ public class Bike_Rental {
 		}
 		return bike;
 	}
-	public void insertFactura (String comprobante, Date fecha, int cantVenta, String rnc, float precioTotal,
+	
+	public Connection conectarSQL() throws Exception{
+		try {
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			
+			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
+			
+			connect = DriverManager.getConnection(Url);
+			
+			JOptionPane.showMessageDialog(null, "Conectado");
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e,  "Error de conexión" + e.getMessage(), JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		
+		
+		return connect;
+		
+	}
+	
+	/*public void insertFactura (String comprobante, Date fecha, int cantVenta, String rnc, float precioTotal,
 			int clientID, String ssn) {
 		
 		try {
@@ -144,33 +170,51 @@ public class Bike_Rental {
 			e.printStackTrace();
 		}
 
-	}
-	
-	public Cliente crearCliente(String cedula, String fname, String sname, String lname, String calle, String ciudad, String
-			tel, int postalCode) {
-		String id = "CL-"+misClientes.size()+1; 
-		Cliente aux = new Cliente(id, cedula, fname, sname, lname, calle, ciudad, tel, postalCode);
-		misClientes.add(aux);
-		return aux;
-	}
+	}*/
 	
 	
-	public void insertCliente(Cliente c) {
-			String sql = "insert into Cliente (Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel) values (?,?,?,?,?,?,?)";
-			try {
-			Conexión connect = new Conexión();
-			PreparedStatement stmt = connect.Conectar().prepareStatement(sql);
-			stmt.setString(1, c.getFname());
-			stmt.setString(2, c.getSname());
-			stmt.setString(3, c.getLname());
-			stmt.setString(4, c.getCalle());
-			stmt.setString(5, c.getCiudad());
-			stmt.setInt(6, c.getPostalCode());
-			stmt.setString(7, c.getTel());
+	public void insertCliente(Cliente c) throws Exception {
+		String id = getIdCliente();
+		c.setId(id);
+		misClientes.add(c);
+		    
+		String sql = "insert into Cliente (cid, cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel) values (?,?,?,?,?,?,?,?,?)";
+			
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setString(1, c.getId());
+			stmt.setString(2, c.getCedula());
+			stmt.setString(3, c.getFname());
+			stmt.setString(4, c.getSname());
+			stmt.setString(5, c.getLname());
+			stmt.setString(6, c.getCalle());
+			stmt.setString(7, c.getCiudad());
+			stmt.setInt(8, c.getPostalCode());
+			stmt.setString(9, c.getTel());
 			stmt.execute();
+		
 		}catch(SQLException e) {
+			
 			e.printStackTrace();
-			System.out.println("Error");
+			
 		} 		
+	}
+	
+	
+	public String getIdCliente() { // Generacion de Codigos para cliente
+		String code = "";
+		String codigo = "";
+		long milis = new java.util.GregorianCalendar().getTimeInMillis();
+		Random r = new Random(milis);
+		for (int i = 0; i < 3;) {
+			char c = (char) r.nextInt(225);
+			if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
+				code += c;
+				i++;
+			}
+
+		}
+		codigo = "CL" + code;
+		return codigo;
 	}
 }

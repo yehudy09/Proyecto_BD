@@ -10,10 +10,9 @@ public abstract class Persona {
 	protected String Ciudad; 
 	protected String tel; 
 	protected int postalCode;
-	public Persona(String id, String cedula, String fname, String sname, String lname, String calle, String ciudad,
+	public Persona(String cedula, String fname, String sname, String lname, String calle, String ciudad,
 			String tel, int postalCode) {
 		super();
-		this.id = id;
 		this.cedula = cedula;
 		Fname = fname;
 		Sname = sname;

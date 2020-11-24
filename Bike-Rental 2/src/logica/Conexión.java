@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class Conexión {
 
-	public static void main(String[] args) {
+	public void Conectar (String account, String password) {
 		
 		Connection aux = null;
 		
@@ -17,7 +17,7 @@ public class Conexión {
 			
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Airline;user=luna;password=123luna;";
+			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Airline;"+"user="+account+"password="+password;
 			
 			aux = DriverManager.getConnection(Url);
 			

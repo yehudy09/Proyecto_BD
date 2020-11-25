@@ -2,7 +2,7 @@ package logica;
 
 public class Servicio extends Precio {
 
-	private String id;
+	private int id;
 	private String ssn;
 	private String tipo;
 
@@ -12,10 +12,10 @@ public class Servicio extends Precio {
 		this.tipo = tipo;
 	
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getSsn() {

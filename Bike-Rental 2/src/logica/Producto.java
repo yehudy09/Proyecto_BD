@@ -2,7 +2,7 @@ package logica;
 
 public class Producto extends Precio{
 
-	private String idProducto;
+	private int idProducto;
 	private String tipo;
 	private String nameProducto;
 	private String marca;
@@ -14,11 +14,11 @@ public class Producto extends Precio{
 		this.marca = marca;
 	}
 
-	public String getIdProducto() {
+	public int getIdProducto() {
 		return idProducto;
 	}
 
-	public void setIdProducto(String idProducto) {
+	public void setIdProducto(int idProducto) {
 		this.idProducto = idProducto;
 	}
 

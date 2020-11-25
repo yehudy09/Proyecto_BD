@@ -141,8 +141,8 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
-			String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
+			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
 			
 			connect = DriverManager.getConnection(Url);
 			
@@ -159,29 +159,6 @@ public class Bike_Rental {
 		
 	}
 	
-	/*public void insertFactura (String comprobante, Date fecha, int cantVenta, String rnc, float precioTotal,
-			int clientID, String ssn) {
-		
-		try {
-			Conexión Connect = new Conexión();
-			Connect.Conectar();
-			Connection aux = null;
-			String sqlInsert = "insert into Factura (comprobante, fecha, cantVenta, RNC, precioTotal, cid, ssn) values (?, ?, ?, ?, ?, ?, ?)";
-			PreparedStatement stmt = aux.prepareStatement(sqlInsert);
-			String stringFecha = fecha.toString();
-			stmt.setString(1, comprobante);
-			stmt.setString(2, stringFecha);
-			stmt.setInt(3, cantVenta);
-			stmt.setString(4, rnc);
-			stmt.setFloat(5, precioTotal);
-			stmt.setInt(6, clientID);
-			stmt.setString(7, ssn);
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-
-	}*/
 	
 	//////////////////////////// INSERTAR CLIENTE //////////////////////////
 	

@@ -11,7 +11,7 @@ public class Main {
 		 * "pere", "pere", "pere", "pere", 5));
 		 */
 		
-		//Cliente c1 = new Cliente("402-1414671-2", "Juan", "M", "Pere", "Independe", "Moca", "8095786864", 0);
+		//Cliente c1 = new Cliente("402-1404671-2", "Juan", "M", "Perez", "Independe", "Moca", "8095786864", 0);
 		Bike_Rental bike = new Bike_Rental();
 		//bike.insertCliente(c1);
 		
@@ -28,9 +28,11 @@ public class Main {
 	//	bike.insertServicio(s1);
 		
 		
-       	Proveedor pv1 = new Proveedor("054-005685-4", "Pedro", "Fermin", "Hernandez", "Corazon de Jesus", "Moca", "809-577-6598", 56000, "MTB");  
-			bike.insertProveedor(pv1);
+    //   	Proveedor pv1 = new Proveedor("054-005685-4", "Pedro", "Fermin", "Hernandez", "Corazon de Jesus", "Moca", "809-577-6598", 56000, "MTB");  
+	//		bike.insertProveedor(pv1);
 		
+		//Cliente c1 = new Cliente ("402-1414671-2", "Fulano", "M", "Pere", "Independencia", "Moca", "8095786864", 0);
+		//bike.updateCliente(c1);
 		
 	}
 

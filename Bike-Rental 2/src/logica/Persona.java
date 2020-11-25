@@ -1,7 +1,7 @@
 package logica;
 
 public abstract class Persona {
-	protected String id; 
+	protected int id; 
 	protected String cedula;  
 	protected String Fname; 
 	protected String Sname; 
@@ -22,10 +22,10 @@ public abstract class Persona {
 		this.tel = tel;
 		this.postalCode = postalCode;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getCedula() {

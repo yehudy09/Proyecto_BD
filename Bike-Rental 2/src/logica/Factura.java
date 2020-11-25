@@ -1,32 +1,37 @@
 package logica;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Factura {
-	private String fid;
+	private int fid; 
 	private String comprobante;
-	private Date fecha;
+	private Date fecha; 
 	private int cantVenta; 
-	private String RNC;
+	private String rnc;
 	private float precioTotal;
-	private int cid; 
-	private String ssn;
-	public Factura(String fid, String comprobante, Date fecha, int cantVenta, String rNC, float precioTotal, int cid,
-			String ssn) {
+	private int cid;
+	private String ssn; 
+	private ArrayList<Producto> misProd; 
+	private ArrayList<Servicio> misServ;
+	public Factura(int fid, String comprobante, Date fecha, int cantVenta, String rnc, float precioTotal, int cid,
+			String ssn, ArrayList<Producto> misProd, ArrayList<Servicio> misServ) {
 		super();
 		this.fid = fid;
 		this.comprobante = comprobante;
 		this.fecha = fecha;
 		this.cantVenta = cantVenta;
-		RNC = rNC;
+		this.rnc = rnc;
 		this.precioTotal = precioTotal;
 		this.cid = cid;
 		this.ssn = ssn;
+		this.misProd = misProd;
+		this.misServ = misServ;
 	}
-	public String getFid() {
+	public int getFid() {
 		return fid;
 	}
-	public void setFid(String fid) {
+	public void setFid(int fid) {
 		this.fid = fid;
 	}
 	public String getComprobante() {
@@ -47,11 +52,11 @@ public class Factura {
 	public void setCantVenta(int cantVenta) {
 		this.cantVenta = cantVenta;
 	}
-	public String getRNC() {
-		return RNC;
+	public String getRnc() {
+		return rnc;
 	}
-	public void setRNC(String rNC) {
-		RNC = rNC;
+	public void setRnc(String rnc) {
+		this.rnc = rnc;
 	}
 	public float getPrecioTotal() {
 		return precioTotal;
@@ -70,11 +75,24 @@ public class Factura {
 	}
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
-	} 
+	}
+	public ArrayList<Producto> getMisProd() {
+		return misProd;
+	}
+	public void setMisProd(ArrayList<Producto> misProd) {
+		this.misProd = misProd;
+	}
+	public ArrayList<Servicio> getMisServ() {
+		return misServ;
+	}
+	public void setMisServ(ArrayList<Servicio> misServ) {
+		this.misServ = misServ;
+	}
 	
 	
+	
+}
 	
 	
 	
 
-}

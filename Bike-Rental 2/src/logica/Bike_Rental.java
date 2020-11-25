@@ -10,7 +10,6 @@ import java.sql.*;
 
 
 public class Bike_Rental {
-	private ArrayList<Venta> misVentas; 
 	private ArrayList<Factura> misFacturas;
 	private ArrayList<Servicio> misServicios; 
 	private ArrayList<Stock> miStock; 
@@ -19,13 +18,11 @@ public class Bike_Rental {
 	private ArrayList<Proveedor> misProveedores;
 	private ArrayList<Producto> misProductos;
 	private ArrayList<User> misUsers; 
-	private ArrayList<Precio> misPrecios;
 	public static Bike_Rental bike;
 	private Connection connect = null;
 	
 	public Bike_Rental() {
 		super();
-		this.misVentas = new ArrayList<>();
 		this.misFacturas = new ArrayList<>();
 		this.misServicios = new ArrayList<>();
 		this.miStock = new ArrayList<>();
@@ -34,17 +31,8 @@ public class Bike_Rental {
 		this.misProveedores = new ArrayList<>();
 		this.misProductos = new ArrayList<>();
 		this.misUsers = new ArrayList<>();
-		this.misPrecios = new ArrayList<>(); 
 	}
 
-	
-	public ArrayList<Venta> getMisVentas() {
-		return misVentas;
-	}
-
-	public void setMisVentas(ArrayList<Venta> misVentas) {
-		this.misVentas = misVentas;
-	}
 
 	public ArrayList<Factura> getMisFacturas() {
 		return misFacturas;
@@ -138,9 +126,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
+			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -158,27 +146,23 @@ public class Bike_Rental {
 		
 	}
 	
-	
-	//////////////////////////// INSERTAR CLIENTE //////////////////////////
-	
+	 //*************************************** INSERTS ******************************************//
+
 	public void insertCliente(Cliente c) throws Exception {
-		String id = getIdCliente();
-		c.setId(id);
 		misClientes.add(c);
 		    
-		String sql = "insert into Cliente (cid, cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel) values (?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into Cliente (cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel) values (?,?,?,?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setString(1, c.getId());
-			stmt.setString(2, c.getCedula());
-			stmt.setString(3, c.getFname());
-			stmt.setString(4, c.getSname());
-			stmt.setString(5, c.getLname());
-			stmt.setString(6, c.getCalle());
-			stmt.setString(7, c.getCiudad());
-			stmt.setInt(8, c.getPostalCode());
-			stmt.setString(9, c.getTel());
+			stmt.setString(1, c.getCedula());
+			stmt.setString(2, c.getFname());
+			stmt.setString(3, c.getSname());
+			stmt.setString(4, c.getLname());
+			stmt.setString(5, c.getCalle());
+			stmt.setString(6, c.getCiudad());
+			stmt.setInt(7, c.getPostalCode());
+			stmt.setString(8, c.getTel());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -187,48 +171,26 @@ public class Bike_Rental {
 			
 		} 		
 	}
-	
-	public String getIdCliente() { // Generacion de Codigos para cliente
-		String code = "";
-		String codigo = "";
-		long milis = new java.util.GregorianCalendar().getTimeInMillis();
-		Random r = new Random(milis);
-		for (int i = 0; i < 3;) {
-			char c = (char) r.nextInt(225);
-			if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
-				code += c;
-				i++;
-			}
 
-		}
-		codigo = "CL" + code;
-		return codigo;
-	}
-	
-
-	//////////////////////////// INSERTAR EMPLEADO //////////////////////////
 
 	public void insertEmpleado(Empleado em) throws Exception {
-		String id = getIdEmpleado();
-		em.setId(id);
 		misEmpleados.add(em);
 		    
-		String sql = "insert into Empleado (eid, ssn, cedula, Fname, Sname, Lname, Calle, Ciudad, codPostal, tel, posicion, salario) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into Empleado (ssn, cedula, Fname, Sname, Lname, Calle, Ciudad, codPostal, tel, posicion, salario) values (?,?,?,?,?,?,?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setString(1, em.getId());
-			stmt.setString(2, em.getSsn());
-			stmt.setString(3, em.getCedula());
-			stmt.setString(4, em.getFname());
-			stmt.setString(5, em.getSname());
-			stmt.setString(6, em.getLname());
-			stmt.setString(7, em.getCalle());
-			stmt.setString(8, em.getCiudad());
-			stmt.setInt(9, em.getPostalCode());
-			stmt.setString(10, em.getTel());
-			stmt.setString(11, em.getPosicion());
-			stmt.setFloat(12, em.getSalario());
+			stmt.setString(1, em.getSsn());
+			stmt.setString(2, em.getCedula());
+			stmt.setString(3, em.getFname());
+			stmt.setString(4, em.getSname());
+			stmt.setString(5, em.getLname());
+			stmt.setString(6, em.getCalle());
+			stmt.setString(7, em.getCiudad());
+			stmt.setInt(8, em.getPostalCode());
+			stmt.setString(9, em.getTel());
+			stmt.setString(10, em.getPosicion());
+			stmt.setFloat(11, em.getSalario());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -237,42 +199,18 @@ public class Bike_Rental {
 			
 		} 		
 	}
-	
-
-	public String getIdEmpleado() { // Generacion de Codigos para Empleado
-		String code = "";
-		String codigo = "";
-		long milis = new java.util.GregorianCalendar().getTimeInMillis();
-		Random r = new Random(milis);
-		for (int i = 0; i < 3;) {
-			char c = (char) r.nextInt(225);
-			if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
-				code += c;
-				i++;
-			}
-
-		}
-		codigo = "EM" + code;
-		return codigo;
-	}
-	
-	
-	//////////////////INSERTAR PRODUCTO /////////////////////
 	
 	public void insertProducto(Producto pro) throws Exception {
-		String id = getIdProducto();
-		pro.setIdProducto(id);
 		misProductos.add(pro);
 		    
-		String sql = "insert into Producto (idProducto, tipo, nameProducto, precioVenta, marca) values (?,?,?,?,?)";
+		String sql = "insert into Producto (tipo, nameProducto, precioVenta, marca) values (?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setString(1, pro.getIdProducto());
-			stmt.setString(2, pro.getTipo());
-			stmt.setString(3, pro.getNameProducto());
-			stmt.setFloat(4, pro.getPrecioProd());
-			stmt.setString(5, pro.getMarca());
+			stmt.setString(1, pro.getTipo());
+			stmt.setString(2, pro.getNameProducto());
+			stmt.setFloat(3, pro.getPrecioProd());
+			stmt.setString(4, pro.getMarca());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -281,38 +219,17 @@ public class Bike_Rental {
 			
 		} 		
 	}
-	
-	public String getIdProducto() { // Generacion de Codigos para Producto
-		String code = "";
-		String codigo = "";
-		long milis = new java.util.GregorianCalendar().getTimeInMillis();
-		Random r = new Random(milis);
-		for (int i = 0; i < 3;) {
-			char c = (char) r.nextInt(225);
-			if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
-				code += c;
-				i++;
-			}
-
-		}
-		codigo = "PD" + code;
-		return codigo;
-	}
-	
 	
 	public void insertServicio(Servicio s) throws Exception {
-		String id = getIdServicio();
-		s.setId(id);
 		misServicios.add(s);
 		    
-		String sql = "insert into Servicio (idServicio, ssn, tipo, precio) values (?,?,?,?)";
+		String sql = "insert into Servicio (ssn, tipo, precio) values (?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setString(1, s.getId());
-			stmt.setString(2, s.getSsn());
-			stmt.setString(3, s.getTipo());
-			stmt.setFloat(4, s.getPrecioServ());
+			stmt.setString(1, s.getSsn());
+			stmt.setString(2, s.getTipo());
+			stmt.setFloat(3, s.getPrecioServ());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -322,45 +239,23 @@ public class Bike_Rental {
 		} 		
 	}
 	
-	public String getIdServicio() { // Generacion de Codigos para servicio
-		String code = "";
-		String codigo = "";
-		long milis = new java.util.GregorianCalendar().getTimeInMillis();
-		Random r = new Random(milis);
-		for (int i = 0; i < 3;) {
-			char c = (char) r.nextInt(225);
-			if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
-				code += c;
-				i++;
-			}
-
-		}
-		codigo = "SE" + code;
-		return codigo;
-	}
-	
-	
-	/////////////INSERTAR PROVEEDOR//////////////
 	
 	public void insertProveedor(Proveedor p) throws Exception {
-		String id = getIdProveedor();
-		p.setId(id);
 		misProveedores.add(p);
 		    
-		String sql = "insert into Proveedor (idProveedor, cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel, marca) values (?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into Proveedor (cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel, marca) values (?,?,?,?,?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setString(1, p.getId());
-			stmt.setString(2, p.getCedula());
-			stmt.setString(3, p.getFname());
-			stmt.setString(4, p.getSname());
-			stmt.setString(5, p.getLname());
-			stmt.setString(6, p.getCalle());
-			stmt.setString(7, p.getCiudad());
-			stmt.setInt(8, p.getPostalCode());
-			stmt.setString(9, p.getTel());
-			stmt.setString(10, p.getMarca());
+			stmt.setString(1, p.getCedula());
+			stmt.setString(2, p.getFname());
+			stmt.setString(3, p.getSname());
+			stmt.setString(4, p.getLname());
+			stmt.setString(5, p.getCalle());
+			stmt.setString(6, p.getCiudad());
+			stmt.setInt(7, p.getPostalCode());
+			stmt.setString(8, p.getTel());
+			stmt.setString(9, p.getMarca());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -369,23 +264,33 @@ public class Bike_Rental {
 			
 		} 		
 	}
-
-	public String getIdProveedor() { // Generacion de Codigos para cliente
-		String code = "";
-		String codigo = "";
-		long milis = new java.util.GregorianCalendar().getTimeInMillis();
-		Random r = new Random(milis);
-		for (int i = 0; i < 3;) {
-			char c = (char) r.nextInt(225);
-			if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
-				code += c;
-				i++;
-			}
-
-		}
-		codigo = "PV" + code;
-		return codigo;
+	
+	 //*************************************** UPDATES ******************************************//
+	
+	public void updateCliente(Cliente c) throws Exception {
+		String sql = "update Cliente set Fname = ?, Sname = ?, Lname = ?, Calle = ?, Ciudad = ?, codPostal = ?, tel = ?" 
+					 + " where cedula = ?";
+			
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setString(1, c.getFname());
+			stmt.setString(2, c.getSname());
+			stmt.setString(3, c.getLname());
+			stmt.setString(4, c.getCalle());
+			stmt.setString(5, c.getCiudad());
+			stmt.setInt(6, c.getPostalCode());
+			stmt.setString(7, c.getTel());
+			stmt.setString(8, c.getCedula());
+			stmt.execute();
+			
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} 		
 	}
+	
 	
 	
 }

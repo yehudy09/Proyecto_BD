@@ -5,15 +5,13 @@ public class Producto extends Precio{
 	private String idProducto;
 	private String tipo;
 	private String nameProducto;
-	private int precioVenta;
 	private String marca;
 	
-	public Producto(float precioServ, float precioProd, String idProducto, String tipo, String nameProducto, int precioVenta, String marca) {
+	public Producto(String idProducto, float precioProd,  String tipo, String nameProducto, String marca) {
 		super(precioServ, precioProd); 
 		this.idProducto = idProducto;
 		this.tipo = tipo;
 		this.nameProducto = nameProducto;
-		this.precioVenta = precioVenta;
 		this.marca = marca;
 	}
 
@@ -41,13 +39,7 @@ public class Producto extends Precio{
 		this.nameProducto = nameProducto;
 	}
 
-	public int getPrecioVenta() {
-		return precioVenta;
-	}
-
-	public void setPrecioVenta(int precioVenta) {
-		this.precioVenta = precioVenta;
-	}
+	
 
 	public String getMarca() {
 		return marca;

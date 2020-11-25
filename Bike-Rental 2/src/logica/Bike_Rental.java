@@ -143,6 +143,8 @@ public class Bike_Rental {
 			
 			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
+			String Url = "jdbc:sqlserver:DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=;";
+			
 			
 			connect = DriverManager.getConnection(Url);
 			
@@ -256,4 +258,50 @@ public class Bike_Rental {
 		codigo = "EM" + code;
 		return codigo;
 	}
+	
+	
+	//////////////////INSERTAR PRODUCTO /////////////////////
+	
+	public void insertProducto(Producto pro) throws Exception {
+		String id = getIdProducto();
+		pro.setId(id);
+		misProductos.add(pro);
+		    
+		String sql = "insert into Producto (idProducto, tipo, nameProducto, precioVenta, marca) values (?,?,?,?,?)";
+			
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setString(1, pro.getidProducto());
+			stmt.setString(2, pro.getTipo());
+			stmt.setString(3, pro.getNameProducto);
+			stmt.setString(4, pro.getPrecioVenta());
+			stmt.setString(5, pro.getMarca());
+			stmt.execute();
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} 		
+	}
+	
+	public String getIdProducto() { // Generacion de Codigos para Producto
+		String code = "";
+		String codigo = "";
+		long milis = new java.util.GregorianCalendar().getTimeInMillis();
+		Random r = new Random(milis);
+		for (int i = 0; i < 3;) {
+			char c = (char) r.nextInt(225);
+			if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
+				code += c;
+				i++;
+			}
+
+		}
+		codigo = "PROD" + code;
+		return codigo;
+	}
+	
+	
+	
 }

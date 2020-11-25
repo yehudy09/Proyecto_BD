@@ -18,6 +18,9 @@ public class Main {
 		Empleado e1 = new Empleado("2", "3", "gomez mmg", "hola", "alicia loca", "macori",
 				"809singapiso", 9, "3", "queti", 7);
 		bike.insertEmpleado(e1);
+		
+		Producto prod1 = new Producto (350, "Accesorio", "Luz", "Si");
+		bike.insertProducto(prod1);
 	}
 
 }

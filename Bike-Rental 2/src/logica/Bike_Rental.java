@@ -138,9 +138,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			//String Url = "jdbc:sqlserver:DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=;";
+			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -339,6 +339,53 @@ public class Bike_Rental {
 		return codigo;
 	}
 	
+	
+	/////////////INSERTAR PROVEEDOR//////////////
+	
+	public void insertProveedor(Proveedor p) throws Exception {
+		String id = getIdProveedor();
+		p.setId(id);
+		misProveedores.add(p);
+		    
+		String sql = "insert into Proveedor (idProveedor, cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel, marca) values (?,?,?,?,?,?,?,?,?,?)";
+			
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setString(1, p.getId());
+			stmt.setString(2, p.getCedula());
+			stmt.setString(3, p.getFname());
+			stmt.setString(4, p.getSname());
+			stmt.setString(5, p.getLname());
+			stmt.setString(6, p.getCalle());
+			stmt.setString(7, p.getCiudad());
+			stmt.setInt(8, p.getPostalCode());
+			stmt.setString(9, p.getTel());
+			stmt.setString(10, p.getMarca());
+			stmt.execute();
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} 		
+	}
+
+	public String getIdProveedor() { // Generacion de Codigos para cliente
+		String code = "";
+		String codigo = "";
+		long milis = new java.util.GregorianCalendar().getTimeInMillis();
+		Random r = new Random(milis);
+		for (int i = 0; i < 3;) {
+			char c = (char) r.nextInt(225);
+			if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
+				code += c;
+				i++;
+			}
+
+		}
+		codigo = "PV" + code;
+		return codigo;
+	}
 	
 	
 }

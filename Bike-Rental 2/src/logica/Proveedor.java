@@ -8,6 +8,8 @@ public class Proveedor extends Persona {
 			String tel, int postalCode, String marca) {
 		super(cedula, fname, sname, lname, calle, ciudad, tel, postalCode);
 		// TODO Auto-generated constructor stub
+		
+		this.marca = marca;
 	}
 
 	public String getMarca() {

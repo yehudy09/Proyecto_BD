@@ -26,6 +26,12 @@ public class Main {
 		
 	//	Servicio s1 = new Servicio(5000, "5456889756", "Reparacion");  
 	//	bike.insertServicio(s1);
+		
+		
+       	Proveedor pv1 = new Proveedor("054-005685-4", "Pedro", "Fermin", "Hernandez", "Corazon de Jesus", "Moca", "809-577-6598", 56000, "MTB");  
+			bike.insertProveedor(pv1);
+		
+		
 	}
 
 }

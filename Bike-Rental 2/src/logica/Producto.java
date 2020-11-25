@@ -7,9 +7,8 @@ public class Producto extends Precio{
 	private String nameProducto;
 	private String marca;
 	
-	public Producto(String idProducto, float precioProd,  String tipo, String nameProducto, String marca) {
+	public Producto(float precioProd, String tipo, String nameProducto, String marca) {
 		super(precioServ, precioProd); 
-		this.idProducto = idProducto;
 		this.tipo = tipo;
 		this.nameProducto = nameProducto;
 		this.marca = marca;

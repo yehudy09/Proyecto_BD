@@ -2,8 +2,8 @@ package logica;
 
 public abstract class Precio {
 	
-	protected float precioServ;
-	protected float precioProd;
+	protected static float precioServ;
+	protected static float precioProd;
 	public Precio(float precioServ, float precioProd) {
 		super();
 		this.precioServ = precioServ;

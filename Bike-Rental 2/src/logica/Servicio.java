@@ -5,13 +5,12 @@ public class Servicio extends Precio {
 	private String id;
 	private String ssn;
 	private String tipo;
-	private float precio;
-	public Servicio(float precioServ, float precioProd, String id, String ssn, String tipo, float precio) {
+
+	public Servicio(float precioServ, String ssn, String tipo) {
 		super(precioServ, precioProd);
-		this.id = id;
 		this.ssn = ssn;
 		this.tipo = tipo;
-		this.precio = precio;
+	
 	}
 	public String getId() {
 		return id;
@@ -31,11 +30,6 @@ public class Servicio extends Precio {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public float getPrecio() {
-		return precio;
-	}
-	public void setPrecio(float precio) {
-		this.precio = precio;
-	}
+
 	
 }

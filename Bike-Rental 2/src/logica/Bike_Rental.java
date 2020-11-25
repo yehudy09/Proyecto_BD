@@ -5,11 +5,8 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
+
 import java.sql.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Date;
 
 
 public class Bike_Rental {
@@ -143,7 +140,7 @@ public class Bike_Rental {
 			
 			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			String Url = "jdbc:sqlserver:DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=;";
+			//String Url = "jdbc:sqlserver:DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -264,17 +261,17 @@ public class Bike_Rental {
 	
 	public void insertProducto(Producto pro) throws Exception {
 		String id = getIdProducto();
-		pro.setId(id);
+		pro.setIdProducto(id);
 		misProductos.add(pro);
 		    
 		String sql = "insert into Producto (idProducto, tipo, nameProducto, precioVenta, marca) values (?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setString(1, pro.getidProducto());
+			stmt.setString(1, pro.getIdProducto());
 			stmt.setString(2, pro.getTipo());
-			stmt.setString(3, pro.getNameProducto);
-			stmt.setString(4, pro.getPrecioVenta());
+			stmt.setString(3, pro.getNameProducto());
+			stmt.setFloat(4, pro.getPrecioProd());
 			stmt.setString(5, pro.getMarca());
 			stmt.execute();
 		
@@ -298,7 +295,47 @@ public class Bike_Rental {
 			}
 
 		}
-		codigo = "PROD" + code;
+		codigo = "PD" + code;
+		return codigo;
+	}
+	
+	
+	public void insertServicio(Servicio s) throws Exception {
+		String id = getIdServicio();
+		s.setId(id);
+		misServicios.add(s);
+		    
+		String sql = "insert into Servicio (idServicio, ssn, tipo, precio) values (?,?,?,?)";
+			
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setString(1, s.getId());
+			stmt.setString(2, s.getSsn());
+			stmt.setString(3, s.getTipo());
+			stmt.setFloat(4, s.getPrecioServ());
+			stmt.execute();
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} 		
+	}
+	
+	public String getIdServicio() { // Generacion de Codigos para servicio
+		String code = "";
+		String codigo = "";
+		long milis = new java.util.GregorianCalendar().getTimeInMillis();
+		Random r = new Random(milis);
+		for (int i = 0; i < 3;) {
+			char c = (char) r.nextInt(225);
+			if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')) {
+				code += c;
+				i++;
+			}
+
+		}
+		codigo = "SE" + code;
 		return codigo;
 	}
 	

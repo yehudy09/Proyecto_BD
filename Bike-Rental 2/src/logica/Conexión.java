@@ -21,8 +21,8 @@ public class Conexión {
 		
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		
-		//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-		String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+		String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
+		//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 		
 		aux = DriverManager.getConnection(Url);
 		JOptionPane.showMessageDialog(null, "Conectado");

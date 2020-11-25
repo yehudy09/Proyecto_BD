@@ -15,6 +15,9 @@ public class Main {
 		Bike_Rental bike = new Bike_Rental();
 		bike.insertCliente(c1);
 		
+		Empleado e1 = new Empleado("2", "3", "gomez mmg", "hola", "alicia loca", "macori",
+				"809singapiso", 9, "3", "queti", 7);
+		bike.insertEmpleado(e1);
 	}
 
 }

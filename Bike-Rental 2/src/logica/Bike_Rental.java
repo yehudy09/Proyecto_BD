@@ -22,6 +22,7 @@ public class Bike_Rental {
 	private ArrayList<Proveedor> misProveedores;
 	private ArrayList<Producto> misProductos;
 	private ArrayList<User> misUsers; 
+	private ArrayList<Precio> misPrecios;
 	public static Bike_Rental bike;
 	private Connection connect = null;
 	
@@ -36,6 +37,7 @@ public class Bike_Rental {
 		this.misProveedores = new ArrayList<>();
 		this.misProductos = new ArrayList<>();
 		this.misUsers = new ArrayList<>();
+		this.misPrecios = new ArrayList<>(); 
 	}
 
 	
@@ -125,6 +127,15 @@ public class Bike_Rental {
 		}
 		return bike;
 	}
+	
+	public float totalPrice(ArrayList<Precio> aux) {
+		float total = 0; 
+				for (Precio p : aux) {
+					total += p.totalPrice();
+				}
+			return total; 
+	}
+	
 	
 	public Connection conectarSQL() throws Exception{
 		try {

@@ -1,6 +1,6 @@
 package logica;
 
-public class Producto {
+public class Producto extends Precio{
 
 	private String idProducto;
 	private String tipo;
@@ -8,8 +8,8 @@ public class Producto {
 	private int precioVenta;
 	private String marca;
 	
-	public Producto(String idProducto, String tipo, String nameProducto, int precioVenta, String marca) {
-		super();
+	public Producto(float precioServ, float precioProd, String idProducto, String tipo, String nameProducto, int precioVenta, String marca) {
+		super(precioServ, precioProd); 
 		this.idProducto = idProducto;
 		this.tipo = tipo;
 		this.nameProducto = nameProducto;

@@ -126,9 +126,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
+			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -265,6 +265,32 @@ public class Bike_Rental {
 		} 		
 	}
 	
+	/*public void insertProveedor(Proveedor p) throws Exception {
+		misProveedores.add(p);
+		    
+		String sql = "insert into Proveedor (cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel, marca) values (?,?,?,?,?,?,?,?,?)";
+			
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setString(1, p.getCedula());
+			stmt.setString(2, p.getFname());
+			stmt.setString(3, p.getSname());
+			stmt.setString(4, p.getLname());
+			stmt.setString(5, p.getCalle());
+			stmt.setString(6, p.getCiudad());
+			stmt.setInt(7, p.getPostalCode());
+			stmt.setString(8, p.getTel());
+			stmt.setString(9, p.getMarca());
+			stmt.execute();
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} 		
+	}*/
+	
+	
 	 //*************************************** UPDATES ******************************************//
 	
 	public void updateCliente(Cliente c) throws Exception {
@@ -344,4 +370,26 @@ public class Bike_Rental {
 			
 		} 		
 	}
+	
+	public void updateProducto(Producto prod) throws Exception {
+		String sql = "update Producto set tipo = ?, precioVenta = ?, marca =? "
+				+ " where nameProducto = ?";
+		
+			
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setString(1, prod.getTipo());
+			stmt.setFloat(2, prod.getPrecioProd());
+			stmt.setString(3, prod.getMarca());
+			stmt.setString(4, prod.getNameProducto());
+			stmt.execute();
+			
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} 		
+	}
+	
 }

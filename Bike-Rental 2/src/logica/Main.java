@@ -32,7 +32,7 @@ public class Main {
        //	Proveedor pv1 = new Proveedor("054-005685-4", "Pedro", "Fermin", "Hernandez", "Corazon de Jesus", "Moca", "809-577-6598", 56000, "MTB");  
 		//bike.insertProveedor(pv1);
 		java.util.Date d1 = new java.util.Date();
-		Stock st1 = new Stock(d1.getTime(),"Giant", 850, 10, 1, 1);
+		Stock st1 = new Stock(d1 ,"Giant", 850, 10, 1, 1);
 		bike.insertStock(st1);
 		
 		

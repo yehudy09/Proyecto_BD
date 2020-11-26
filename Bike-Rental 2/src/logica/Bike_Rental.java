@@ -268,7 +268,7 @@ public class Bike_Rental {
 	
 	public void insertStock(Stock st) throws Exception {
 		miStock.add(st);
-		Date fecha = new Date(st.getFecha());
+		Date fecha = new Date(st.getFecha().getTime());
 		String sql = "insert into Stock (fecha, marca, precioCompra, cantStock, idProveedor, idProducto) values (?,?,?,?,?,?)";
 			
 		try {

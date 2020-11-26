@@ -22,7 +22,7 @@ public class Main {
 		//Empleado e2 = new Empleado("054-1129360-0", "Maria", null, "Felipe", "Dolores", "Moca", "825-656-5454", 65, "5456889759", "Mecanico", 30000); 
 		//bike.insertEmpleado(e2);
 		
-		Producto prod1 = new Producto(80000, "MTB", "Bicicleta", "Giant"); 
+		//Producto prod1 = new Producto(80000, "MTB", "Bicicleta", "Giant"); 
 		//bike.insertProducto(prod1);
 		
 	//	Servicio s1 = new Servicio(5000, "5456889756", "Reparacion");  

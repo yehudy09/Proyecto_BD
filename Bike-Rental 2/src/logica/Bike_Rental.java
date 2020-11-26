@@ -2,6 +2,7 @@ package logica;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.sql.Date;
 
 import javax.swing.JOptionPane;
 
@@ -127,8 +128,8 @@ public class Bike_Rental {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
 			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
-			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
+			String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
+			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -267,12 +268,12 @@ public class Bike_Rental {
 	
 	public void insertStock(Stock st) throws Exception {
 		miStock.add(st);
-		    
+		Date fecha = new Date(st.getFecha());
 		String sql = "insert into Stock (fecha, marca, precioCompra, cantStock, idProveedor, idProducto) values (?,?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setDate(1, (Date) st.getFecha());
+			stmt.setDate(1, fecha);
 			stmt.setString(2, st.getMarca());
 			stmt.setFloat(3, st.getPrecioCompra());
 			stmt.setInt(4, st.getCantStock());

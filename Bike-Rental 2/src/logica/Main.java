@@ -1,6 +1,7 @@
 package logica;
 
-
+import java.sql.Date;
+//import java.util.Date;
 
 public class Main {
 
@@ -21,18 +22,19 @@ public class Main {
 		//Empleado e2 = new Empleado("054-1129360-0", "Maria", null, "Felipe", "Dolores", "Moca", "825-656-5454", 65, "5456889759", "Mecanico", 30000); 
 		//bike.insertEmpleado(e2);
 		
-		//Producto prod1 = new Producto(80000, "MTB", "Bicicleta", "Giant"); 
+		Producto prod1 = new Producto(80000, "MTB", "Bicicleta", "Giant"); 
 		//bike.insertProducto(prod1);
 		
 	//	Servicio s1 = new Servicio(5000, "5456889756", "Reparacion");  
 	//	bike.insertServicio(s1);
 		
 		
-    //   	Proveedor pv1 = new Proveedor("054-005685-4", "Pedro", "Fermin", "Hernandez", "Corazon de Jesus", "Moca", "809-577-6598", 56000, "MTB");  
-	//		bike.insertProveedor(pv1);
+       //	Proveedor pv1 = new Proveedor("054-005685-4", "Pedro", "Fermin", "Hernandez", "Corazon de Jesus", "Moca", "809-577-6598", 56000, "MTB");  
+		//bike.insertProveedor(pv1);
+		java.util.Date d1 = new java.util.Date();
+		Stock st1 = new Stock(d1.getTime(),"Giant", 850, 10, 1, 1);
+		bike.insertStock(st1);
 		
-		Stock st1 = new Stock("Giant", 850, 10, 1, 1);
-				bike.insertStock(st1);
 		
 		//Cliente c1 = new Cliente ("402-1414671-2", "Fulano", "M", "Pere", "Independencia", "Moca", "8095786864", 0);
 		//bike.updateCliente(c1);

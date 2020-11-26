@@ -127,8 +127,8 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
-			String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
+			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
 			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
@@ -287,6 +287,33 @@ public class Bike_Rental {
 			
 		} 		
 	}
+	
+	/*public void insertFactura(Factura fact) throws Exception {
+		misFacturas.add(fact);
+		Date fecha = new Date(fact.getFecha().getTime());
+		String sql = "insert into Factura (fecha, comprobante, cantVenta, RNC, precioTotal, cid, ssn,"
+				+ " idProducto, idServicio) values (?,?,?,?,?,?,?,?,?)";
+		
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setDate(1, fecha);
+			stmt.setString(2, fact.getComprobante());
+			stmt.setInt(3, fact.getCantVenta());
+			stmt.setString(4, fact.getRnc());
+			stmt.setFloat(5, fact.getPrecioTotal());
+			stmt.setInt(6, fact.getCid());
+			stmt.setString(7, fact.getSsn());
+			stmt.setInt(8, fact.getMisProd());
+			stmt.setInt(9, fact.getCid());
+			stmt.execute();
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} 		
+	}*/
+	
 	
 	
 	 //*************************************** UPDATES ******************************************//

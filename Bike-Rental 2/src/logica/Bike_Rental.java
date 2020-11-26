@@ -265,22 +265,19 @@ public class Bike_Rental {
 		} 		
 	}
 	
-	/*public void insertProveedor(Proveedor p) throws Exception {
-		misProveedores.add(p);
+	public void insertStock(Stock st) throws Exception {
+		miStock.add(st);
 		    
-		String sql = "insert into Proveedor (cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel, marca) values (?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into Stock (fecha, marca, precioCompra, cantStock, idProveedor, idProducto) values (?,?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setString(1, p.getCedula());
-			stmt.setString(2, p.getFname());
-			stmt.setString(3, p.getSname());
-			stmt.setString(4, p.getLname());
-			stmt.setString(5, p.getCalle());
-			stmt.setString(6, p.getCiudad());
-			stmt.setInt(7, p.getPostalCode());
-			stmt.setString(8, p.getTel());
-			stmt.setString(9, p.getMarca());
+			stmt.setDate(1, (Date) st.getFecha());
+			stmt.setString(2, st.getMarca());
+			stmt.setFloat(3, st.getPrecioCompra());
+			stmt.setInt(4, st.getCantStock());
+			stmt.setInt(5, st.getIdProveedor());
+			stmt.setInt(6, st.getIdProducto());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -288,7 +285,7 @@ public class Bike_Rental {
 			e.printStackTrace();
 			
 		} 		
-	}*/
+	}
 	
 	
 	 //*************************************** UPDATES ******************************************//

@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class Stock {
 	
-	private String idStock;
+	private int idStock;
 	private Date fecha;
 	private String marca;
 	private float precioCompra;
 	private int cantStock;
 	private int idProveedor;
 	private int idProducto;
-	public Stock(String idStock, Date fecha, String marca, float precioCompra, int cantStock, int idProveedor,
+	public Stock(Date fecha, String marca, float precioCompra, int cantStock, int idProveedor,
 			int idProducto) {
 		super();
 		this.idStock = idStock;
@@ -22,10 +22,10 @@ public class Stock {
 		this.idProveedor = idProveedor;
 		this.idProducto = idProducto;
 	}
-	public String getIdStock() {
+	public int getIdStock() {
 		return idStock;
 	}
-	public void setIdStock(String idStock) {
+	public void setIdStock(int idStock) {
 		this.idStock = idStock;
 	}
 	public Date getFecha() {

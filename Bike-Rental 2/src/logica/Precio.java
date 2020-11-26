@@ -4,7 +4,7 @@ public abstract class Precio {
 	
 	protected static float precioServ;
 	protected static float precioProd;
-	protected Factura cant; 
+	
 	public Precio(float precioServ, float precioProd) {
 		super();
 		this.precioServ = precioServ;
@@ -12,7 +12,7 @@ public abstract class Precio {
 	}
 	
 	public float totalPrice() {
-		return ((cant.getCantVenta()*precioProd)+precioServ);
+		return precioProd + precioServ;
 	}
 	
 	public float getPrecioServ() {

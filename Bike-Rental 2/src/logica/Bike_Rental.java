@@ -12,6 +12,7 @@ import java.sql.*;
 
 public class Bike_Rental {
 	private ArrayList<Factura> misFacturas;
+	private ArrayList<DetalleFactura> misDetallesF;
 	private ArrayList<Servicio> misServicios; 
 	private ArrayList<Stock> miStock; 
 	private ArrayList<Empleado> misEmpleados; 
@@ -288,23 +289,18 @@ public class Bike_Rental {
 		} 		
 	}
 	
-	/*public void insertFactura(Factura fact) throws Exception {
+	public void insertFactura(Factura fact) throws Exception {
 		misFacturas.add(fact);
 		Date fecha = new Date(fact.getFecha().getTime());
-		String sql = "insert into Factura (fecha, comprobante, cantVenta, RNC, precioTotal, cid, ssn,"
-				+ " idProducto, idServicio) values (?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into Factura (comprobante, fecha, RNC, cid) values (?,?,?,?)";
+			
 		
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setDate(1, fecha);
-			stmt.setString(2, fact.getComprobante());
-			stmt.setInt(3, fact.getCantVenta());
-			stmt.setString(4, fact.getRnc());
-			stmt.setFloat(5, fact.getPrecioTotal());
-			stmt.setInt(6, fact.getCid());
-			stmt.setString(7, fact.getSsn());
-			stmt.setInt(8, fact.getMisProd());
-			stmt.setInt(9, fact.getCid());
+			stmt.setString(1, fact.getComprobante());
+			stmt.setDate(2, fecha);
+			stmt.setString(3, fact.getRnc());
+			stmt.setInt(4, fact.getCid());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -312,7 +308,29 @@ public class Bike_Rental {
 			e.printStackTrace();
 			
 		} 		
-	}*/
+	}
+	
+	
+	public void insertDetalleFactura(DetalleFactura df) throws Exception {
+		misDetallesF.add(df);
+		String sql = "insert into detalleFactura (precioVenta, idProducto, cantidadVenta, precioServicio, idServicio) values (?,?,?,?,?)";
+			
+		
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setFloat(1, df.getPrecioVenta());
+			stmt.setInt(2, df.getIdProducto());
+			stmt.setInt(3, df.getCantidadVenta());
+			stmt.setFloat(4, df.getPrecioServicio());
+			stmt.setInt(5, df.getIdServicio());
+			stmt.execute();
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} 		
+	}
 	
 	
 	

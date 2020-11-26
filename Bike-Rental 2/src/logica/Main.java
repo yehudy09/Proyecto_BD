@@ -31,9 +31,16 @@ public class Main {
 		
        //	Proveedor pv1 = new Proveedor("054-005685-4", "Pedro", "Fermin", "Hernandez", "Corazon de Jesus", "Moca", "809-577-6598", 56000, "MTB");  
 		//bike.insertProveedor(pv1);
-		java.util.Date d1 = new java.util.Date();
-		Stock st1 = new Stock(d1 ,"Giant", 850, 10, 1, 1);
-		bike.insertStock(st1);
+		//java.util.Date d1 = new java.util.Date();
+		//Stock st1 = new Stock(d1 ,"Giant", 850, 10, 1, 1);
+	//	bike.insertStock(st1);
+		
+		//java.util.Date d1 = new java.util.Date();
+		//Factura f1 = new Factura("no", d1, "no", 1);
+		//bike.insertFactura(f1);
+		
+		DetalleFactura df1 = new DetalleFactura(1, 850, 1, 1, 0, 0);
+		bike.insertDetalleFactura(df1);
 		
 		
 		//Cliente c1 = new Cliente ("402-1414671-2", "Fulano", "M", "Pere", "Independencia", "Moca", "8095786864", 0);

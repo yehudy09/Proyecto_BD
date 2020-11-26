@@ -1,6 +1,7 @@
 package logica;
 
-import java.sql.Date;
+
+import java.util.Date; 
 import java.util.ArrayList;
 
 public class Factura {
@@ -10,8 +11,7 @@ public class Factura {
 	private String rnc;
 	private int cid;
 
-	public Factura(int fid, String comprobante, Date fecha, int cantVenta, String rnc, float precioTotal, int cid,
-			String ssn, ArrayList<Producto> misProd, ArrayList<Servicio> misServ) {
+	public Factura(String comprobante, Date fecha, String rnc, int cid) {
 		super();
 		this.fid = fid;
 		this.comprobante = comprobante;

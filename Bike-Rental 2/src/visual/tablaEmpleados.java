@@ -34,6 +34,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JToolBar;
 import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class tablaEmpleados extends JFrame {
 
@@ -87,7 +88,7 @@ public class tablaEmpleados extends JFrame {
 		});
 		setTitle("EMPLEADOS");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 910, 585);
+		setBounds(100, 100, 1004, 585);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -154,6 +155,9 @@ public class tablaEmpleados extends JFrame {
 		
 		JComboBox cbxProvincia = new JComboBox();
 		cbxProvincia.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Azua ", "Bahoruco ", "Barahona ", "Dajab\u00F3n ", "Distrito Nacional ", "Duarte ", "El\u00EDas Pi\u00F1a ", "El Seibo ", "Espaillat ", "Hato Mayor ", "Independencia ", "La Altagracia ", "La Romana ", "La Vega ", "Mar\u00EDa Trinidad S\u00E1nchez ", "Monse\u00F1or Nouel ", "Montecristi ", "Monte Plata ", "Pedernales ", "Peravia ", "Puerto Plata ", "Hermanas Mirabal ", "Saman\u00E1 ", "S\u00E1nchez Ram\u00EDrez ", "San Crist\u00F3bal ", "San Jos\u00E9 de Ocoa ", "San Juan ", "San Pedro de Macor\u00EDs ", "Santiago ", "Santiago Rodr\u00EDguez ", "Santo Domingo ", "Valverde "}));
+		
+		JLabel lblProvincia = new JLabel("Provincia");
+		lblProvincia.setHorizontalAlignment(SwingConstants.LEFT);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -161,53 +165,57 @@ public class tablaEmpleados extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblCedula, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-							.addGap(246)
-							.addComponent(lblTelefono, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
-						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(tfCedula, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-							.addGap(274)
-							.addComponent(tfTelefono, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(152)
-							.addComponent(lblCalle, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-							.addGap(94)
-							.addComponent(lblSalario, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(152)
-							.addComponent(tfCalle, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-							.addGap(25)
-							.addComponent(tfSalario, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(tfPosicion, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
 						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblSSN, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-									.addGap(88)
-									.addComponent(lblName, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(tfSSN, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(tfNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-							.addPreferredGap(ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+								.addComponent(tfSSN, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCedula, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(tfSname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblSname, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblApellido, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tfApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(19)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(cbxProvincia, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
-					.addGap(54)
+								.addComponent(tfNombre, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+								.addComponent(lblPosicion, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblSSN, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+							.addGap(88)
+							.addComponent(lblName, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
+					.addGap(39)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPostal, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tfPostal, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblCiudad, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tfCiudad, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tfPosicion, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPosicion, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
-					.addContainerGap())
+						.addComponent(lblSname, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(tfSalario, Alignment.LEADING)
+							.addComponent(tfSname, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblSalario, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(tfApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblApellido, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblProvincia, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(tfPostal, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+							.addComponent(lblPostal, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+							.addComponent(cbxProvincia, 0, 0, Short.MAX_VALUE)))
+					.addGap(51)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblCiudad, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel.createSequentialGroup()
+								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+									.addComponent(tfTelefono, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblTelefono, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+									.addComponent(tfCalle, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblCalle, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
+								.addGap(7))
+							.addGroup(gl_panel.createSequentialGroup()
+								.addComponent(tfCiudad, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap()))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -217,51 +225,51 @@ public class tablaEmpleados extends JFrame {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(lblSSN)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-									.addComponent(tfSSN, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(tfNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addComponent(cbxProvincia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(tfSSN, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(tfNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblName)
 								.addComponent(lblSname)
-								.addComponent(lblApellido))
+								.addComponent(lblApellido)
+								.addComponent(lblTelefono)
+								.addComponent(lblCalle)
+								.addComponent(lblProvincia))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(tfSname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tfApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addGap(6)
+								.addComponent(tfApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(cbxProvincia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(tfTelefono, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(tfCalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblCedula)
-						.addComponent(lblTelefono))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(tfCedula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tfTelefono, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblCalle)
-						.addComponent(lblSalario))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(tfCalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tfSalario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(73, Short.MAX_VALUE))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblPostal)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tfPostal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblCiudad)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(tfCiudad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-					.addComponent(lblPosicion)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tfPosicion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(39))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(6)
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblCedula)
+									.addGap(12)
+									.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(tfCedula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(tfPosicion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(6))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblPostal)
+										.addComponent(lblCiudad))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(tfPostal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(tfCiudad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblPosicion)
+								.addComponent(lblSalario))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tfSalario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(20, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		
@@ -274,13 +282,13 @@ public class tablaEmpleados extends JFrame {
 				}
 			);
 		tableEmpleado = new JTable();
-		tableEmpleado.setModel(new DefaultTableModel(
+		/*tableEmpleado.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
 				"ID", "SSN", "Cedula", "Nombre", "S. Nombre", "Apellido", "Posicion", "C\u00F3digo Postal", "Provincia", "Ciudad", "Calle", "Tel\u00E9fono", "Salario"
 			}
-		));
+		));*/
 		scrollPaneEmpleado.setViewportView(tableEmpleado);
 		
 		JPanel panel_1 = new JPanel();
@@ -291,19 +299,19 @@ public class tablaEmpleados extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
+						.addComponent(scrollPaneEmpleado, GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addContainerGap())
-						.addComponent(scrollPaneEmpleado, GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)))
+						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(scrollPaneEmpleado, GroupLayout.PREFERRED_SIZE, 294, GroupLayout.PREFERRED_SIZE)
+					.addComponent(scrollPaneEmpleado, GroupLayout.PREFERRED_SIZE, 327, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
 		);
@@ -311,13 +319,13 @@ public class tablaEmpleados extends JFrame {
 		
 		JButton btnInsertarEmp = new JButton("REGISTRAR");
 		btnInsertarEmp.setBackground(Color.LIGHT_GRAY);
-		btnInsertarEmp.setBounds(659, 5, 107, 34);
+		btnInsertarEmp.setBounds(659, 3, 107, 34);
 		panel_1.add(btnInsertarEmp);
 		
 		JButton btnNewButton = new JButton("CERRAR");
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.setForeground(Color.BLACK);
-		btnNewButton.setBounds(774, 5, 96, 34);
+		btnNewButton.setBounds(774, 3, 96, 34);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -330,6 +338,7 @@ public class tablaEmpleados extends JFrame {
 						tfTelefono.getText(), tfPostal.getText(), tfSSN.getText(), tfPosicion.getText(), Float.parseFloat(tfSalario.getText()), cbxProvincia.getSelectedItem().toString());
 				try {
 					Bike_Rental.getInstance().insertEmpleado(emp1);
+					cargarEmpleados();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -340,18 +349,20 @@ public class tablaEmpleados extends JFrame {
 	}
 	private void cargarEmpleados() throws Exception {
 		model.setRowCount(0);
+		tableEmpleado.setModel(model);
 		String sql = "select * from Empleado";
 		try {
-			PreparedStatement ps = Bike_Rental.bike.conectarSQL().prepareStatement(sql);
+			PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
-			ResultSetMetaData  rsMd = rs.getMetaData();
-			int cantcolum = rsMd.getColumnCount();
+			//ResultSetMetaData  rsMd = rs.getMetaData();
+			//int cantcolum = rsMd.getColumnCount();
 			while (rs.next()) {
-				fila = new Object[cantcolum];
-				for (int i = 0; i<cantcolum; i++) {
-					fila[i] = rs.getObject(i+1);
+				fila = new Object[13];
+				for (int i = 0; i<13; i++) {
+					fila[i] = rs.getString(i+1);
 				}
 				model.addRow(fila);
+
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();

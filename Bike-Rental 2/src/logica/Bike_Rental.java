@@ -128,9 +128,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
+			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -326,17 +326,15 @@ public class Bike_Rental {
 	
 	public void insertDetalleFactura(DetalleFactura df) throws Exception {
 		misDetallesF.add(df);
-		String sql = "insert into detalleFactura (fid, precioVenta, idProducto, cantidadVenta, precioServicio, idServicio) values (?,?,?,?,?,?)";
+		String sql = "insert into detalleFactura (fid, idProducto, cantidadVenta, idServicio) values (?,?,?,?)";
 			
 		
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 			stmt.setInt(1, df.getFid());
-			stmt.setFloat(2, df.getPrecioProd());
-			stmt.setInt(3, df.getIdProducto());
-			stmt.setInt(4, df.getCantidadVenta());
-			stmt.setFloat(5, df.getPrecioServ());
-			stmt.setInt(6, df.getIdServicio());
+			stmt.setInt(2, df.getIdProducto());
+			stmt.setInt(3, df.getCantidadVenta());
+			stmt.setInt(4, df.getIdServicio());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -345,7 +343,6 @@ public class Bike_Rental {
 			
 		} 		
 	}
-	
 	
 	
 	 //*************************************** UPDATES ******************************************//

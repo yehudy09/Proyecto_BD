@@ -60,31 +60,31 @@ public class InsertCliente extends JDialog {
 		pnlInformacion.setLayout(null);
 		pnlInformacion.setBorder(new TitledBorder(null, "Informaci\u00F3n:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pnlInformacion.setBackground(SystemColor.inactiveCaptionBorder);
-		pnlInformacion.setBounds(10, 27, 588, 156);
+		pnlInformacion.setBounds(10, 21, 588, 162);
 		contentPanel.add(pnlInformacion);
 		
 		JLabel lblCedula = new JLabel("C\u00E9dula:");
-		lblCedula.setBounds(10, 52, 46, 14);
+		lblCedula.setBounds(313, 54, 46, 14);
 		pnlInformacion.add(lblCedula);
 		
 		JLabel lblName = new JLabel("Primer Nombre:");
-		lblName.setBounds(297, 32, 97, 14);
+		lblName.setBounds(10, 32, 97, 14);
 		pnlInformacion.add(lblName);
 		
 		JLabel lblSname = new JLabel("Segundo Nombre:");
-		lblSname.setBounds(297, 70, 114, 14);
+		lblSname.setBounds(10, 70, 114, 14);
 		pnlInformacion.add(lblSname);
 		
 		textFname = new JTextField();
 		textFname.setColumns(10);
 		textFname.setBackground(Color.WHITE);
-		textFname.setBounds(404, 32, 174, 23);
+		textFname.setBounds(117, 32, 174, 23);
 		pnlInformacion.add(textFname);
 		
 		textSname = new JTextField();
 		textSname.setColumns(10);
 		textSname.setBackground(Color.WHITE);
-		textSname.setBounds(404, 66, 174, 23);
+		textSname.setBounds(117, 66, 174, 23);
 		pnlInformacion.add(textSname);
 		
 		MaskFormatter mascara1;
@@ -93,7 +93,7 @@ public class InsertCliente extends JDialog {
 			ftextTelf = new JFormattedTextField(mascara1);
 			ftextTelf.setColumns(10);
 			ftextTelf.setBackground(Color.WHITE);
-			ftextTelf.setBounds(93, 85, 174, 23);
+			ftextTelf.setBounds(404, 87, 174, 23);
 			pnlInformacion.add(ftextTelf);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
@@ -101,7 +101,7 @@ public class InsertCliente extends JDialog {
 		}
 		
 		JLabel lblTelf = new JLabel("Tel\u00E9fono:");
-		lblTelf.setBounds(10, 90, 62, 14);
+		lblTelf.setBounds(313, 91, 62, 14);
 		pnlInformacion.add(lblTelf);
 		
 		MaskFormatter mascaraCedula;
@@ -109,17 +109,17 @@ public class InsertCliente extends JDialog {
 			mascaraCedula = new MaskFormatter("###-#######-#");
 			mascaraCedula.setPlaceholderCharacter('_');
 		    ftextCedula = new JFormattedTextField(mascaraCedula);
-		    ftextCedula.setBounds(93, 49, 174, 20);
+		    ftextCedula.setBounds(404, 51, 174, 20);
 		    pnlInformacion.add(ftextCedula);
 		    
 		    textLname = new JTextField();
 		    textLname.setColumns(10);
 		    textLname.setBackground(Color.WHITE);
-		    textLname.setBounds(404, 105, 174, 23);
+		    textLname.setBounds(117, 105, 174, 23);
 		    pnlInformacion.add(textLname);
 		    
 		    JLabel lblApellido = new JLabel("Apellido:");
-		    lblApellido.setBounds(311, 108, 62, 14);
+		    lblApellido.setBounds(24, 108, 62, 14);
 		    pnlInformacion.add(lblApellido);
 		
 		}catch (ParseException e) {

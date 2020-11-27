@@ -12,7 +12,7 @@ public class Main {
 		 * "pere", "pere", "pere", "pere", 5));
 		 */
 		
-	//	Cliente c1 = new Cliente("402-1404671-2", "Juan", "M", "Perez", "Independe", "Moca", "8095786864", 0);
+		//Cliente c1 = new Cliente("402-1404671-2", "Juan", "M", "Perez", "Independe", "Moca", "8095786864", "054", "Stgo");
 		Bike_Rental bike = new Bike_Rental();
 		//bike.insertCliente(c1);
 		
@@ -44,7 +44,7 @@ public class Main {
 		//bike.insertDetalleFactura(df1);
 		
 		
-		//Cliente c1 = new Cliente ("402-1414671-2", "Fulano", "M", "Pere", "Independencia", "Moca", "8095786864", 0);
+		//Cliente c1 = new Cliente ("402-1414671-2", "Fulano", "M", "Pere", "Independencia", "Moca", "8095786864", "054", "Espaillat");
 		//bike.updateCliente(c1);
 		
 		//Empleado e1 = new Empleado("054-0029360-0", "Fernando", null, "Manuel", "Dolores", "Moca", "825-656-5454", 54, "5456889756", "Mecanico", 30000); 

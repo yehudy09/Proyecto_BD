@@ -28,6 +28,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 
 public class InsertCliente extends JDialog {
@@ -188,6 +189,7 @@ public class InsertCliente extends JDialog {
 		try {
 			mascaraCodigo = new MaskFormatter("#####");
 			ftextCodigo = new JFormattedTextField(mascaraCodigo);
+			ftextCodigo.setHorizontalAlignment(SwingConstants.RIGHT);
 			ftextCodigo.setColumns(10);
 			ftextCodigo.setBackground(Color.WHITE);
 			ftextCodigo.setBounds(143, 87, 124, 20);
@@ -218,13 +220,68 @@ public class InsertCliente extends JDialog {
 						String Calle = textCalle.getText();
 						String Provincia = cbxProvincia.getSelectedItem().toString();
 						Cliente miCliente = new Cliente(cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, Provincia);
+						
+						if (textFname.getText().isEmpty()) {
+							JOptionPane
+									.showMessageDialog(
+											null,
+											"Se debe ingresar el nombre del cliente a registrar",
+											"ATENCIÓN",
+											JOptionPane.WARNING_MESSAGE,
+											null);
+						} else if (ftextCedula.getText().isEmpty()) {
+							JOptionPane
+									.showMessageDialog(
+											null,
+											"Se debe ingresar la cedula del cliente a registrar",
+											"ATENCIÓN",
+											JOptionPane.WARNING_MESSAGE,
+											null);
+						} else if (textLname.getText().isEmpty()) {
+							JOptionPane
+									.showMessageDialog(
+											null,
+											"Se debe ingresar el apellido del cliente a registrar",
+											"ATENCIÓN",
+											JOptionPane.WARNING_MESSAGE,
+											null);
+						} else if (textCiudad.getText().isEmpty()) {
+							JOptionPane
+									.showMessageDialog(
+											null,
+											"Se debe ingresar la ciudad del cliente a registrar",
+											"ATENCIÓN",
+											JOptionPane.WARNING_MESSAGE,
+											null);
+						} else if (ftextTelf.getText().isEmpty()) {
+							JOptionPane
+									.showMessageDialog(
+											null,
+											"Se debe ingresar el telefono del cliente a registrar",
+											"ATENCIÓN",
+											JOptionPane.WARNING_MESSAGE,
+											null);
+						}else {
 						try {
 							Bike_Rental.getInstance().insertCliente(miCliente);
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-					}
+						textFname.setText(null);
+						textSname.setText(null);
+						textLname.setText(null);
+						ftextTelf.setText(null);
+						ftextCedula.setText(null);
+						cbxProvincia.setSelectedIndex(0);
+						ftextCodigo.setText(null);
+						textCiudad.setText(null);
+						textCalle.setText(null);
+						JOptionPane
+								.showMessageDialog(null,
+										"Cliente Agregado Satisfactoriamente");
+						}
+					   }
 				});
 				BtnRegistrar.setActionCommand("OK");
 				buttonPane.add(BtnRegistrar);

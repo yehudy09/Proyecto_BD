@@ -13,6 +13,10 @@ import java.text.ParseException;
 
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
+
+import logica.Bike_Rental;
+import logica.Cliente;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JFormattedTextField;
@@ -38,6 +42,7 @@ public class InsertCliente extends JDialog {
 	private JFormattedTextField ftextCodigo;
 	private JTextField textLname;
 	private JComboBox cbxProvincia;
+	private Cliente miCliente = null; 
 
 	/**
 	 * Launch the application.
@@ -203,6 +208,23 @@ public class InsertCliente extends JDialog {
 				JButton BtnRegistrar = new JButton("Registrar");
 				BtnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						String cedula = ftextCedula.getText();
+						String Fname = textFname.getText();
+						String Sname = textSname.getText();
+						String Lname = textLname.getText();
+						String tel = ftextTelf.getText();
+						int Cod = ftextCodigo.getComponentCount();
+						String Ciudad = textCiudad.getText();
+						String Calle = textCalle.getText();
+						String Provincia = cbxProvincia.getSelectedItem().toString();
+						Cliente miCliente = new Cliente(cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod);
+		
+						try {
+							Bike_Rental.getInstance().insertCliente(miCliente);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 				BtnRegistrar.setActionCommand("OK");

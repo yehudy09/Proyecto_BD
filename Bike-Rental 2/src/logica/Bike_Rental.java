@@ -100,15 +100,7 @@ public class Bike_Rental {
 		this.misUsers = misUsers;
 	}
 
-	public static Bike_Rental getBike() {
-		return bike;
-	}
-
-	public static void setBike(Bike_Rental bike) {
-		Bike_Rental.bike = bike;
-	} 
-	
-	public Bike_Rental getInstance() {
+	public static Bike_Rental getInstance() {
 		if (bike == null) {
 			bike = new Bike_Rental();
 		}
@@ -128,9 +120,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
+			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);

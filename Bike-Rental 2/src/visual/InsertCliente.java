@@ -29,6 +29,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 
 public class InsertCliente extends JDialog {
@@ -53,6 +55,7 @@ public class InsertCliente extends JDialog {
 	 * Create the dialog.
 	 */
 	public InsertCliente(String title, boolean modi, Cliente cliente) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InsertCliente.class.getResource("/icons/agregarSolicitante.png")));
 		setTitle(title);
 		setResizable(false);
 		setBounds(100, 100, 614, 425);
@@ -209,6 +212,7 @@ public class InsertCliente extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton BtnRegistrar = new JButton("Registrar");
+				BtnRegistrar.setIcon(new ImageIcon(InsertCliente.class.getResource("/icons/add.png")));
 				if(modi){
 					BtnRegistrar.setText("Salvar Modificaciones");
 				}
@@ -317,6 +321,7 @@ public class InsertCliente extends JDialog {
 			}
 			{
 				JButton BtnCancelar = new JButton("Cancelar");
+				BtnCancelar.setIcon(new ImageIcon(InsertCliente.class.getResource("/icons/cancelar.png")));
 				BtnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

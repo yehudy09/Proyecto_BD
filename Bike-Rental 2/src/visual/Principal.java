@@ -10,9 +10,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import java.awt.Font;
+import java.awt.SystemColor;
+
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class Principal extends JFrame {
 
@@ -47,13 +50,16 @@ public class Principal extends JFrame {
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBackground(SystemColor.activeCaption);
 		setJMenuBar(menuBar);
 		
 		JMenu mnRegistrar = new JMenu("Registrar");
+		mnRegistrar.setIcon(new ImageIcon(Principal.class.getResource("/icons/add.png")));
 		mnRegistrar.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		menuBar.add(mnRegistrar);
 		
 		JMenuItem mntmCliente = new JMenuItem("Cliente");
+		mntmCliente.setIcon(new ImageIcon(Principal.class.getResource("/icons/agregarSolicitante.png")));
 		mntmCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InsertCliente cl;

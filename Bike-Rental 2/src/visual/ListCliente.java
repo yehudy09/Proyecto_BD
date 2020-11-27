@@ -30,6 +30,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class ListCliente extends JDialog {
 
@@ -57,6 +59,7 @@ public class ListCliente extends JDialog {
 	 * @throws Exception 
 	 */
 	public ListCliente() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListCliente.class.getResource("/icons/Listas.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -125,6 +128,7 @@ public class ListCliente extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnEliminar = new JButton("Eliminar");
+				btnEliminar.setIcon(new ImageIcon(ListCliente.class.getResource("/icons/borrar.png")));
 				btnEliminar.setEnabled(false);
 				btnEliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -153,6 +157,7 @@ public class ListCliente extends JDialog {
 			}
 			{
 				BtnModificar = new JButton("Modificar");
+				BtnModificar.setIcon(new ImageIcon(ListCliente.class.getResource("/icons/modificar.png")));
 				BtnModificar.setEnabled(false);
 				BtnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -190,6 +195,7 @@ public class ListCliente extends JDialog {
 			}
 			{
 				JButton BtnCancelar = new JButton("Cancelar");
+				BtnCancelar.setIcon(new ImageIcon(ListCliente.class.getResource("/icons/cancelar.png")));
 				BtnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

@@ -57,7 +57,7 @@ public class Principal extends JFrame {
 		mntmCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InsertCliente cl;
-				cl = new InsertCliente();
+				cl = new InsertCliente("Insertar Cliente", false, null);
 				cl.setModal(true);
 				cl.setLocationRelativeTo(null);
 				cl.setVisible(true);

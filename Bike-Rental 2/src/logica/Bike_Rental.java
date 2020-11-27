@@ -20,7 +20,7 @@ public class Bike_Rental {
 	private ArrayList<Producto> misProductos;
 	private ArrayList<User> misUsers; 
 	public static Bike_Rental bike;
-	private Connection connect = null;
+	private static Connection connect = null;
 	
 	public Bike_Rental() {
 		super();
@@ -308,19 +308,6 @@ public class Bike_Rental {
 		} 		
 	}
 	
-	public void select(int id) throws SQLException, Exception {
-		String sql = "select precioVenta from Producto where idProducto = ?";
-		
-		PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-		try {
-			stmt.setInt(1, id);
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	
 	public void insertDetalleFactura(DetalleFactura df) throws Exception {
 		misDetallesF.add(df);
@@ -446,4 +433,57 @@ public class Bike_Rental {
 		} 		
 	}
 	
+	//*************************************** SELECTS ******************************************//
+	
+	public void select(int id) throws SQLException, Exception {
+		String sql = "select precioVenta from Producto where idProducto = ?";
+		
+		PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+		try {
+			stmt.setInt(1, id);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Cliente searchClienteByCed(String ced) throws SQLException, Exception {
+        Cliente miCliente = null;
+
+        try {
+            String sql = "Select * From Cliente where cedula = ?";
+        	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+
+            stmt.setString(1, ced);
+
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+               miCliente = new Cliente(rs.getString("cedula"),
+                					  rs.getString("Fname"), 
+                					  rs.getString("Sname"),
+                					  rs.getString("Lname"), 
+                					  rs.getString("Calle"), 
+                					  rs.getString("Ciudad"),
+                					  rs.getString("codPostal"),
+                					  rs.getString("tel"),
+                					  rs.getString("Provincia"));
+                System.out.println("IDCliente->"+rs.getString("cid"));
+                System.out.println("Cliente Encontrado = " + rs.getString("Fname")  + " "+"and"+" "+"Cedula = " + " "+ rs.getString("cedula"));
+               
+            }
+
+            if (miCliente != null) {
+                System.out.println("Cliente Encontrado");
+
+            }else{
+            	 System.out.println("Cliente no Encontrado");
+            }
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        } 
+        return  miCliente;
+    }
 }

@@ -17,10 +17,13 @@ import logica.Cliente;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.SystemColor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -33,7 +36,11 @@ public class ListCliente extends JDialog {
 	private JTable table;
 	private static Object[] fila;
 	private DefaultTableModel model;
-	private Cliente micli; 
+	private String cod; 
+	private JButton BtnModificar;
+	private JButton btnEliminar;
+	private Cliente cli = null; 
+	
 
 	/**
 	 * Launch the application.
@@ -86,9 +93,22 @@ public class ListCliente extends JDialog {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					int aux = table.getSelectedRow();
+					
+					if (aux > -1) {
+
+						BtnModificar.setEnabled(true);
+						btnEliminar.setEnabled(true);
+						cod = (String) table.getModel().getValueAt(aux, 1);
+
+					} else {
+						BtnModificar.setEnabled(false);
+						btnEliminar.setEnabled(false);
+						String cod = "";
+					}
 
 				}
 			});
+			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			scrollPane.setViewportView(table);
 			model = new DefaultTableModel();
 			String[] columneNames = {"Id", "Cédula", "Nombre", "Seg. Nombre", "Apellido", "Calle", "Ciudad", "Cod. Postal", "Teléfono", "Provincia" };
@@ -103,11 +123,40 @@ public class ListCliente extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnEliminar = new JButton("Eliminar");
+				btnEliminar = new JButton("Eliminar");
 				buttonPane.add(btnEliminar);
 			}
 			{
-				JButton BtnModificar = new JButton("Modificar");
+				BtnModificar = new JButton("Modificar");
+				BtnModificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (cod != "") {
+							try {
+								cli = Bike_Rental.getInstance().searchClienteByCed(cod);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						
+
+						}
+							InsertCliente modificarClient = new InsertCliente("Modificar Cliente", true, cli);
+							modificarClient.setModal(true);
+							modificarClient.setLocationRelativeTo(null);
+							modificarClient.setVisible(true);
+							try {
+								loadTable();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							BtnModificar.setEnabled(false);
+							btnEliminar.setEnabled(false);
+					}
+				});
 				BtnModificar.setActionCommand("OK");
 				buttonPane.add(BtnModificar);
 				getRootPane().setDefaultButton(BtnModificar);

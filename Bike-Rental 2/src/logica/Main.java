@@ -50,6 +50,7 @@ public class Main {
 		//Empleado e1 = new Empleado("054-0029360-0", "Fernando", null, "Manuel", "Dolores", "Moca", "825-656-5454", "54", "5456889756", "Mecanico", 30000, "Stgo"); 
 		//bike.updateEmpleado(e1);
 		
+		//bike.searchClienteByCed("054-0026895-0");
 		
 		//Producto prod1 = new Producto(80000, "MTB", "Luces", "Giant"); 
 		//bike.updateProducto(prod1);

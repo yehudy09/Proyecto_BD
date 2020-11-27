@@ -52,8 +52,8 @@ public class InsertCliente extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public InsertCliente() {
-		setTitle("Insertar Cliente");
+	public InsertCliente(String title, boolean modi, Cliente cliente) {
+		setTitle(title);
 		setResizable(false);
 		setBounds(100, 100, 614, 425);
 		getContentPane().setLayout(new BorderLayout());
@@ -61,6 +61,7 @@ public class InsertCliente extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		miCliente = cliente; 
 		
 		JPanel pnlInformacion = new JPanel();
 		pnlInformacion.setLayout(null);
@@ -208,8 +209,12 @@ public class InsertCliente extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton BtnRegistrar = new JButton("Registrar");
+				if(modi){
+					BtnRegistrar.setText("Salvar Modificaciones");
+				}
 				BtnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if (!(modi)) {
 						String cedula = ftextCedula.getText();
 						String Fname = textFname.getText();
 						String Sname = textSname.getText();
@@ -281,7 +286,28 @@ public class InsertCliente extends JDialog {
 								.showMessageDialog(null,
 										"Cliente Agregado Satisfactoriamente");
 						}
+					   }else {
+						    String cedula = ftextCedula.getText();
+							String Fname = textFname.getText();
+							String Sname = textSname.getText();
+							String Lname = textLname.getText();
+							String tel = ftextTelf.getText();
+							String Cod = ftextCodigo.getText();
+							String Ciudad = textCiudad.getText();
+							String Calle = textCalle.getText();
+							String Provincia = cbxProvincia.getSelectedItem().toString();
+							Cliente modiCliente = new Cliente(cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, Provincia);
+							try {
+								Bike_Rental.getInstance().updateCliente(modiCliente);
+								JOptionPane.showMessageDialog(null, "Cliente Modificado");
+								dispose();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							
 					   }
+					}
 				});
 				BtnRegistrar.setActionCommand("OK");
 				buttonPane.add(BtnRegistrar);
@@ -299,4 +325,7 @@ public class InsertCliente extends JDialog {
 			}
 		}
 	}
+	
+
+	
 }

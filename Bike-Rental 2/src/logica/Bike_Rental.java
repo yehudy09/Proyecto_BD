@@ -2,7 +2,6 @@ package logica;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.sql.Date;
 
 import javax.swing.JOptionPane;
 
@@ -129,9 +128,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
+			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -311,6 +310,19 @@ public class Bike_Rental {
 		} 		
 	}
 	
+	public void select(int id) throws SQLException, Exception {
+		String sql = "select precioVenta from Producto where idProducto = ?";
+		
+		PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+		try {
+			stmt.setInt(1, id);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void insertDetalleFactura(DetalleFactura df) throws Exception {
 		misDetallesF.add(df);
@@ -320,10 +332,10 @@ public class Bike_Rental {
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 			stmt.setInt(1, df.getFid());
-			stmt.setFloat(2, df.getPrecioVenta());
+			stmt.setFloat(2, df.getPrecioProd());
 			stmt.setInt(3, df.getIdProducto());
 			stmt.setInt(4, df.getCantidadVenta());
-			stmt.setFloat(5, df.getPrecioServicio());
+			stmt.setFloat(5, df.getPrecioServ());
 			stmt.setInt(6, df.getIdServicio());
 			stmt.execute();
 		

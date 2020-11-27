@@ -3,24 +3,36 @@ package logica;
 public class DetalleFactura {
 	
 	private int fid;
-	private float precioVenta;
+	private Producto prod;
 	private int idProducto;
 	private int cantidadVenta;
-	private float precioServicio;
+	private Servicio serv;
 	private int idServicio;
-
+	float precio = 0; 
 	
-	public DetalleFactura(int fid, float precioVenta, int idProducto, int cantidadVenta, float precioServicio,
-			int idServicio) {
+	public DetalleFactura(int fid, int idProducto, int cantidadVenta, int idServicio) {
 		super();
 		this.fid = fid;
-		this.precioVenta = precioVenta;
 		this.idProducto = idProducto;
 		this.cantidadVenta = cantidadVenta;
-		this.precioServicio = precioServicio;
 		this.idServicio = idServicio;
 	}
-
+	
+	public float getPrecioServ() {
+		
+		precio = serv.getPrecioServ(); 
+		
+		return precio;
+		
+	}
+	
+	public float getPrecioProd() {
+		
+		precio = prod.getPrecioProd(); 
+		
+		return precio;
+		
+	}
 
 	public int getFid() {
 		return fid;
@@ -29,16 +41,6 @@ public class DetalleFactura {
 
 	public void setFid(int fid) {
 		this.fid = fid;
-	}
-
-
-	public float getPrecioVenta() {
-		return precioVenta;
-	}
-
-
-	public void setPrecioVenta(float precioVenta) {
-		this.precioVenta = precioVenta;
 	}
 
 
@@ -59,16 +61,6 @@ public class DetalleFactura {
 
 	public void setCantidadVenta(int cantidadVenta) {
 		this.cantidadVenta = cantidadVenta;
-	}
-
-
-	public float getPrecioServicio() {
-		return precioServicio;
-	}
-
-
-	public void setPrecioServicio(float precioServicio) {
-		this.precioServicio = precioServicio;
 	}
 
 

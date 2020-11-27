@@ -67,6 +67,22 @@ public class Principal extends JFrame {
 		
 		JMenuItem mntmEmpleado = new JMenuItem("Empleado");
 		mnRegistrar.add(mntmEmpleado);
+		
+		JMenu mnConsultas = new JMenu("Consultas");
+		mnConsultas.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		menuBar.add(mnConsultas);
+		
+		JMenuItem mntmListClientes = new JMenuItem("Listado Clientes");
+		mntmListClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListCliente ll;
+				ll = new ListCliente();
+				ll.setModal(true);
+				ll.setLocationRelativeTo(null);
+				ll.setVisible(true);
+			}
+		});
+		mnConsultas.add(mntmListClientes);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

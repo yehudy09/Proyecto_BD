@@ -303,7 +303,9 @@ public class InsertCliente extends JDialog {
 								dispose();
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
+								JOptionPane.showMessageDialog(null, e1,  "No se insertaron los datos correctos" + e1.getMessage(), JOptionPane.ERROR_MESSAGE);
 								e1.printStackTrace();
+								
 							}
 							
 					   }
@@ -324,8 +326,30 @@ public class InsertCliente extends JDialog {
 				buttonPane.add(BtnCancelar);
 			}
 		}
+		if(modi){
+			loadCliente();
+		}
+	
 	}
 	
+	private void loadCliente() {
+		if (miCliente != null) {
+			ftextCedula.setEnabled(false);
+			ftextCedula.setText(miCliente.getCedula());
+			textFname.setText(miCliente.getFname());
+			textSname.setText(miCliente.getSname());
+			textLname.setText(miCliente.getLname());
+			ftextTelf.setText(miCliente.getPostalCode());
+			ftextCodigo.setText(miCliente.getTel());
+			textCiudad.setText(miCliente.getCiudad());
+			textCalle.setText(miCliente.getCalle());
+			cbxProvincia.setSelectedItem(miCliente.getProvincia());
+		}
+
+	}
+	
+
+		
 
 	
 }

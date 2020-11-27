@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -124,10 +125,35 @@ public class ListCliente extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnEliminar = new JButton("Eliminar");
+				btnEliminar.setEnabled(false);
+				btnEliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (cod != "") {
+							int answer = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar la empresa?",
+									"Devolver publicacion", JOptionPane.YES_NO_CANCEL_OPTION,
+									JOptionPane.QUESTION_MESSAGE, null);
+							if (answer == JOptionPane.YES_OPTION) {
+								BtnModificar.setEnabled(false);
+								btnEliminar.setEnabled(false);
+								try {
+									Bike_Rental.getInstance().deleteCliente(cod);
+									loadTable();
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								
+							}
+
+						
+						}
+					}
+				});
 				buttonPane.add(btnEliminar);
 			}
 			{
 				BtnModificar = new JButton("Modificar");
+				BtnModificar.setEnabled(false);
 				BtnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (cod != "") {
@@ -147,14 +173,15 @@ public class ListCliente extends JDialog {
 							modificarClient.setModal(true);
 							modificarClient.setLocationRelativeTo(null);
 							modificarClient.setVisible(true);
+							BtnModificar.setEnabled(false);
+							btnEliminar.setEnabled(false);
 							try {
 								loadTable();
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-							BtnModificar.setEnabled(false);
-							btnEliminar.setEnabled(false);
+							
 					}
 				});
 				BtnModificar.setActionCommand("OK");
@@ -188,9 +215,9 @@ public class ListCliente extends JDialog {
 					for(int i = 0; i<model.getColumnCount(); i++) {
 						fila[i]=rs.getString(i+1);
 					}
-						
+					model.addRow(fila);
 				}
-				model.addRow(fila);
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

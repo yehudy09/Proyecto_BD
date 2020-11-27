@@ -486,4 +486,24 @@ public class Bike_Rental {
         } 
         return  miCliente;
     }
+	
+	
+	//*************************************** DELETE ******************************************//
+	
+	public void deleteCliente(String ced) throws Exception {
+		String sql = "delete Cliente where cedula = ?";
+		
+			
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setString(1, ced);
+			stmt.execute();
+			
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} 		
+	}
 }

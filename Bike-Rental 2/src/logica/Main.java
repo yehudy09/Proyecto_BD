@@ -54,6 +54,8 @@ public class Main {
 		
 		//Producto prod1 = new Producto(80000, "MTB", "Luces", "Giant"); 
 		//bike.updateProducto(prod1);
+		
+		//bike.deleteCliente("7");
 	}
 
 }

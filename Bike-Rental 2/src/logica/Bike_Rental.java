@@ -127,7 +127,7 @@ public class Bike_Rental {
 			
 			connect = DriverManager.getConnection(Url);
 			
-			JOptionPane.showMessageDialog(null, "Conectado");
+		//	JOptionPane.showMessageDialog(null, "Conectado");
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

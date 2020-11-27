@@ -11,6 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import java.awt.Font;
 import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
 
@@ -47,12 +49,21 @@ public class Principal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("Registrar");
-		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 13));
-		menuBar.add(mnNewMenu);
+		JMenu mnRegistrar = new JMenu("Registrar");
+		mnRegistrar.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		menuBar.add(mnRegistrar);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Cliente");
-		mnNewMenu.add(mntmNewMenuItem);
+		JMenuItem mntmCliente = new JMenuItem("Cliente");
+		mntmCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InsertCliente cl;
+				cl = new InsertCliente();
+				cl.setModal(true);
+				cl.setLocationRelativeTo(null);
+				cl.setVisible(true);
+			}
+		});
+		mnRegistrar.add(mntmCliente);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

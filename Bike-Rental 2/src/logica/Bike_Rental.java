@@ -357,32 +357,6 @@ public class Bike_Rental {
 		} 		
 	}
 	
-	/*public void updateCliente(Cliente c) throws Exception {
-		String sql = "update Cliente set Fname = ?, Sname = ?, Lname = ?, Calle = ?, Ciudad = ?, codPostal = ?, tel = ?" 
-					 + " where cedula = ?";
-			
-		try {
-			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setString(1, c.getCedula());
-			stmt.setString(2, c.getFname());
-			stmt.setString(3, c.getSname());
-			stmt.setString(4, c.getLname());
-			stmt.setString(5, c.getCalle());
-			stmt.setString(6, c.getCiudad());
-			stmt.setInt(7, c.getPostalCode());
-			stmt.setString(8, c.getTel());
-			stmt.setInt(9, c.getId());
-			stmt.execute();
-			
-		
-		}catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		} 		
-	}*/
-	
-	
 	public void updateEmpleado(Empleado emp) throws Exception {
 		String sql = "update Empleado set ssn = ?, Fname = ?, Sname = ?, Lname = ?, Calle = ?, Ciudad = ?, codPostal = ?, tel = ?, posicion = ?, salario = ?, provincia =?"
 				+ " where cedula = ?";

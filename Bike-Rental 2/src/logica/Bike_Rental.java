@@ -145,7 +145,8 @@ public class Bike_Rental {
 	public void insertCliente(Cliente c) throws Exception {
 		misClientes.add(c);
 		    
-		String sql = "insert into Cliente (cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel) values (?,?,?,?,?,?,?,?)";
+		String sql = "insert into Cliente (cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel, provincia) "
+				+ "values (?,?,?,?,?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
@@ -155,8 +156,9 @@ public class Bike_Rental {
 			stmt.setString(4, c.getLname());
 			stmt.setString(5, c.getCalle());
 			stmt.setString(6, c.getCiudad());
-			stmt.setInt(7, c.getPostalCode());
+			stmt.setString(7, c.getPostalCode());
 			stmt.setString(8, c.getTel());
+			stmt.setString(9, c.getProvincia());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -170,7 +172,8 @@ public class Bike_Rental {
 	public void insertEmpleado(Empleado em) throws Exception {
 		misEmpleados.add(em);
 		    
-		String sql = "insert into Empleado (ssn, cedula, Fname, Sname, Lname, Calle, Ciudad, codPostal, tel, posicion, salario) values (?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into Empleado (ssn, cedula, Fname, Sname, Lname, Calle, Ciudad, codPostal, tel, posicion, salario, provincia) "
+				+ "values (?,?,?,?,?,?,?,?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
@@ -181,10 +184,11 @@ public class Bike_Rental {
 			stmt.setString(5, em.getLname());
 			stmt.setString(6, em.getCalle());
 			stmt.setString(7, em.getCiudad());
-			stmt.setInt(8, em.getPostalCode());
+			stmt.setString(8, em.getPostalCode());
 			stmt.setString(9, em.getTel());
 			stmt.setString(10, em.getPosicion());
 			stmt.setFloat(11, em.getSalario());
+			stmt.setString(12, em.getProvincia());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -237,7 +241,8 @@ public class Bike_Rental {
 	public void insertProveedor(Proveedor p) throws Exception {
 		misProveedores.add(p);
 		    
-		String sql = "insert into Proveedor (cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel, marca) values (?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into Proveedor (cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel, marca, provincia) "
+				+ "values (?,?,?,?,?,?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
@@ -247,9 +252,10 @@ public class Bike_Rental {
 			stmt.setString(4, p.getLname());
 			stmt.setString(5, p.getCalle());
 			stmt.setString(6, p.getCiudad());
-			stmt.setInt(7, p.getPostalCode());
+			stmt.setString(7, p.getPostalCode());
 			stmt.setString(8, p.getTel());
 			stmt.setString(9, p.getMarca());
+			stmt.setString(10, p.getProvincia());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -340,7 +346,7 @@ public class Bike_Rental {
 	 //*************************************** UPDATES ******************************************//
 	
 	public void updateCliente(Cliente c) throws Exception {
-		String sql = "update Cliente set Fname = ?, Sname = ?, Lname = ?, Calle = ?, Ciudad = ?, codPostal = ?, tel = ?" 
+		String sql = "update Cliente set Fname = ?, Sname = ?, Lname = ?, Calle = ?, Ciudad = ?, codPostal = ?, tel = ?, provincia =?" 
 					 + " where cedula = ?";
 			
 		try {
@@ -350,9 +356,10 @@ public class Bike_Rental {
 			stmt.setString(3, c.getLname());
 			stmt.setString(4, c.getCalle());
 			stmt.setString(5, c.getCiudad());
-			stmt.setInt(6, c.getPostalCode());
+			stmt.setString(6, c.getPostalCode());
 			stmt.setString(7, c.getTel());
-			stmt.setString(8, c.getCedula());
+			stmt.setString(8, c.getProvincia());
+			stmt.setString(9, c.getCedula());
 			stmt.execute();
 			
 		
@@ -390,7 +397,7 @@ public class Bike_Rental {
 	
 	
 	public void updateEmpleado(Empleado emp) throws Exception {
-		String sql = "update Empleado set ssn = ?, Fname = ?, Sname = ?, Lname = ?, Calle = ?, Ciudad = ?, codPostal = ?, tel = ?, posicion = ?, salario = ?"
+		String sql = "update Empleado set ssn = ?, Fname = ?, Sname = ?, Lname = ?, Calle = ?, Ciudad = ?, codPostal = ?, tel = ?, posicion = ?, salario = ?, provincia =?"
 				+ " where cedula = ?";
 				
 			
@@ -402,11 +409,12 @@ public class Bike_Rental {
 			stmt.setString(4, emp.getLname());
 			stmt.setString(5, emp.getCalle());
 			stmt.setString(6, emp.getCiudad());
-			stmt.setInt(7, emp.getPostalCode());
+			stmt.setString(7, emp.getPostalCode());
 			stmt.setString(8, emp.getTel());
 			stmt.setString(9, emp.getPosicion());
 			stmt.setFloat(10, emp.getSalario());
-			stmt.setString(11, emp.getCedula());
+			stmt.setString(11, emp.getProvincia());
+			stmt.setString(12, emp.getCedula());
 			stmt.execute();
 			
 		

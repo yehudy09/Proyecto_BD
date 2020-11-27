@@ -7,8 +7,8 @@ public class Empleado extends Persona {
 	private float salario; 
 
 	public Empleado(String cedula, String fname, String sname, String lname, String calle, String ciudad,
-			String tel, int postalCode, String ssn, String posicion, float salario) {
-		super(cedula, fname, sname, lname, calle, ciudad, tel, postalCode);
+			String tel, String postalCode, String ssn, String posicion, float salario, String provincia) {
+		super(cedula, fname, sname, lname, calle, ciudad, tel, postalCode, provincia);
 		// TODO Auto-generated constructor stub
 		
 		this.ssn = ssn;

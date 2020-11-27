@@ -5,8 +5,8 @@ public class Proveedor extends Persona {
 	private String marca;
 
 	public Proveedor(String cedula, String fname, String sname, String lname, String calle, String ciudad,
-			String tel, int postalCode, String marca) {
-		super(cedula, fname, sname, lname, calle, ciudad, tel, postalCode);
+			String tel, String postalCode, String marca, String provincia) {
+		super(cedula, fname, sname, lname, calle, ciudad, tel, postalCode, provincia);
 		// TODO Auto-generated constructor stub
 		
 		this.marca = marca;

@@ -213,12 +213,11 @@ public class InsertCliente extends JDialog {
 						String Sname = textSname.getText();
 						String Lname = textLname.getText();
 						String tel = ftextTelf.getText();
-						int Cod = ftextCodigo.getComponentCount();
+						String Cod = ftextCodigo.getText();
 						String Ciudad = textCiudad.getText();
 						String Calle = textCalle.getText();
 						String Provincia = cbxProvincia.getSelectedItem().toString();
-						Cliente miCliente = new Cliente(cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod);
-		
+						Cliente miCliente = new Cliente(cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, Provincia);
 						try {
 							Bike_Rental.getInstance().insertCliente(miCliente);
 						} catch (Exception e1) {

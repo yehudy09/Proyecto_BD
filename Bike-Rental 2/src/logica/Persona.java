@@ -9,9 +9,10 @@ public abstract class Persona {
 	protected String Calle; 
 	protected String Ciudad; 
 	protected String tel; 
-	protected int postalCode;
+	protected String postalCode;
+	protected String provincia; 
 	public Persona(String cedula, String fname, String sname, String lname, String calle, String ciudad,
-			String tel, int postalCode) {
+			String tel, String postalCode, String provincia) {
 		super();
 		this.cedula = cedula;
 		Fname = fname;
@@ -21,9 +22,19 @@ public abstract class Persona {
 		Ciudad = ciudad;
 		this.tel = tel;
 		this.postalCode = postalCode;
+		this.provincia = provincia;
 	}
 	public int getId() {
 		return id;
+	}
+	public String getProvincia() {
+		return provincia;
+	}
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 	public void setId(int id) {
 		this.id = id;
@@ -70,12 +81,10 @@ public abstract class Persona {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public int getPostalCode() {
+	public String getPostalCode() {
 		return postalCode;
 	}
-	public void setPostalCode(int postalCode) {
-		this.postalCode = postalCode;
-	} 
+	
 	
 	
 	

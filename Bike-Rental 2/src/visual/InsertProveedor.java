@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JFormattedTextField;
 import java.awt.SystemColor;
 import java.text.ParseException;
@@ -31,12 +32,12 @@ public class InsertProveedor extends JDialog {
 	private JTextField Snametxt;
 	private JTextField Lnametxt;
 	private JTextField Marcatxt;
-	private JTextField CodPostxt;
 	private JTextField Ciudadtxt;
 	private JTextField Calletxt;
 	private JFormattedTextField cedulaJF;
 	private JFormattedTextField TelefonoJF;
 	private JComboBox Provinciacbx;
+	JFormattedTextField CodPostJF;
 
 	/**
 	 * Launch the application.
@@ -176,11 +177,18 @@ public class InsertProveedor extends JDialog {
 			CodigoPostlbl.setBounds(301, 101, 91, 14);
 			DireccionProv.add(CodigoPostlbl);
 			
-			CodPostxt = new JTextField();
-			CodPostxt.setBackground(Color.WHITE);
-			CodPostxt.setBounds(393, 98, 175, 20);
-			DireccionProv.add(CodPostxt);
-			CodPostxt.setColumns(10);
+			MaskFormatter mascaraCodigo;
+			try {
+				mascaraCodigo = new MaskFormatter("#####");
+				CodPostJF = new JFormattedTextField(mascaraCodigo);
+				CodPostJF.setBackground(Color.WHITE);
+				CodPostJF.setBounds(393, 98, 175, 20);
+				DireccionProv.add(CodPostJF);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			
 			Ciudadtxt = new JTextField();
 			Ciudadtxt.setBackground(Color.WHITE);
@@ -202,6 +210,8 @@ public class InsertProveedor extends JDialog {
 			Provinciacbx.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Azua ", "Bahoruco ", "Barahona ", "Dajab\u00F3n ", "Distrito Nacional ", "Duarte ", "El\u00EDas Pi\u00F1a ", "El Seibo ", "Espaillat ", "Hato Mayor ", "Independencia ", "La Altagracia ", "La Romana ", "La Vega ", "Mar\u00EDa Trinidad S\u00E1nchez ", "Monse\u00F1or Nouel ", "Montecristi ", "Monte Plata ", "Pedernales ", "Peravia ", "Puerto Plata ", "Hermanas Mirabal ", "Saman\u00E1 ", "S\u00E1nchez Ram\u00EDrez ", "San Crist\u00F3bal ", "San Jos\u00E9 de Ocoa ", "San Juan ", "San Pedro de Macor\u00EDs ", "Santiago ", "Santiago Rodr\u00EDguez ", "Santo Domingo ", "Valverde "}));
 			Provinciacbx.setBounds(95, 40, 175, 22);
 			DireccionProv.add(Provinciacbx);
+			
+			
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -212,23 +222,50 @@ public class InsertProveedor extends JDialog {
 				JButton okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						Proveedor auxprov = null;
-						/*if(cedulaJF.getText().equalsIgnoreCase(auxprov.getCedula())) {
-							
-							JOptionPane.showMessageDialog(null,"Ya existe un cliente registrado con esa cedula");
-						}*/
 						
 						String cedula = cedulaJF.getText();
 						String Fname = Fnametxt.getText();
 						String Sname = Snametxt.getText();
 						String Lname = Lnametxt.getText();
 						String tel = TelefonoJF.getText();
-						String Cod = CodPostxt.getText();
+						String Cod = CodPostJF.getText();
 						String Ciudad = Ciudadtxt.getText();
 						String Calle = Calletxt.getText();
 						String Marca = Marcatxt.getText();
 						String Provincia = Provinciacbx.getSelectedItem().toString();
 						Proveedor miProveedor = new Proveedor(cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, Marca, Provincia);
+						
+						if (Fnametxt.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Se debe ingresar el nombre del proveedor a registrar","ATENCIÓN",
+									JOptionPane.WARNING_MESSAGE, null);
+							
+							
+						} else if (cedulaJF.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Se debe ingresar la cédula del proveedor a registrar","ATENCIÓN",
+											JOptionPane.WARNING_MESSAGE, null);
+							
+							
+						} else if (Lnametxt.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Se debe ingresar el apellido del proveedor a registrar", "ATENCIÓN",
+											JOptionPane.WARNING_MESSAGE, null);
+							
+							
+						} else if (Ciudadtxt.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Se debe ingresar la ciudad del proveedor a registrar", "ATENCIÓN",
+											JOptionPane.WARNING_MESSAGE, null);
+							
+							
+						} else if (TelefonoJF.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null,"Se debe ingresar el telefono del proveedor a registrar", "ATENCIÓN",
+											JOptionPane.WARNING_MESSAGE, null);
+							
+						}else if(Marcatxt.getText().isEmpty()) {
+							
+							JOptionPane.showMessageDialog(null,"Se debe ingresar la marca que va a suplir el proveedor a registrar", "ATENCIÓN",
+									JOptionPane.WARNING_MESSAGE, null);
+							
+							
+						}else {
 		
 						try {
 							Bike_Rental.getInstance().insertProveedor(miProveedor);
@@ -237,6 +274,19 @@ public class InsertProveedor extends JDialog {
 							e1.printStackTrace();
 						}
 						
+						Fnametxt.setText(null);
+						Snametxt.setText(null);
+						Lnametxt.setText(null);
+						TelefonoJF.setText(null);
+						cedulaJF.setText(null);
+						Provinciacbx.setSelectedIndex(0);
+						CodPostJF.setText(null);
+						Ciudadtxt.setText(null);
+						Calletxt.setText(null);
+						JOptionPane
+								.showMessageDialog(null,
+										"Proveedor Agregado Satisfactoriamente");
+					}
 					}
 				});
 				okButton.setActionCommand("OK");

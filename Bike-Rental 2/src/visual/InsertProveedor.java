@@ -235,6 +235,8 @@ public class InsertProveedor extends JDialog {
 						String Provincia = Provinciacbx.getSelectedItem().toString();
 						Proveedor miProveedor = new Proveedor(cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, Marca, Provincia);
 						
+						
+						
 						if (Fnametxt.getText().isEmpty()) {
 							JOptionPane.showMessageDialog(null, "Se debe ingresar el nombre del proveedor a registrar","ATENCIÓN",
 									JOptionPane.WARNING_MESSAGE, null);

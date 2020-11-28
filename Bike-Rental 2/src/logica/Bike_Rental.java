@@ -120,9 +120,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
+			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -406,6 +406,37 @@ public class Bike_Rental {
 			
 		} 		
 	}
+	
+	public void updateProveedor(Proveedor prov) throws Exception {
+		String sql = "update Proveedor set Fname = ?, Sname = ?, Lname =?, Calle = ?, Ciudad =?, codPostal =?, tel =?, marca = ?, provincia =?"
+				+ " where cedula = ? ";
+				
+		
+			
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setString(1, prov.getFname());
+			stmt.setString(2, prov.getSname());
+			stmt.setString(3, prov.getLname());
+			stmt.setString(4, prov.getCalle());
+			stmt.setString(5, prov.getCiudad());
+			stmt.setString(6, prov.getPostalCode());
+			stmt.setString(7, prov.getTel());
+			stmt.setString(8, prov.getMarca());
+			stmt.setString(9, prov.getProvincia());
+			stmt.execute();
+			
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} 		
+	}
+	
+	
+	
+	
 	
 	//*************************************** SELECTS ******************************************//
 	

@@ -307,7 +307,7 @@ public class tablaEmpleados extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int filaTable = tableEmpleado.getSelectedRow();
 					if (filaTable == -1 ) {
-						JOptionPane.showMessageDialog(null, "Debe llenar los campos necesarios!");
+						JOptionPane.showMessageDialog(null, "Debe seleccionar un empleado!");
 					}
 					else {
 						String id = model.getValueAt(filaTable, 0).toString(); //ID
@@ -352,15 +352,17 @@ public class tablaEmpleados extends JFrame {
 		});
 		btnInsertarEmp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Empleado emp1 = new Empleado(cedulaJF.getText(), tfNombre.getText(), tfSname.getText(), tfApellido.getText(), tfCalle.getText(), tfCiudad.getText(), 
-					TelefonoJF.getText(), CodPostJF.getText(), tfSSN.getText(), tfPosicion.getText(), Float.parseFloat(tfSalario.getText()), cbxProvincia.getSelectedItem().toString());
-				try {
-					Bike_Rental.getInstance().insertEmpleado(emp1);
-					cargarEmpleados();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+
+					Empleado emp1 = new Empleado(cedulaJF.getText(), tfNombre.getText(), tfSname.getText(), tfApellido.getText(), tfCalle.getText(), tfCiudad.getText(), 
+							TelefonoJF.getText(), CodPostJF.getText(), tfSSN.getText(), tfPosicion.getText(), Float.parseFloat(tfSalario.getText()), cbxProvincia.getSelectedItem().toString());
+						try {
+							Bike_Rental.getInstance().insertEmpleado(emp1);
+							cargarEmpleados();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				
 			}
 		});
 		contentPane.setLayout(null);

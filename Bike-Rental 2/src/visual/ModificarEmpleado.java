@@ -41,6 +41,7 @@ import javax.swing.JFormattedTextField;
 import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.event.WindowStateListener;
+import javax.swing.border.LineBorder;
 
 public class ModificarEmpleado extends JFrame {
 
@@ -69,6 +70,7 @@ public class ModificarEmpleado extends JFrame {
 			public void run() {
 				try {
 					tablaEmpleados frame = new tablaEmpleados();
+					frame.setUndecorated(true);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -110,88 +112,89 @@ public class ModificarEmpleado extends JFrame {
 		});
 		setTitle("Modificar Empleado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1004, 273);
+		setBounds(100, 100, 1004, 246);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
+		panel.setBounds(5, 5, 980, 157);
 		panel.setBackground(SystemColor.inactiveCaptionBorder);
-		panel.setBorder(new TitledBorder(null, "Datos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Informaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		JLabel lblSSN = new JLabel("SSN");
-		lblSSN.setBounds(16, 16, 42, 14);
+		lblSSN.setBounds(18, 29, 42, 14);
 		
 		tfSSN = new JTextField();
-		tfSSN.setBounds(16, 36, 111, 20);
+		tfSSN.setBounds(18, 49, 111, 20);
 		tfSSN.setColumns(10);
 		
 		JLabel lblCedula = new JLabel("C\u00E9dula");
-		lblCedula.setBounds(16, 68, 42, 14);
+		lblCedula.setBounds(18, 81, 42, 14);
 		
 		tfNombre = new JTextField();
-		tfNombre.setBounds(145, 36, 116, 20);
+		tfNombre.setBounds(147, 49, 116, 20);
 		tfNombre.setColumns(10);
 		
 		JLabel lblName = new JLabel("Nombre");
-		lblName.setBounds(145, 16, 63, 14);
+		lblName.setBounds(147, 29, 63, 14);
 		
 		tfSname = new JTextField();
-		tfSname.setBounds(279, 36, 116, 20);
+		tfSname.setBounds(281, 49, 116, 20);
 		tfSname.setColumns(10);
 		
 		JLabel lblSname = new JLabel("Seguno Nombre");
-		lblSname.setBounds(279, 16, 104, 14);
+		lblSname.setBounds(281, 29, 104, 14);
 		
 		tfApellido = new JTextField();
-		tfApellido.setBounds(413, 36, 116, 20);
+		tfApellido.setBounds(415, 49, 116, 20);
 		tfApellido.setColumns(10);
 		
 		JLabel lblApellido = new JLabel("Apellido");
-		lblApellido.setBounds(413, 16, 84, 14);
+		lblApellido.setBounds(415, 29, 84, 14);
 		
 		tfSalario = new JTextField();
-		tfSalario.setBounds(279, 94, 116, 20);
+		tfSalario.setBounds(281, 107, 116, 20);
 		tfSalario.setColumns(10);
 		
 		JLabel lblCalle = new JLabel("Calle");
-		lblCalle.setBounds(789, 68, 42, 14);
+		lblCalle.setBounds(830, 81, 42, 14);
 		
 		JLabel lblCiudad = new JLabel("Ciudad");
-		lblCiudad.setBounds(789, 16, 42, 14);
+		lblCiudad.setBounds(830, 29, 42, 14);
 		
 		JLabel lblPostal = new JLabel("C\u00F3digo Postal");
-		lblPostal.setBounds(603, 74, 111, 14);
+		lblPostal.setBounds(644, 87, 111, 14);
 		
 		tfCiudad = new JTextField();
-		tfCiudad.setBounds(789, 94, 111, 20);
+		tfCiudad.setBounds(830, 107, 111, 20);
 		tfCiudad.setColumns(10);
 		
 		tfCalle = new JTextField();
-		tfCalle.setBounds(789, 36, 111, 20);
+		tfCalle.setBounds(830, 49, 111, 20);
 		tfCalle.setColumns(10);
 		
 		tfPosicion = new JTextField();
-		tfPosicion.setBounds(145, 94, 116, 20);
+		tfPosicion.setBounds(147, 107, 116, 20);
 		tfPosicion.setColumns(10);
 		
 		JLabel lblSalario = new JLabel("Salario");
-		lblSalario.setBounds(279, 68, 42, 14);
+		lblSalario.setBounds(281, 81, 42, 14);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono");
-		lblTelefono.setBounds(413, 68, 58, 14);
+		lblTelefono.setBounds(415, 81, 58, 14);
 		
 		JLabel lblPosicion = new JLabel("Posici\u00F3n");
-		lblPosicion.setBounds(145, 69, 58, 14);
+		lblPosicion.setBounds(147, 82, 58, 14);
 		
 		JComboBox cbxProvincia = new JComboBox();
-		cbxProvincia.setBounds(603, 36, 123, 20);
+		cbxProvincia.setBounds(644, 49, 123, 20);
 		cbxProvincia.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Azua ", "Bahoruco ", "Barahona ", "Dajab\u00F3n ", "Distrito Nacional ", "Duarte ", "El\u00EDas Pi\u00F1a ", "El Seibo ", "Espaillat ", "Hato Mayor ", "Independencia ", "La Altagracia ", "La Romana ", "La Vega ", "Mar\u00EDa Trinidad S\u00E1nchez ", "Monse\u00F1or Nouel ", "Montecristi ", "Monte Plata ", "Pedernales ", "Peravia ", "Puerto Plata ", "Hermanas Mirabal ", "Saman\u00E1 ", "S\u00E1nchez Ram\u00EDrez ", "San Crist\u00F3bal ", "San Jos\u00E9 de Ocoa ", "San Juan ", "San Pedro de Macor\u00EDs ", "Santiago ", "Santiago Rodr\u00EDguez ", "Santo Domingo ", "Valverde "}));
 		cbxProvincia.setSelectedItem(emp.getProvincia());
 		
 		JLabel lblProvincia = new JLabel("Provincia");
-		lblProvincia.setBounds(603, 16, 68, 14);
+		lblProvincia.setBounds(644, 29, 68, 14);
 		lblProvincia.setHorizontalAlignment(SwingConstants.LEFT);
 		MaskFormatter mascaraCedula;
 		
@@ -200,7 +203,7 @@ public class ModificarEmpleado extends JFrame {
 			mascaraCedula.setPlaceholderCharacter('_');
 		   
 			cedulaJF = new JFormattedTextField(mascaraCedula);
-			cedulaJF.setBounds(16, 94, 111, 20);
+			cedulaJF.setBounds(18, 107, 111, 20);
 			cedulaJF.setEditable(false);
 		
 		}catch (ParseException e) {
@@ -213,7 +216,7 @@ public class ModificarEmpleado extends JFrame {
 			mascaraCodigo = new MaskFormatter("#####");
 		
 			CodPostJF = new JFormattedTextField(mascaraCodigo);
-			CodPostJF.setBounds(603, 94, 111, 20);
+			CodPostJF.setBounds(644, 107, 111, 20);
 			CodPostJF.setBackground(Color.WHITE);
 			
 		} catch (ParseException e1) {
@@ -228,7 +231,7 @@ public class ModificarEmpleado extends JFrame {
 			mascaratel = new MaskFormatter("###-###-####");
 			
 			TelefonoJF = new JFormattedTextField(mascaratel);
-			TelefonoJF.setBounds(413, 94, 111, 20);
+			TelefonoJF.setBounds(415, 107, 111, 20);
 			TelefonoJF.setBackground(Color.WHITE);
 			TelefonoJF.setColumns(10);
 			
@@ -243,6 +246,7 @@ public class ModificarEmpleado extends JFrame {
 
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(5, 168, 980, 48);
 		panel_1.setBackground(SystemColor.inactiveCaption);
 		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel.setLayout(null);
@@ -273,12 +277,13 @@ public class ModificarEmpleado extends JFrame {
 		panel_1.setLayout(null);
 		
 		JButton btnCerrar = new JButton("CANCELAR");
-		btnCerrar.setBackground(Color.LIGHT_GRAY);
+		btnCerrar.setBackground(SystemColor.inactiveCaptionBorder);
 		btnCerrar.setForeground(Color.BLACK);
-		btnCerrar.setBounds(876, 11, 96, 34);
+		btnCerrar.setBounds(854, 7, 118, 34);
 		panel_1.add(btnCerrar);
 		
 		JButton btnModificar = new JButton("MODIFICAR");
+		btnModificar.setBackground(SystemColor.inactiveCaptionBorder);
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -292,28 +297,22 @@ public class ModificarEmpleado extends JFrame {
 				}
 			}
 		});
-		btnModificar.setBounds(772, 11, 96, 34);
+		btnModificar.setBounds(738, 7, 108, 34);
 		panel_1.add(btnModificar);
 		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(panel, GroupLayout.PREFERRED_SIZE, 980, GroupLayout.PREFERRED_SIZE)
-				.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 980, GroupLayout.PREFERRED_SIZE)
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(10)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
-		);
-		contentPane.setLayout(gl_contentPane);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "Direcci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBackground(SystemColor.inactiveCaptionBorder);
+		panel_2.setBounds(629, 10, 343, 137);
+		panel.add(panel_2);
+		contentPane.setLayout(null);
+		contentPane.add(panel_1);
+		contentPane.add(panel);
 	}
 	public boolean confirmacion() {
 		return confirmar;

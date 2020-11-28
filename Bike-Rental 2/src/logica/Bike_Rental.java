@@ -493,6 +493,48 @@ public class Bike_Rental {
     }
 	
 	
+	public Cliente searchProveedorByCed(String ced) throws SQLException, Exception {
+        Proveedor miProv = null;
+
+        try {
+            String sql = "Select * From Cliente where cedula = ?";
+        	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+
+            stmt.setString(1, ced);
+
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+               miCliente = new Cliente(rs.getString("cedula"),
+                					  rs.getString("Fname"), 
+                					  rs.getString("Sname"),
+                					  rs.getString("Lname"), 
+                					  rs.getString("Calle"), 
+                					  rs.getString("Ciudad"),
+                					  rs.getString("codPostal"),
+                					  rs.getString("tel"),
+                					  rs.getString("Provincia"));
+                System.out.println("IDCliente->"+rs.getString("cid"));
+                System.out.println("Cliente Encontrado = " + rs.getString("Fname")  + " "+"and"+" "+"Cedula = " + " "+ rs.getString("cedula"));
+               
+            }
+
+            if (miCliente != null) {
+                System.out.println("Cliente Encontrado");
+
+            }else{
+            	 System.out.println("Cliente no Encontrado");
+            }
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        } 
+        return  miCliente;
+    }
+	
+	
+	
+	
 	//*************************************** DELETE ******************************************//
 	
 	public void deleteCliente(String ced) throws Exception {

@@ -112,7 +112,7 @@ public class ModificarEmpleado extends JFrame {
 		});
 		setTitle("Modificar Empleado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1004, 246);
+		setBounds(100, 100, 1004, 264);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));

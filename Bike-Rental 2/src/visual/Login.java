@@ -63,7 +63,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
-		//setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/icons/icons8-pie-chart-64.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/icons/Cyclist-icon.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

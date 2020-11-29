@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -21,6 +22,9 @@ import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.UIManager;
 
 public class Principal extends JFrame {
 
@@ -134,6 +138,10 @@ public class Principal extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(0, 164, 1350, 2);
+		panel.add(separator);
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.inactiveCaption);
 		panel_1.setBounds(0, 579, 1350, 59);
@@ -149,6 +157,21 @@ public class Principal extends JFrame {
 		lblyear.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblyear.setBounds(131, 11, 212, 39);
 		panel_1.add(lblyear);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/icons/Bike-Rental.PNG")));
+		lblNewLabel.setBounds(487, -13, 330, 194);
+		panel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("");
+		lblNewLabel_2_1.setIcon(new ImageIcon(Principal.class.getResource("/icons/Cyclist-image2.PNG")));
+		lblNewLabel_2_1.setBounds(642, 133, 555, 422);
+		panel.add(lblNewLabel_2_1);
+		
+		JLabel lblNewLabel_2_2 = new JLabel("");
+		lblNewLabel_2_2.setIcon(new ImageIcon(Principal.class.getResource("/icons/Cyclist-image3.PNG")));
+		lblNewLabel_2_2.setBounds(281, 160, 593, 388);
+		panel.add(lblNewLabel_2_2);
 		
 		reloj();
 	}
@@ -228,6 +251,4 @@ public class Principal extends JFrame {
 		reloj.start();
 
 	}
-
-
 }

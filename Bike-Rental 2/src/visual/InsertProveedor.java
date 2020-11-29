@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 public class InsertProveedor extends JDialog {
 
@@ -223,6 +224,7 @@ public class InsertProveedor extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnregistrar = new JButton("Registrar");
+				btnregistrar.setIcon(new ImageIcon(InsertProveedor.class.getResource("/icons/add.png")));
 				if(modi){
 					btnregistrar.setText("Salvar Modificaciones");
 				}
@@ -327,6 +329,7 @@ public class InsertProveedor extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setIcon(new ImageIcon(InsertProveedor.class.getResource("/icons/cancelar.png")));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();

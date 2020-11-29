@@ -547,4 +547,21 @@ public class Bike_Rental {
 			
 		} 		
 	}
+	
+	public void deleteProveedor(String ced) throws Exception {
+		String sql = "delete Proveedor where cedula = ?";
+		
+			
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setString(1, ced);
+			stmt.execute();
+			
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} 		
+	}
 }

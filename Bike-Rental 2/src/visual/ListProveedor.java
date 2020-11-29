@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.SystemColor;
@@ -29,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class ListProveedor extends JDialog {
 
@@ -124,6 +126,30 @@ public class ListProveedor extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				eliminarbtt = new JButton("Eliminar");
+				eliminarbtt.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						if (auxi != "") {
+							int answer = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar el proveedor?",
+									"Devolver publicacion", JOptionPane.YES_NO_CANCEL_OPTION,
+									JOptionPane.QUESTION_MESSAGE, null);
+							if (answer == JOptionPane.YES_OPTION) {
+								modificarbtt.setEnabled(false);
+								eliminarbtt.setEnabled(false);
+								try {
+									Bike_Rental.getInstance().deleteProveedor(auxi);
+									cargarProveedor();;
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								
+							}
+
+						
+						}
+					}
+				});
+				eliminarbtt.setIcon(new ImageIcon(ListProveedor.class.getResource("/icons/borrar.png")));
 				eliminarbtt.setEnabled(false);
 				eliminarbtt.setActionCommand("OK");
 				buttonPane.add(eliminarbtt);
@@ -131,6 +157,7 @@ public class ListProveedor extends JDialog {
 			}
 			{
 				modificarbtt = new JButton("Modificar");
+				modificarbtt.setIcon(new ImageIcon(ListProveedor.class.getResource("/icons/modificar.png")));
 				modificarbtt.setEnabled(false);
 				modificarbtt.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -168,6 +195,7 @@ public class ListProveedor extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setIcon(new ImageIcon(ListProveedor.class.getResource("/icons/cancelar.png")));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();

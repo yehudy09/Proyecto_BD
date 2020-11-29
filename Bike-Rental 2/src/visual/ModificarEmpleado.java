@@ -18,6 +18,7 @@ import logica.Empleado;
 
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -191,7 +192,7 @@ public class ModificarEmpleado extends JFrame {
 		JComboBox cbxProvincia = new JComboBox();
 		cbxProvincia.setBounds(644, 49, 123, 20);
 		cbxProvincia.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Azua ", "Bahoruco ", "Barahona ", "Dajab\u00F3n ", "Distrito Nacional ", "Duarte ", "El\u00EDas Pi\u00F1a ", "El Seibo ", "Espaillat ", "Hato Mayor ", "Independencia ", "La Altagracia ", "La Romana ", "La Vega ", "Mar\u00EDa Trinidad S\u00E1nchez ", "Monse\u00F1or Nouel ", "Montecristi ", "Monte Plata ", "Pedernales ", "Peravia ", "Puerto Plata ", "Hermanas Mirabal ", "Saman\u00E1 ", "S\u00E1nchez Ram\u00EDrez ", "San Crist\u00F3bal ", "San Jos\u00E9 de Ocoa ", "San Juan ", "San Pedro de Macor\u00EDs ", "Santiago ", "Santiago Rodr\u00EDguez ", "Santo Domingo ", "Valverde "}));
-		cbxProvincia.setSelectedItem(emp.getProvincia());
+		//cbxProvincia.setSelectedItem(emp.getProvincia());
 		
 		JLabel lblProvincia = new JLabel("Provincia");
 		lblProvincia.setBounds(644, 29, 68, 14);
@@ -287,14 +288,32 @@ public class ModificarEmpleado extends JFrame {
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Empleado auxEmp = new Empleado(cedulaJF.getText(), tfNombre.getText(), tfSname.getText(), tfApellido.getText(), tfCalle.getText(),
-							tfCiudad.getText(), TelefonoJF.getText(), CodPostJF.getText(), tfSSN.getText(), tfPosicion.getText(), Float.parseFloat(tfSalario.getText()),
-							cbxProvincia.getSelectedItem().toString());
-					Bike_Rental.getInstance().updateEmpleado(auxEmp);
+					if (cedulaJF.getText().isEmpty() || tfSSN.getText().isEmpty() || tfNombre.getText().isEmpty() || tfApellido.getText().isEmpty() || tfCiudad.getText().isEmpty() || TelefonoJF.getText().isEmpty()
+							|| tfPosicion.getText().isEmpty()) {
+						JOptionPane
+						.showMessageDialog(
+								null,
+								"Debe llenar los campos necesarios!",
+								"ATENCIÓN",
+								JOptionPane.WARNING_MESSAGE,
+								null);
+						
+					}
+					else {
+						Empleado auxEmp = new Empleado(cedulaJF.getText(), tfNombre.getText(), tfSname.getText(), tfApellido.getText(), tfCalle.getText(),
+								tfCiudad.getText(), TelefonoJF.getText(), CodPostJF.getText(), tfSSN.getText(), tfPosicion.getText(), Float.parseFloat(tfSalario.getText()),
+								cbxProvincia.getSelectedItem().toString());
+						Bike_Rental.getInstance().updateEmpleado(auxEmp);
+						JOptionPane
+						.showMessageDialog(null,
+								"Empleado Modificado Satisfactoriamente");
+						dispose();
+					}
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
+				
 			}
 		});
 		btnModificar.setBounds(738, 7, 108, 34);

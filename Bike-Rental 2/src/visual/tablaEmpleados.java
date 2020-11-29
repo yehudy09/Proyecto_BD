@@ -45,6 +45,8 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.Window.Type;
 import javax.swing.border.LineBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class tablaEmpleados extends JFrame {
 
@@ -301,6 +303,8 @@ public class tablaEmpleados extends JFrame {
 		btnCerrar.setBounds(962, 10, 96, 34);
 		panel_1.add(btnCerrar);
 		
+
+		
 		JButton btnModificar = new JButton("MODIFICAR");
 		btnModificar.setBackground(SystemColor.inactiveCaptionBorder);
 		btnModificar.addActionListener(new ActionListener() {
@@ -344,6 +348,7 @@ public class tablaEmpleados extends JFrame {
 			}
 		});
 		btnModificar.setBounds(717, 10, 114, 34);
+		btnModificar.setEnabled(false);
 		panel_1.add(btnModificar);
 		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -352,7 +357,20 @@ public class tablaEmpleados extends JFrame {
 		});
 		btnInsertarEmp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+					
+				
+					if (cedulaJF.getText().isEmpty() || tfSSN.getText().isEmpty() || tfNombre.getText().isEmpty() || tfApellido.getText().isEmpty() || tfCiudad.getText().isEmpty() || TelefonoJF.getText().isEmpty()
+							|| tfPosicion.getText().isEmpty()) {
+						JOptionPane
+						.showMessageDialog(
+								null,
+								"Debe llenar los campos necesarios!",
+								"ATENCIÓN",
+								JOptionPane.WARNING_MESSAGE,
+								null);
+					}
+					else {
+				
 					Empleado emp1 = new Empleado(cedulaJF.getText(), tfNombre.getText(), tfSname.getText(), tfApellido.getText(), tfCalle.getText(), tfCiudad.getText(), 
 							TelefonoJF.getText(), CodPostJF.getText(), tfSSN.getText(), tfPosicion.getText(), Float.parseFloat(tfSalario.getText()), cbxProvincia.getSelectedItem().toString());
 						try {
@@ -362,7 +380,22 @@ public class tablaEmpleados extends JFrame {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-				
+						cedulaJF.setText(null);
+						tfNombre.setText(null);
+						tfSname.setText(null);
+						tfApellido.setText(null);
+						tfCalle.setText(null);
+						tfCiudad.setText(null);
+						TelefonoJF.setText(null);
+						CodPostJF.setText(null);
+						tfSSN.setText(null);
+						tfPosicion.setText(null);
+						tfSalario.setText(null);
+						cbxProvincia.setSelectedIndex(0);
+						JOptionPane
+						.showMessageDialog(null,
+								"Empleado Agregado Satisfactoriamente");
+					}
 			}
 		});
 		contentPane.setLayout(null);
@@ -371,6 +404,7 @@ public class tablaEmpleados extends JFrame {
 		contentPane.add(panel_1);
 		
 		JButton btnNewButton = new JButton("ELIMINAR");
+		btnNewButton.setEnabled(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int filaTable = tableEmpleado.getSelectedRow();
@@ -398,11 +432,20 @@ public class tablaEmpleados extends JFrame {
 		btnNewButton.setBackground(SystemColor.inactiveCaptionBorder);
 		btnNewButton.setBounds(594, 10, 114, 34);
 		panel_1.add(btnNewButton);
+		tableEmpleado.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (tableEmpleado.getSelectedRow() != -1) {
+					btnModificar.setEnabled(true);
+					btnNewButton.setEnabled(true);
+				}
+			}
+		});
 	}
 	public void cargarEmpleados() throws Exception {
 		model.setRowCount(0);
 		tableEmpleado.setModel(model);
-		String sql = "select * from Empleado";
+		String sql = "select * from Empleado order by eid";
 		try {
 			PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();

@@ -79,6 +79,10 @@ public class RegistroFactura extends JDialog {
 		pnlVenta.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnDevolver = new JButton("Eliminar");
+		btnDevolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnDevolver.setIcon(new ImageIcon(RegistroFactura.class.getResource("/icons/borrar.png")));
 		pnlVenta.add(btnDevolver, BorderLayout.SOUTH);
 		

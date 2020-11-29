@@ -74,6 +74,19 @@ public class Principal extends JFrame {
 		JMenuItem mntmEmpleado = new JMenuItem("Empleado");
 		mnRegistrar.add(mntmEmpleado);
 		
+		JMenuItem mntmProv = new JMenuItem("Proveedor");
+		mntmProv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				InsertProveedor miprov;
+				miprov = new InsertProveedor("Insertar Proveedor", false, null);
+				miprov.setModal(true);
+				miprov.setLocationRelativeTo(null);
+				miprov.setVisible(true);
+			}
+		});
+		mntmProv.setIcon(new ImageIcon(Principal.class.getResource("/icons/agregarSolicitante.png")));
+		mnRegistrar.add(mntmProv);
+		
 		JMenu mnConsultas = new JMenu("Consultas");
 		mnConsultas.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		menuBar.add(mnConsultas);
@@ -89,6 +102,18 @@ public class Principal extends JFrame {
 			}
 		});
 		mnConsultas.add(mntmListClientes);
+		
+		JMenuItem mntmListProv = new JMenuItem("Listado Proveedores");
+		mntmListProv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListProveedor lp;
+				lp = new ListProveedor();
+				lp.setModal(true);
+				lp.setLocationRelativeTo(null);
+				lp.setVisible(true);
+			}
+		});
+		mnConsultas.add(mntmListProv);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

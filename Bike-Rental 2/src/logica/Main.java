@@ -56,6 +56,10 @@ public class Main {
 		//bike.updateProducto(prod1);
 		
 		//bike.deleteCliente("7");
+		
+		
+		//bike.searchProveedorByCed("402-1454014-4");
+		
 	}
 
 }

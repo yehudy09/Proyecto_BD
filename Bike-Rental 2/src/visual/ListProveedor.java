@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.SystemColor;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +21,8 @@ import logica.Proveedor;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
@@ -67,6 +70,7 @@ public class ListProveedor extends JDialog {
 			}
 		});
 		setBounds(100, 100, 833, 498);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -99,16 +103,18 @@ public class ListProveedor extends JDialog {
 						} else {
 							modificarbtt.setEnabled(false);
 							eliminarbtt.setEnabled(false);
-							String cod = "";
+							String auxi = "";
 						}
 					}
 				});
+				table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				scrollPane.setViewportView(table);
 				model = new DefaultTableModel();
 				String[] columneNames = {"ID", "Cédula", "Nombre", "Seg. Nombre", "Apellido", "Calle", "Ciudad",  "Cod. Postal", "Télefono", "Marca a suplir",  "Provincia", };
 				model.setColumnIdentifiers(columneNames);
 				table.setModel(model);
 				table.getTableHeader().setResizingAllowed(false);
+				scrollPane.setViewportView(table);
 			}
 		}
 		{
@@ -128,6 +134,33 @@ public class ListProveedor extends JDialog {
 				modificarbtt.setEnabled(false);
 				modificarbtt.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						if (auxi != "") {
+							try {
+								prov = Bike_Rental.getInstance().searchProveedorByCed(auxi);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						
+
+						}
+						
+						InsertProveedor modificarProv = new InsertProveedor("Modificar Proveedor", true, prov);
+						modificarProv.setModal(true);
+						modificarProv.setLocationRelativeTo(null);
+						modificarProv.setVisible(true);
+						modificarbtt.setEnabled(false);
+						eliminarbtt.setEnabled(false);
+						try {
+							cargarProveedor();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
 						
 					}
 				});

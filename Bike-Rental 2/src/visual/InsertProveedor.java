@@ -37,12 +37,13 @@ public class InsertProveedor extends JDialog {
 	private JFormattedTextField cedulaJF;
 	private JFormattedTextField TelefonoJF;
 	private JComboBox Provinciacbx;
-	JFormattedTextField CodPostJF;
+	private JFormattedTextField CodPostJF;
+	private Proveedor miProv = null;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			InsertProveedor dialog = new InsertProveedor();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -50,19 +51,21 @@ public class InsertProveedor extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}/*
 
 	/**
 	 * Create the dialog.
 	 */
-	public InsertProveedor() {
+	public InsertProveedor(String title, boolean modi, Proveedor proveedor) {
 		setTitle("Registrar Proveedor");
 		setBounds(100, 100, 622, 429);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		miProv = proveedor;
 		{
 			JPanel InfoProv = new JPanel();
 			InfoProv.setBackground(SystemColor.inactiveCaptionBorder);
@@ -219,10 +222,13 @@ public class InsertProveedor extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Registrar");
-				okButton.addActionListener(new ActionListener() {
+				JButton btnregistrar = new JButton("Registrar");
+				if(modi){
+					btnregistrar.setText("Salvar Modificaciones");
+				}
+				btnregistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
+						if(!(modi)) {
 						String cedula = cedulaJF.getText();
 						String Fname = Fnametxt.getText();
 						String Sname = Snametxt.getText();
@@ -266,7 +272,7 @@ public class InsertProveedor extends JDialog {
 							JOptionPane.showMessageDialog(null,"Se debe ingresar la marca que va a suplir el proveedor a registrar", "ATENCIÓN",
 									JOptionPane.WARNING_MESSAGE, null);
 							
-							
+						
 						}else {
 		
 						try {
@@ -288,12 +294,36 @@ public class InsertProveedor extends JDialog {
 						JOptionPane
 								.showMessageDialog(null,
 										"Proveedor Agregado Satisfactoriamente");
-					}
+					       }
+						}else {
+						
+							    String cedula = cedulaJF.getText();
+								String Fname = Fnametxt.getText();
+								String Sname = Snametxt.getText();
+								String Lname = Lnametxt.getText();
+								String tel = TelefonoJF.getText();
+								String Cod = CodPostJF.getText();
+								String Ciudad = Ciudadtxt.getText();
+								String Calle = Calletxt.getText();
+								String marca = Marcatxt.getText();
+								String Provincia = Provinciacbx.getSelectedItem().toString();
+								Proveedor modiProv = new Proveedor(cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, marca, Provincia);
+								try {
+									Bike_Rental.getInstance().updateProveedor(modiProv);
+									JOptionPane.showMessageDialog(null, "Proveedor Modificado");
+									dispose();
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									JOptionPane.showMessageDialog(null, e1,  "No se insertaron los datos correctos" + e1.getMessage(), JOptionPane.ERROR_MESSAGE);
+									e1.printStackTrace();
+									
+								}
+						}
 					}
 				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnregistrar.setActionCommand("OK");
+				buttonPane.add(btnregistrar);
+				getRootPane().setDefaultButton(btnregistrar);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
@@ -306,5 +336,28 @@ public class InsertProveedor extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		
+		if(modi){
+			loadProveedor();
+		}
+
+	}
+	
+	
+	private void loadProveedor() {
+		if (miProv != null) {
+			cedulaJF.setEnabled(false);
+			cedulaJF.setText(miProv.getCedula());
+			Fnametxt.setText(miProv.getFname());
+			Snametxt.setText(miProv.getSname());
+			Lnametxt.setText(miProv.getLname());
+			TelefonoJF.setText(miProv.getPostalCode());
+			CodPostJF.setText(miProv.getTel());
+			Ciudadtxt.setText(miProv.getCiudad());
+			Calletxt.setText(miProv.getCalle());
+			Marcatxt.setText(miProv.getMarca());
+			Provinciacbx.setSelectedItem(miProv.getProvincia());
+		}
+
 	}
 }

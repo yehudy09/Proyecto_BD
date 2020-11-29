@@ -235,6 +235,7 @@ public class RegistroFactura extends JDialog {
 		panel_1.add(rdbtnNewRadioButton_1);
 		
 		JSpinner spinner = new JSpinner();
+		spinner.setFont(new Font("Tahoma", Font.BOLD, 12));
 		spinner.setEnabled(false);
 		spinner.setBounds(151, 93, 115, 20);
 		panel_1.add(spinner);

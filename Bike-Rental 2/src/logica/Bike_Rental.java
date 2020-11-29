@@ -564,4 +564,57 @@ public class Bike_Rental {
 			
 		} 		
 	}
+	
+	//*****************************CONTROL STOCK****************************//
+	
+	public void incrementProducto(int id, int cantStock, int cant) throws Exception {
+		
+		
+	}
+	
+	public void decrementProducto(int id, int cantStock, int cant) throws Exception {
+		
+		int cantReal = 0 ; 
+		cantReal = (cantStock - cant);
+		
+		if(cantReal == 0 ){
+			String sql = "delete Producto where idProducto = ?"; 
+			try {
+				PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+				stmt.setInt(1, id);
+				stmt.execute();
+				
+			
+			}catch(SQLException e) {
+				
+				e.printStackTrace();	
+			}
+		}else {
+			String sql = "update Producto set cantStock = ? where idProducto = ?"; 
+			
+			try {
+				PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+				stmt.setInt(1, id);
+				stmt.setInt(2, cantReal);
+				
+				stmt.execute();
+				
+			
+			}catch(SQLException e) {
+				
+				e.printStackTrace();
+				
+			} 	
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

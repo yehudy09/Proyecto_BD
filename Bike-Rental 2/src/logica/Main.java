@@ -60,6 +60,14 @@ public class Main {
 		
 		//bike.searchProveedorByCed("402-1454014-4");
 		
+	//	User u1 = new User("Admin", "Admin", "Admin");
+	//	bike.insertUser(u1);
+		
+	//	bike.confirmLogin("Admi", "Admin");
+		
+		
+		
+		
 	}
 
 }

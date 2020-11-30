@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.text.MaskFormatter;
 import javax.swing.UIManager;
 import java.awt.Color;
@@ -22,26 +24,53 @@ import javax.swing.border.EtchedBorder;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+
+import logica.Bike_Rental;
+import logica.Cliente;
+
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.CardLayout;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JSpinner;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class RegistroFactura extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JFormattedTextField ftxtCedula;
 	private JLabel lblTotal;
-	private JTable table;
+	private JTable tableProd;
 	private JTable table_1;
 	private JTextField textField;
 	private JTextField txtF;
+	private JRadioButton rdbtnProd; 
+	private JRadioButton rdbtnServicio; 
+	private JPanel pnlProducto;
+	private JPanel pnlServ; 
+	private JButton btnVerificar; 
+	private JButton btnAgregar; 
+	private Cliente cliente = null; 
+	private JLabel lblCedula; 
+	private JLabel lblTelefono; 
+	private JLabel lblNombre; 
+	private String cod; 
+	private DefaultTableModel modelProd;
+	private static Object[] filaProd;
+	private JScrollPane scrollPane; 
 
 	/**
 	 * Launch the application.
@@ -61,6 +90,17 @@ public class RegistroFactura extends JDialog {
 	 * @throws ParseException 
 	 */
 	public RegistroFactura() throws ParseException {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				try {
+					loadProd();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		setTitle("Facturaci\u00F3n");
 		setResizable(false);
 		setBounds(100, 100, 887, 538);
@@ -79,6 +119,7 @@ public class RegistroFactura extends JDialog {
 		pnlVenta.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnDevolver = new JButton("Eliminar");
+		btnDevolver.setEnabled(false);
 		btnDevolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -119,7 +160,34 @@ public class RegistroFactura extends JDialog {
 		lblNewLabel.setBounds(10, 29, 46, 14);
 		pnlGeneral.add(lblNewLabel);
 		
-		JButton btnVerificar = new JButton("Check");
+		btnVerificar = new JButton("Check");
+		btnVerificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (ftxtCedula.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Por Favor Completar Campos", null, JOptionPane.ERROR_MESSAGE);
+				} else {
+					try {
+						cliente = Bike_Rental.getInstance().searchClienteByCed(ftxtCedula.getText());
+					} catch (Exception e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					if (cliente != null && cliente.getCedula().equalsIgnoreCase(ftxtCedula.getText())) {
+						JOptionPane.showMessageDialog(null, "Verificado", null, JOptionPane.WARNING_MESSAGE);
+						lblCedula.setText(cliente.getCedula());
+						lblNombre.setText(cliente.getFname());
+						lblTelefono.setText(cliente.getPostalCode());
+					} else {
+						JOptionPane.showMessageDialog(null, "Cliente Inexistente", null, JOptionPane.ERROR_MESSAGE);
+						int option = JOptionPane.showConfirmDialog(null, "¿Desea Agregar un Cliente Nuevo?", "CONFIRMACIÓN", JOptionPane.WARNING_MESSAGE);
+						if (option == JOptionPane.OK_OPTION) {
+							InsertCliente agcliente = new InsertCliente("Insertar Cliente", false, null);
+							agcliente.setVisible(true);
+						}
+					}
+				}
+			}
+		});
 		btnVerificar.setIcon(new ImageIcon(RegistroFactura.class.getResource("/icons/Check.png")));
 		btnVerificar.setBounds(171, 25, 94, 23);
 		pnlGeneral.add(btnVerificar);
@@ -131,7 +199,7 @@ public class RegistroFactura extends JDialog {
 		pnlGeneral.add(pnlInformacion);
 		pnlInformacion.setLayout(null);
 		
-		JLabel lblCedula = new JLabel("**********************");
+		lblCedula = new JLabel("**********************");
 		lblCedula.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblCedula.setEnabled(false);
 		lblCedula.setBounds(86, 23, 159, 14);
@@ -145,7 +213,7 @@ public class RegistroFactura extends JDialog {
 		lblNewLabel_2.setBounds(10, 60, 53, 14);
 		pnlInformacion.add(lblNewLabel_2);
 		
-		JLabel lblNombre = new JLabel("**********************");
+		lblNombre = new JLabel("**********************");
 		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNombre.setEnabled(false);
 		lblNombre.setBounds(86, 60, 159, 14);
@@ -155,7 +223,7 @@ public class RegistroFactura extends JDialog {
 		lblNewLabel_3.setBounds(10, 98, 53, 14);
 		pnlInformacion.add(lblNewLabel_3);
 		
-		JLabel lblTelefono = new JLabel("**********************");
+		lblTelefono = new JLabel("**********************");
 		lblTelefono.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTelefono.setEnabled(false);
 		lblTelefono.setBounds(86, 98, 159, 14);
@@ -167,50 +235,72 @@ public class RegistroFactura extends JDialog {
 		ftxtCedula.setBounds(59, 26, 102, 20);
 		pnlGeneral.add(ftxtCedula);
 
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(SystemColor.inactiveCaptionBorder);
-		panel_2.setBorder(new TitledBorder(null, "Inventario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_2.setBounds(318, 22, 553, 171);
-		contentPanel.add(panel_2);
-		panel_2.setLayout(new CardLayout(0, 0));
+		JPanel pnlInventario = new JPanel();
+		pnlInventario.setBackground(SystemColor.inactiveCaptionBorder);
+		pnlInventario.setBorder(new TitledBorder(null, "Inventario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnlInventario.setBounds(318, 22, 553, 171);
+		contentPanel.add(pnlInventario);
+		pnlInventario.setLayout(new CardLayout(0, 0));
 		
-		JPanel panel_3 = new JPanel();
-		panel_2.add(panel_3, "name_535546469129700");
-		panel_3.setLayout(new BorderLayout(0, 0));
+		pnlProducto = new JPanel();
+		pnlInventario.add(pnlProducto, "name_535546469129700");
+		pnlProducto.setLayout(new BorderLayout(0, 0));
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panel_3.add(scrollPane, BorderLayout.CENTER);
+		scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		pnlProducto.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
+		tableProd = new JTable();
+		tableProd.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int aux = tableProd.getSelectedRow();
+				
+				if (aux > -1) {
+					btnAgregar.setEnabled(true);
+					cod = (String) tableProd.getModel().getValueAt(aux, 0);
+
+				} else {
+					btnAgregar.setEnabled(false);
+					String cod = "";
+				}
+			}
+		});
+		tableProd.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(tableProd);
+		modelProd = new DefaultTableModel();
+		String[] columneNames = {"Id", "Tipo", "Nombre", "Precio", "Marca", "Cantidad en Stock"};
+		modelProd.setColumnIdentifiers(columneNames);
+		tableProd.setModel(modelProd);
+		tableProd.getTableHeader().setResizingAllowed(false);
 		
-		JPanel panel_4 = new JPanel();
-		panel_2.add(panel_4, "name_535633779652799");
-		panel_4.setLayout(new BorderLayout(0, 0));
+		pnlServ = new JPanel();
+		pnlInventario.add(pnlServ, "name_535633779652799");
+		pnlServ.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		panel_4.add(scrollPane_2, BorderLayout.CENTER);
+		pnlServ.add(scrollPane_2, BorderLayout.CENTER);
 		
 		table_1 = new JTable();
 		scrollPane_2.setViewportView(table_1);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(SystemColor.inactiveCaptionBorder);
-		panel_1.setBorder(new TitledBorder(null, "Factura", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(10, 235, 276, 204);
-		contentPanel.add(panel_1);
-		panel_1.setLayout(null);
+		JPanel pnlFactura = new JPanel();
+		pnlFactura.setBackground(SystemColor.inactiveCaptionBorder);
+		pnlFactura.setBorder(new TitledBorder(null, "Factura", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnlFactura.setBounds(10, 235, 276, 204);
+		contentPanel.add(pnlFactura);
+		pnlFactura.setLayout(null);
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.BOLD, 12));
 		textField.setEnabled(false);
 		textField.setBounds(10, 43, 111, 20);
-		panel_1.add(textField);
+		pnlFactura.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Fecha:");
 		lblNewLabel_4.setBounds(10, 24, 46, 14);
-		panel_1.add(lblNewLabel_4);
+		pnlFactura.add(lblNewLabel_4);
 		
 		txtF = new JTextField();
 		txtF.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -218,53 +308,76 @@ public class RegistroFactura extends JDialog {
 		txtF.setEnabled(false);
 		txtF.setColumns(10);
 		txtF.setBounds(10, 93, 90, 20);
-		panel_1.add(txtF);
+		pnlFactura.add(txtF);
 		
 		JLabel lblNewLabel_4_1 = new JLabel("Id Factura:");
 		lblNewLabel_4_1.setBounds(10, 74, 60, 14);
-		panel_1.add(lblNewLabel_4_1);
+		pnlFactura.add(lblNewLabel_4_1);
 		
 		JLabel lblNewLabel_5 = new JLabel("Comprobante de Factura:");
 		lblNewLabel_5.setBounds(58, 127, 164, 14);
-		panel_1.add(lblNewLabel_5);
+		pnlFactura.add(lblNewLabel_5);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("S\u00ED");
 		rdbtnNewRadioButton.setBackground(SystemColor.inactiveCaptionBorder);
 		rdbtnNewRadioButton.setBounds(77, 148, 53, 23);
-		panel_1.add(rdbtnNewRadioButton);
+		pnlFactura.add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("No");
 		rdbtnNewRadioButton_1.setBackground(SystemColor.inactiveCaptionBorder);
 		rdbtnNewRadioButton_1.setBounds(143, 148, 65, 23);
-		panel_1.add(rdbtnNewRadioButton_1);
+		pnlFactura.add(rdbtnNewRadioButton_1);
 		
 		JSpinner spinner = new JSpinner();
-		spinner.setFont(new Font("Tahoma", Font.BOLD, 12));
+		spinner.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spinner.setEnabled(false);
 		spinner.setBounds(151, 93, 115, 20);
-		panel_1.add(spinner);
+		pnlFactura.add(spinner);
 		
 		JLabel lblNewLabel_6 = new JLabel("Cantidad:");
 		lblNewLabel_6.setBounds(152, 75, 79, 14);
-		panel_1.add(lblNewLabel_6);
+		pnlFactura.add(lblNewLabel_6);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(SystemColor.inactiveCaptionBorder);
-		panel_5.setBorder(UIManager.getBorder("TitledBorder.border"));
-		panel_5.setBounds(318, 192, 553, 38);
-		contentPanel.add(panel_5);
+		JPanel pnlControl = new JPanel();
+		pnlControl.setBackground(SystemColor.inactiveCaptionBorder);
+		pnlControl.setBorder(UIManager.getBorder("TitledBorder.border"));
+		pnlControl.setBounds(318, 192, 553, 38);
+		contentPanel.add(pnlControl);
 		
-		JRadioButton rdbtnProd = new JRadioButton("Productos");
+		rdbtnProd = new JRadioButton("Productos");
+		rdbtnProd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnServicio.setSelected(false);
+				rdbtnProd.setSelected(true);
+				pnlServ.setVisible(false);
+				pnlProducto.setVisible(true);
+			}
+		});
+		rdbtnProd.setSelected(true);
 		rdbtnProd.setBackground(SystemColor.inactiveCaptionBorder);
-		panel_5.add(rdbtnProd);
+		pnlControl.add(rdbtnProd);
 		
-		JRadioButton rdbtnServicio = new JRadioButton("Servicios");
+		rdbtnServicio = new JRadioButton("Servicios");
+		rdbtnServicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnServicio.setSelected(true);
+				rdbtnProd.setSelected(false);
+				pnlServ.setVisible(true);
+				pnlProducto.setVisible(false);
+			}
+		});
 		rdbtnServicio.setBackground(SystemColor.inactiveCaptionBorder);
-		panel_5.add(rdbtnServicio);
+		pnlControl.add(rdbtnServicio);
 		
-		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar = new JButton("Agregar");
+		btnAgregar.setEnabled(false);
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnAgregar.setIcon(new ImageIcon(RegistroFactura.class.getResource("/icons/add.png")));
-		panel_5.add(btnAgregar);
+		pnlControl.add(btnAgregar);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(SystemColor.inactiveCaptionBorder);
@@ -290,4 +403,40 @@ public class RegistroFactura extends JDialog {
 			}
 		}
 	}
+	
+	private void loadProd() throws Exception{
+		modelProd.setRowCount(0);
+		tableProd.setModel(modelProd);
+		String sql = "select * from Producto"; 
+		
+			try {
+				PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sql);
+				ResultSet rs = ps.executeQuery();
+				
+				while(rs.next()) {
+					int aux = modelProd.getColumnCount();
+					filaProd = new Object[aux];
+					for(int i = 0; i<aux; i++) {
+						filaProd[i]=rs.getString(i+1);
+					}
+					modelProd.addRow(filaProd);
+				}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+			tableProd.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			tableProd.getTableHeader().setReorderingAllowed(false);
+			/*TableColumnModel columnModel = tableProd.getColumnModel();
+	     	columnModel.getColumn(0).setPreferredWidth(40);
+			columnModel.getColumn(1).setPreferredWidth(90);
+			columnModel.getColumn(2).setPreferredWidth(70);
+			columnModel.getColumn(3).setPreferredWidth(80);
+			columnModel.getColumn(4).setPreferredWidth(75);
+			columnModel.getColumn(5).setPreferredWidth(80);
+			columnModel.getColumn(6).setPreferredWidth(100);*/
+	
+		}
 }

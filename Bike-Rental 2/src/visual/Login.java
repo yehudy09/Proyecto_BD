@@ -145,7 +145,10 @@ public class Login extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(Bike_Rental.getInstance().confirmLogin(txtUser.getText(),passwordField.getText())){
+					String user = txtUser.getText();
+					String pass = passwordField.getText(); 
+					if(Bike_Rental.getInstance().confirmLogin(user, pass)){
+						Bike_Rental.getInstance().insertlogUser(user);
 						Principal frame = new Principal();
 						dispose();
 						frame.setVisible(true);

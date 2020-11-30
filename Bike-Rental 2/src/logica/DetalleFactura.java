@@ -26,14 +26,14 @@ public class DetalleFactura {
 		
 	}
 	
-	public float getPrecioProd() {
+/*	public float getPrecioProd() {
 		
 		precio = prod.getPrecioProd(); 
 		
 		return precio;
 		
 	}
-
+*/
 	public int getFid() {
 		return fid;
 	}

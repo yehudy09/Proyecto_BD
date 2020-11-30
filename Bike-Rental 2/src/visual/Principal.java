@@ -23,8 +23,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import javax.swing.border.LineBorder;
+
+import logica.Bike_Rental;
+
 import java.awt.Color;
 import javax.swing.UIManager;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Principal extends JFrame {
 
@@ -53,6 +58,17 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					Bike_Rental.getInstance().deleteLogUser();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/icons/Cyclist-icon.png")));
 		setTitle("BIKE-RENTAL, STORE MANAGER");
 		setResizable(false);
@@ -99,6 +115,18 @@ public class Principal extends JFrame {
 		});
 		mntmProv.setIcon(new ImageIcon(Principal.class.getResource("/icons/agregarSolicitante.png")));
 		mnRegistrar.add(mntmProv);
+		
+		JMenuItem mntmProd = new JMenuItem("Producto");
+		mntmProd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertProducto miProd;
+				miProd = new insertProducto();
+				miProd.setModal(true);
+				miProd.setLocationRelativeTo(null);
+				miProd.setVisible(true);
+			}
+		});
+		mnRegistrar.add(mntmProd);
 		
 		JMenu mnConsultas = new JMenu("Consultas");
 		mnConsultas.setFont(new Font("Segoe UI", Font.BOLD, 13));

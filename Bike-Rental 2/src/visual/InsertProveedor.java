@@ -40,6 +40,7 @@ public class InsertProveedor extends JDialog {
 	private JComboBox Provinciacbx;
 	private JFormattedTextField CodPostJF;
 	private Proveedor miProv = null;
+	private JTextField IDPtxt;
 
 	/**
 	 * Launch the application.
@@ -59,7 +60,7 @@ public class InsertProveedor extends JDialog {
 	 */
 	public InsertProveedor(String title, boolean modi, Proveedor proveedor) {
 		setTitle("Registrar Proveedor");
-		setBounds(100, 100, 622, 429);
+		setBounds(100, 100, 671, 568);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
@@ -72,7 +73,7 @@ public class InsertProveedor extends JDialog {
 			InfoProv.setBackground(SystemColor.inactiveCaptionBorder);
 			InfoProv.setBorder(new TitledBorder(null, "Informaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			InfoProv.setToolTipText("");
-			InfoProv.setBounds(10, 11, 586, 185);
+			InfoProv.setBounds(10, 11, 624, 185);
 			contentPanel.add(InfoProv);
 			InfoProv.setLayout(null);
 			{
@@ -117,10 +118,6 @@ public class InsertProveedor extends JDialog {
 			Telflbl.setBounds(324, 86, 66, 14);
 			InfoProv.add(Telflbl);
 			
-			JLabel marcalbl = new JLabel("Marca a suplir:");
-			marcalbl.setBounds(319, 136, 97, 14);
-			InfoProv.add(marcalbl);
-			
 			
 			MaskFormatter mascaraCedula;
 			try {
@@ -151,21 +148,12 @@ public class InsertProveedor extends JDialog {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
-			
-			
-			Marcatxt = new JTextField();
-			Marcatxt.setBackground(Color.WHITE);
-			Marcatxt.setText("");
-			Marcatxt.setBounds(426, 133, 136, 20);
-			InfoProv.add(Marcatxt);
-			Marcatxt.setColumns(10);
 		}
 		{
 			JPanel DireccionProv = new JPanel();
 			DireccionProv.setBackground(SystemColor.inactiveCaptionBorder);
 			DireccionProv.setBorder(new TitledBorder(null, "Direcci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			DireccionProv.setBounds(10, 207, 586, 146);
+			DireccionProv.setBounds(10, 337, 624, 146);
 			contentPanel.add(DireccionProv);
 			DireccionProv.setLayout(null);
 			
@@ -218,6 +206,35 @@ public class InsertProveedor extends JDialog {
 			
 			
 		}
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Informaci\u00F3n extra", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBackground(SystemColor.inactiveCaptionBorder);
+		panel.setBounds(10, 207, 624, 106);
+		contentPanel.add(panel);
+		panel.setLayout(null);
+		
+		JLabel marcalbl = new JLabel("Marca a suplir:");
+		marcalbl.setBounds(10, 43, 97, 14);
+		panel.add(marcalbl);
+		
+					
+					
+					Marcatxt = new JTextField();
+					Marcatxt.setBounds(107, 40, 136, 20);
+					panel.add(Marcatxt);
+					Marcatxt.setBackground(Color.WHITE);
+					Marcatxt.setText("");
+					Marcatxt.setColumns(10);
+					
+					JLabel lblIDProv = new JLabel("ID Proveedor: ");
+					lblIDProv.setBounds(313, 43, 86, 14);
+					panel.add(lblIDProv);
+					
+					IDPtxt = new JTextField();
+					IDPtxt.setBounds(421, 40, 136, 20);
+					panel.add(IDPtxt);
+					IDPtxt.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(SystemColor.inactiveCaption);
@@ -232,6 +249,7 @@ public class InsertProveedor extends JDialog {
 				btnregistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if(!(modi)) {
+						String IDProv = IDPtxt.getText();
 						String cedula = cedulaJF.getText();
 						String Fname = Fnametxt.getText();
 						String Sname = Snametxt.getText();
@@ -242,7 +260,7 @@ public class InsertProveedor extends JDialog {
 						String Calle = Calletxt.getText();
 						String Marca = Marcatxt.getText();
 						String Provincia = Provinciacbx.getSelectedItem().toString();
-						Proveedor miProveedor = new Proveedor(cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, Marca, Provincia);
+						Proveedor miProveedor = new Proveedor(IDProv, cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, Marca, Provincia);
 						
 						
 						
@@ -276,6 +294,12 @@ public class InsertProveedor extends JDialog {
 									JOptionPane.WARNING_MESSAGE, null);
 							
 						
+						}else if(IDPtxt.getText().isEmpty()) {
+							
+							JOptionPane.showMessageDialog(null,"Se debe ingresar el ID del proveedor a registrar", "ATENCIÓN",
+									JOptionPane.WARNING_MESSAGE, null);
+							
+						
 						}else {
 		
 						try {
@@ -284,7 +308,7 @@ public class InsertProveedor extends JDialog {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						
+						IDPtxt.setText(null);
 						Fnametxt.setText(null);
 						Snametxt.setText(null);
 						Lnametxt.setText(null);
@@ -294,12 +318,13 @@ public class InsertProveedor extends JDialog {
 						CodPostJF.setText(null);
 						Ciudadtxt.setText(null);
 						Calletxt.setText(null);
+						Marcatxt.setText(null);
 						JOptionPane
 								.showMessageDialog(null,
 										"Proveedor Agregado Satisfactoriamente");
 					       }
 						}else {
-						
+							    String IDProv = IDPtxt.getText();
 							    String cedula = cedulaJF.getText();
 								String Fname = Fnametxt.getText();
 								String Sname = Snametxt.getText();
@@ -310,7 +335,7 @@ public class InsertProveedor extends JDialog {
 								String Calle = Calletxt.getText();
 								String marca = Marcatxt.getText();
 								String Provincia = Provinciacbx.getSelectedItem().toString();
-								Proveedor modiProv = new Proveedor(cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, marca, Provincia);
+								Proveedor modiProv = new Proveedor(IDProv, cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, marca, Provincia);
 								try {
 									Bike_Rental.getInstance().updateProveedor(modiProv);
 									JOptionPane.showMessageDialog(null, "Proveedor Modificado");
@@ -351,6 +376,7 @@ public class InsertProveedor extends JDialog {
 	private void loadProveedor() {
 		if (miProv != null) {
 			cedulaJF.setEnabled(false);
+			IDPtxt.setText(miProv.getIdProveedor());
 			cedulaJF.setText(miProv.getCedula());
 			Fnametxt.setText(miProv.getFname());
 			Snametxt.setText(miProv.getSname());

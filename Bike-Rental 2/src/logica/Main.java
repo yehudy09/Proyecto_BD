@@ -65,8 +65,8 @@ public class Main {
 		
 	//	bike.confirmLogin("Admi", "Admin");
 		
-		Producto p1 = new Producto("sl", "wdw", 100, "asda", 0);
-		bike.insertProducto(p1);
+		//Producto p1 = new Producto("sl", "wdw", 100, "asda", 0);
+		//bike.insertProducto(p1);
 		
 		
 		

@@ -120,9 +120,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
+			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -300,21 +300,22 @@ public class Bike_Rental {
 	public void insertProveedor(Proveedor p) throws Exception {
 		misProveedores.add(p);
 		    
-		String sql = "insert into Proveedor (cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel, marca, provincia) "
-				+ "values (?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into Proveedor (idProveedor, cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel, marca, provincia) "
+				+ "values (?,?,?,?,?,?,?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setString(1, p.getCedula());
-			stmt.setString(2, p.getFname());
-			stmt.setString(3, p.getSname());
-			stmt.setString(4, p.getLname());
-			stmt.setString(5, p.getCalle());
-			stmt.setString(6, p.getCiudad());
-			stmt.setString(7, p.getPostalCode());
-			stmt.setString(8, p.getTel());
-			stmt.setString(9, p.getMarca());
-			stmt.setString(10, p.getProvincia());
+			stmt.setString(1, p.getIdProveedor());
+			stmt.setString(2, p.getCedula());
+			stmt.setString(3, p.getFname());
+			stmt.setString(4, p.getSname());
+			stmt.setString(5, p.getLname());
+			stmt.setString(6, p.getCalle());
+			stmt.setString(7, p.getCiudad());
+			stmt.setString(8, p.getPostalCode());
+			stmt.setString(9, p.getTel());
+			stmt.setString(10, p.getMarca());
+			stmt.setString(11, p.getProvincia());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -467,23 +468,24 @@ public class Bike_Rental {
 	}
 	
 	public void updateProveedor(Proveedor prov) throws Exception {
-		String sql = "update Proveedor set Fname = ?, Sname = ?, Lname =?, Calle = ?, Ciudad =?, codPostal =?, tel =?, marca = ?, provincia =?"
+		String sql = "update Proveedor set idProveedor = ?, Fname = ?, Sname = ?, Lname =?, Calle = ?, Ciudad =?, codPostal =?, tel =?, marca = ?, provincia =?"
 				+ " where cedula = ? ";
 				
 		
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setString(1, prov.getFname());
-			stmt.setString(2, prov.getSname());
-			stmt.setString(3, prov.getLname());
-			stmt.setString(4, prov.getCalle());
-			stmt.setString(5, prov.getCiudad());
-			stmt.setString(6, prov.getPostalCode());
-			stmt.setString(7, prov.getTel());
-			stmt.setString(8, prov.getMarca());
-			stmt.setString(9, prov.getProvincia());
-			stmt.setString(10, prov.getCedula());
+			stmt.setString(1, prov.getIdProveedor());
+			stmt.setString(2, prov.getFname());
+			stmt.setString(3, prov.getSname());
+			stmt.setString(4, prov.getLname());
+			stmt.setString(5, prov.getCalle());
+			stmt.setString(6, prov.getCiudad());
+			stmt.setString(7, prov.getPostalCode());
+			stmt.setString(8, prov.getTel());
+			stmt.setString(9, prov.getMarca());
+			stmt.setString(10, prov.getProvincia());
+			stmt.setString(11, prov.getCedula());
 			stmt.execute();
 			
 		
@@ -566,7 +568,8 @@ public class Bike_Rental {
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
-               miProv = new Proveedor(rs.getString("cedula"),
+               miProv = new Proveedor(rs.getString("idProveedor"),
+            		                  rs.getString("cedula"),
                 					  rs.getString("Fname"), 
                 					  rs.getString("Sname"),
                 					  rs.getString("Lname"), 

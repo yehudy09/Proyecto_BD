@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.JFormattedTextField;
 
 public class insertProducto extends JDialog {
 
@@ -34,6 +35,9 @@ public class insertProducto extends JDialog {
 	private JSpinner spnCantidad;
 	private Producto miPro; 
 	private JTextField textPrecio;
+	private JTextField IDProtxt;
+	private JTextField textIDProv;
+	private JTextField PrecioCtxt;
 
 	/**
 	 * Launch the application.
@@ -54,7 +58,7 @@ public class insertProducto extends JDialog {
 	public insertProducto() {
 		setTitle("Productos");
 		setResizable(false);
-		setBounds(100, 100, 440, 425);
+		setBounds(100, 100, 497, 551);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -65,57 +69,89 @@ public class insertProducto extends JDialog {
 		pnlInformacion.setLayout(null);
 		pnlInformacion.setBorder(new TitledBorder(null, "Informaci\u00F3n:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pnlInformacion.setBackground(SystemColor.inactiveCaptionBorder);
-		pnlInformacion.setBounds(25, 31, 381, 306);
+		pnlInformacion.setBounds(26, 24, 436, 448);
 		contentPanel.add(pnlInformacion);
 		
 		JLabel lblPrecioVentaUnd = new JLabel("Precio Venta Und.:");
-		lblPrecioVentaUnd.setBounds(24, 200, 174, 14);
+		lblPrecioVentaUnd.setBounds(24, 247, 174, 14);
 		pnlInformacion.add(lblPrecioVentaUnd);
 		
-		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(24, 39, 55, 14);
+		JLabel lblNombre = new JLabel("Nombre Producto:");
+		lblNombre.setBounds(24, 95, 107, 14);
 		pnlInformacion.add(lblNombre);
 		
 		JLabel lblMarca = new JLabel("Marca:");
-		lblMarca.setBounds(24, 97, 55, 14);
+		lblMarca.setBounds(24, 145, 55, 14);
 		pnlInformacion.add(lblMarca);
 		
 		textName = new JTextField();
 		textName.setColumns(10);
 		textName.setBackground(Color.WHITE);
-		textName.setBounds(130, 40, 174, 23);
+		textName.setBounds(151, 91, 174, 23);
 		pnlInformacion.add(textName);
 		
 		textMarca = new JTextField();
 		textMarca.setColumns(10);
 		textMarca.setBackground(Color.WHITE);
-		textMarca.setBounds(130, 93, 174, 23);
+		textMarca.setBounds(151, 141, 174, 23);
 		pnlInformacion.add(textMarca);
 		
 		JLabel lblCantidad = new JLabel("Cantidad:");
-		lblCantidad.setBounds(24, 149, 62, 14);
+		lblCantidad.setBounds(24, 196, 62, 14);
 		pnlInformacion.add(lblCantidad);
 		
 		spnCantidad = new JSpinner();
-		spnCantidad.setBounds(130, 146, 86, 20);
+		spnCantidad.setBounds(151, 193, 86, 20);
 		pnlInformacion.add(spnCantidad);
 		
 		JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
-		lblDescripcion.setBounds(24, 250, 117, 14);
+		lblDescripcion.setBounds(24, 298, 117, 14);
 		pnlInformacion.add(lblDescripcion);
 		
 		textTipo = new JTextField();
 		textTipo.setColumns(10);
 		textTipo.setBackground(Color.WHITE);
-		textTipo.setBounds(131, 246, 240, 23);
+		textTipo.setBounds(151, 294, 240, 23);
 		pnlInformacion.add(textTipo);
 		
 		textPrecio = new JTextField();
 		textPrecio.setHorizontalAlignment(SwingConstants.RIGHT);
 		textPrecio.setColumns(10);
 		textPrecio.setBackground(Color.WHITE);
-		textPrecio.setBounds(130, 197, 86, 23);
+		textPrecio.setBounds(151, 243, 86, 23);
 		pnlInformacion.add(textPrecio);
+		
+		JLabel lblIDProd = new JLabel("ID Producto:");
+		lblIDProd.setBounds(24, 47, 107, 14);
+		pnlInformacion.add(lblIDProd);
+		
+		IDProtxt = new JTextField();
+		IDProtxt.setBounds(151, 44, 174, 20);
+		pnlInformacion.add(IDProtxt);
+		IDProtxt.setColumns(10);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(insertProducto.class.getResource("/icons/Search.png")));
+		btnNewButton.setBounds(345, 38, 42, 26);
+		pnlInformacion.add(btnNewButton);
+		
+		JLabel IDProvlbl = new JLabel("ID Proveedor: ");
+		IDProvlbl.setBounds(24, 352, 92, 14);
+		pnlInformacion.add(IDProvlbl);
+		
+		textIDProv = new JTextField();
+		textIDProv.setBounds(152, 341, 174, 20);
+		pnlInformacion.add(textIDProv);
+		textIDProv.setColumns(10);
+		
+		JLabel PrecioClbl = new JLabel("Precio Compra:");
+		PrecioClbl.setBounds(22, 399, 86, 14);
+		pnlInformacion.add(PrecioClbl);
+		
+		PrecioCtxt = new JTextField();
+		PrecioCtxt.setBounds(151, 396, 86, 20);
+		pnlInformacion.add(PrecioCtxt);
+		PrecioCtxt.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(SystemColor.inactiveCaptionBorder);
@@ -130,7 +166,7 @@ public class insertProducto extends JDialog {
 						String tipo = textTipo.getText();
 						float precio = Float.parseFloat(textPrecio.getText());
 						int cantidad = (int) spnCantidad.getValue();
-						String marca = textMarca.getText();			
+						String marca = textMarca.getText();	
 						Producto miPro = new Producto(tipo, name, precio, marca, cantidad); 
 						
 						if (textName.getText().isEmpty()) {

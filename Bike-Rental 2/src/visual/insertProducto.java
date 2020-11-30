@@ -125,12 +125,34 @@ public class insertProducto extends JDialog {
 				JButton btnRegistrar = new JButton("Registrar");
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
 						String name = textName.getText();
 						String tipo = textTipo.getText();
 						float precio = Float.parseFloat(textPrecio.getText());
 						int cantidad = (int) spnCantidad.getValue();
 						String marca = textMarca.getText();			
 						Producto miPro = new Producto(tipo, name, precio, marca, cantidad); 
+						
+						if (textName.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Se debe ingresar el nombre del producto a registrar","ATENCIÓN",
+									JOptionPane.WARNING_MESSAGE, null);
+							
+							
+						} else if (textTipo.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Se debe ingresar el tipo del producto a registrar","ATENCIÓN",
+											JOptionPane.WARNING_MESSAGE, null);
+							
+							
+						} else if (textPrecio.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Se debe ingresar el precio del producto a registrar", "ATENCIÓN",
+											JOptionPane.WARNING_MESSAGE, null);
+							
+							
+						} else if (textMarca.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Se debe ingresar la marca del producto a registrar", "ATENCIÓN",
+											JOptionPane.WARNING_MESSAGE, null);
+							
+						} 
 						try {
 							Bike_Rental.getInstance().insertProducto(miPro);
 						} catch (Exception e1) {
@@ -146,8 +168,6 @@ public class insertProducto extends JDialog {
 						JOptionPane
 						.showMessageDialog(null,
 								"Producto Agregado Satisfactoriamente");
-						
-				
 					}
 				});
 				btnRegistrar.setIcon(new ImageIcon(Producto.class.getResource("/icons/add.png")));
@@ -157,6 +177,11 @@ public class insertProducto extends JDialog {
 			}
 			{
 				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						dispose();
+					}
+				});
 				btnCancelar.setIcon(new ImageIcon(Producto.class.getResource("/icons/borrar.png")));
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);

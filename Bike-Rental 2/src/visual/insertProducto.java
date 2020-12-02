@@ -12,6 +12,7 @@ import java.awt.SystemColor;
 import javax.swing.border.TitledBorder;
 
 import logica.Bike_Rental;
+import logica.Cliente;
 import logica.Producto;
 import logica.Proveedor;
 import logica.Stock;
@@ -19,13 +20,15 @@ import logica.Stock;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+
 import java.awt.Color;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-
+import java.sql.Date;
 import java.sql.SQLException;
-import java.util.Date;
+
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
@@ -37,21 +40,21 @@ public class insertProducto extends JDialog {
 	private JTextField textName;
 	private JTextField textMarca;
 	private JTextField textTipo;
-	private Stock miPro; 
 	private JTextField textPrecio;
 	private JTextField IDProtxt;
 	private JTextField textIDProv;
 	private JTextField PrecioCtxt;
-	private Producto producto = null;
+	private Stock producto = null;
 	private Proveedor miprov = null;
 	private JTextField textCant;
 	private JButton btnGuardar;
-	private JTextField textFecha;
+	private JSpinner spnFecha =  new JSpinner(new SpinnerDateModel());
+	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			insertProducto dialog = new insertProducto();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -59,12 +62,12 @@ public class insertProducto extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * Create the dialog.
 	 */
-	public insertProducto() {
+	public insertProducto(String title, boolean modi, Stock mipro) {
 		setTitle("Stock");
 		setResizable(false);
 		setBounds(100, 100, 497, 611);
@@ -151,7 +154,7 @@ public class insertProducto extends JDialog {
 					btnGuardar.setEnabled(true);
 					btnGuardar.setVisible(true);
 					
-					aux = Float.toString(producto.getPrecioUnd());
+					aux = Float.toString(producto.getPrecioVenta());
 					
 					
 					textName.setText(producto.getNameProducto());
@@ -211,10 +214,10 @@ public class insertProducto extends JDialog {
 		lblFecha.setBounds(16, 455, 63, 14);
 		pnlInformacion.add(lblFecha);
 		
-		textFecha = new JTextField();
-		textFecha.setBounds(151, 452, 86, 20);
-		pnlInformacion.add(textFecha);
-		textFecha.setColumns(10);
+		spnFecha = new JSpinner();
+		spnFecha.setEnabled(false);
+		spnFecha.setBounds(151, 452, 86, 20);
+		pnlInformacion.add(spnFecha);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(SystemColor.inactiveCaptionBorder);
@@ -233,8 +236,15 @@ public class insertProducto extends JDialog {
 						String idProducto = IDProtxt.getText();
 						String idProveedor = textIDProv.getText();
 						float precioCompra = Float.parseFloat(PrecioCtxt.getText());
-						//Date fecha = (Date) textFecha.getText();
-				        Stock mipro = new Stock(tipo, name, precio, fecha, marca, precioCompra, cantidad, idProveedor, idProducto);
+						
+						java.util.Date dt = new java.util.Date();
+						java.text.SimpleDateFormat sdf = 
+						        new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+						String currentTime = sdf.format(dt);
+						
+						//Date fecha = (Date) spnFecha.getValue();
+				        Stock mipro = new Stock(tipo, name, precio, currentTime , marca, precioCompra, cantidad, idProveedor, idProducto);
 						
 						if (textName.getText().isEmpty()) {
 							JOptionPane.showMessageDialog(null, "Se debe ingresar el nombre del producto a registrar","ATENCIÓN",
@@ -261,7 +271,7 @@ public class insertProducto extends JDialog {
 					
 				} 
 						try {
-							Bike_Rental.getInstance().insertProducto(miPro);
+							Bike_Rental.getInstance().insertProducto(mipro);
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -286,12 +296,12 @@ public class insertProducto extends JDialog {
 				btnGuardar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						Stock aux = null;
-					//	int cantS = aux.getCantStock();
 						int y = Integer.valueOf(textCant.getText());
 					
 						try {
-							//aux = Bike_Rental.getInstance().searchCantStock(IDProtxt.getText());
+							aux = Bike_Rental.getInstance().searchCantStock(IDProtxt.getText());
 							Bike_Rental.getInstance().incrementProducto(textIDProv.getText(), aux.getCantStock(), y);
+							Bike_Rental.getInstance().updateStock(mipro);
 							
 						} catch (Exception e) {
 							// TODO Auto-generated catch block

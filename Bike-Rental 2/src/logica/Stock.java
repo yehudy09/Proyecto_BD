@@ -7,14 +7,14 @@ public class Stock {
 	private String tipo;
 	private String nameProducto;
 	private float precioVenta;
-	private Date fecha;
+	private String fecha;
 	private String marca;
 	private float precioCompra;
 	private int cantStock;
 	private String idProveedor;
 	private String idProducto;
 	
-	public Stock(String tipo, String nameProducto, float precioVenta, Date fecha, String marca,
+	public Stock(String tipo, String nameProducto, float precioVenta, String fecha, String marca,
 			float precioCompra, int cantStock, String idProveedor, String idProducto) {
 		super();
 		this.tipo = tipo;
@@ -28,10 +28,10 @@ public class Stock {
 		this.idProducto = idProducto;
 	}
 	
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	public String getMarca() {

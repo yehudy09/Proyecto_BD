@@ -64,6 +64,8 @@ public class RegistroFactura extends JDialog {
 	private JTextField txtF;
 	private JRadioButton rdbtnProd; 
 	private JRadioButton rdbtnServicio; 
+	private JRadioButton rdbtnSi; 
+	private JRadioButton rdbtnNo; 
 	private JPanel pnlProducto;
 	private JPanel pnlServ; 
 	private JButton btnVerificar; 
@@ -357,16 +359,28 @@ public class RegistroFactura extends JDialog {
 		lblNewLabel_5.setBounds(58, 127, 164, 14);
 		pnlFactura.add(lblNewLabel_5);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("S\u00ED");
-		rdbtnNewRadioButton.setBackground(SystemColor.inactiveCaptionBorder);
-		rdbtnNewRadioButton.setBounds(77, 148, 53, 23);
-		pnlFactura.add(rdbtnNewRadioButton);
+		rdbtnSi = new JRadioButton("S\u00ED");
+		rdbtnSi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnSi.setSelected(true);
+				rdbtnNo.setSelected(false); 
+			}
+		});
+		rdbtnSi.setBackground(SystemColor.inactiveCaptionBorder);
+		rdbtnSi.setBounds(77, 148, 53, 23);
+		pnlFactura.add(rdbtnSi);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("No");
-		rdbtnNewRadioButton_1.setSelected(true);
-		rdbtnNewRadioButton_1.setBackground(SystemColor.inactiveCaptionBorder);
-		rdbtnNewRadioButton_1.setBounds(143, 148, 65, 23);
-		pnlFactura.add(rdbtnNewRadioButton_1);
+		rdbtnNo = new JRadioButton("No");
+		rdbtnNo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnSi.setSelected(false);
+				rdbtnNo.setSelected(true); 
+			}
+		});
+		rdbtnNo.setSelected(true);
+		rdbtnNo.setBackground(SystemColor.inactiveCaptionBorder);
+		rdbtnNo.setBounds(143, 148, 65, 23);
+		pnlFactura.add(rdbtnNo);
 		
 		JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(spnFecha, "dd/MM/yyyy");
 		spnFecha.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -421,11 +435,11 @@ public class RegistroFactura extends JDialog {
 				} else if (rdbtnProd.isSelected()){
 					int cant = (int)spnCant.getValue(); 
 					
-					modeloCompra.add(0, String.valueOf("- Prod." + " - Id: #" + cod + " - " + "Precio: $"+pre+ "- Cant:"+ cant ));
+					modeloCompra.add(0, String.valueOf("- Prod." + " - Id: #" + cod + " - " + "Precio: $"+pre+ "-Cant:" + cant ));
 					listCompras.setModel(modeloCompra);
 		
 				} else {
-					modeloServ.add(0, String.valueOf("- Servicio" + " - Id: #" + cod2 + " - " + "Precio: $"+pre2));
+					modeloServ.add(0, String.valueOf("-    Servicio" + " - Id: #" + cod2 + " -  " + "Precio: $" +pre2));
 					listServ.setModel(modeloServ);
 				
 				}
@@ -456,10 +470,7 @@ public class RegistroFactura extends JDialog {
 						if(lblCedula.getText().equalsIgnoreCase("**********************") ) {
 							JOptionPane.showMessageDialog(null, "Debe de agregar el cliente, antes de efectuar la compra", "Error", JOptionPane.ERROR_MESSAGE);
 						}
-					//	else if(ftxtCedula.getText().isEmpty() || ftxtTelf.getText().isEmpty() || txtName.getText().isEmpty()|| txtDir.getText().isEmpty()|| txtpTotal.getText().isEmpty()) {
-					//		JOptionPane.showMessageDialog(null, "Debe llenar los campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-						//}
-						
+				
 						else {
 							int option = JOptionPane.showConfirmDialog(null, "Desea efectuar la compra? Luego de confirmar, no podrá modificar ni eliminar esta factura", "Aviso", JOptionPane.WARNING_MESSAGE);
 							if(option == JOptionPane.OK_OPTION) {

@@ -9,10 +9,10 @@ public class Stock {
 	private String marca;
 	private float precioCompra;
 	private int cantStock;
-	private int idProveedor;
-	private int idProducto;
-	public Stock(Date fecha, String marca, float precioCompra, int cantStock, int idProveedor,
-			int idProducto) {
+	private String idProveedor;
+	private String idProducto;
+	public Stock(Date fecha, String marca, float precioCompra, int cantStock, String idProveedor,
+			String idProducto) {
 		super();
 		this.idStock = idStock;
 		this.fecha = fecha;
@@ -52,16 +52,16 @@ public class Stock {
 	public void setCantStock(int cantStock) {
 		this.cantStock = cantStock;
 	}
-	public int getIdProveedor() {
+	public String getIdProveedor() {
 		return idProveedor;
 	}
-	public void setIdProveedor(int idProveedor) {
+	public void setIdProveedor(String idProveedor) {
 		this.idProveedor = idProveedor;
 	}
-	public int getIdProducto() {
+	public String getIdProducto() {
 		return idProducto;
 	}
-	public void setIdProducto(int idProducto) {
+	public void setIdProducto(String idProducto) {
 		this.idProducto = idProducto;
 	}
 	

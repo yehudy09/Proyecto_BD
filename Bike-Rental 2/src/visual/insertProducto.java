@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 import logica.Bike_Rental;
 import logica.Producto;
 import logica.Proveedor;
+import logica.Stock;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -42,6 +43,7 @@ public class insertProducto extends JDialog {
 	private Producto producto = null;
 	private Proveedor miprov = null;
 	private JTextField textCant;
+	private JButton btnGuardar;
 
 	/**
 	 * Launch the application.
@@ -143,6 +145,9 @@ public class insertProducto extends JDialog {
 				if (producto != null ) {
 					JOptionPane.showMessageDialog(null, "Verificado", null, JOptionPane.WARNING_MESSAGE);
 					String aux;
+					btnGuardar.setEnabled(true);
+					btnGuardar.setVisible(true);
+					
 					aux = Float.toString(producto.getPrecioUnd());
 					
 					
@@ -152,13 +157,12 @@ public class insertProducto extends JDialog {
 					textPrecio.setText(aux);
 					textTipo.setText(producto.getTipo());
 					
-					textName.enable(false);
-					textMarca.enable(false);
-					textIDProv.enable(false);
-					textPrecio.enable(false);
-					textTipo.enable(false);
-				
-
+					textName.setEnabled(false);
+					textMarca.setEnabled(false);
+					textIDProv.setEnabled(false);
+					textPrecio.setEnabled(false);
+					textTipo.setEnabled(false);
+					
 				} else {
 					JOptionPane.showMessageDialog(null, "Producto Inexistente", null, JOptionPane.ERROR_MESSAGE);
 					int option = JOptionPane.showConfirmDialog(null, "¿Desea Agregar este nuevo producto?", "CONFIRMACIÓN", JOptionPane.WARNING_MESSAGE);
@@ -264,6 +268,27 @@ public class insertProducto extends JDialog {
 								"Producto Agregado Satisfactoriamente");
 					}
 				});
+				
+				btnGuardar = new JButton("Guardar");
+				btnGuardar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						/*Stock auxs;
+						//int cantS = auxs.getCantStock();
+						int y = Integer.valueOf(textCant.getText());
+					
+						try {
+							Bike_Rental.getInstance().incrementProducto(textIDProv.getText(), auxs, y);
+							auxs = Bike_Rental.getInstance().searchCantStock(IDProtxt.getText());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}*/
+
+					}
+				});
+				btnGuardar.setEnabled(false);
+				btnGuardar.setIcon(new ImageIcon(insertProducto.class.getResource("/icons/guardar.png")));
+				buttonPane.add(btnGuardar);
 				btnRegistrar.setIcon(new ImageIcon(Producto.class.getResource("/icons/add.png")));
 				btnRegistrar.setActionCommand("OK");
 				buttonPane.add(btnRegistrar);

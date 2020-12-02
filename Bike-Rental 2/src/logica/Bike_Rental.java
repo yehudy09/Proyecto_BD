@@ -338,8 +338,8 @@ public class Bike_Rental {
 			stmt.setString(2, st.getMarca());
 			stmt.setFloat(3, st.getPrecioCompra());
 			stmt.setInt(4, st.getCantStock());
-			stmt.setInt(5, st.getIdProveedor());
-			stmt.setInt(6, st.getIdProducto());
+			stmt.setString(5, st.getIdProveedor());
+			stmt.setString(6, st.getIdProducto());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -651,6 +651,33 @@ public class Bike_Rental {
         return  miPro;
     }
 	
+	public void searchCantStock(String id) throws SQLException, Exception {
+        Stock miStock = null;
+
+        try {
+            String sql = "Select cantStock From Stock where idProducto = ?";
+        	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+
+            stmt.setString(1, id);
+
+
+            ResultSet rs = stmt.executeQuery();
+
+          /*  while(rs.next()){
+               miStock = new Stock(rs.getDate("fecha"),
+            		                  rs.getString("marca"),
+                					  rs.getFloat("precioCompra"), 
+                					  rs.getInt("cantStock"),
+                					  rs.getString("idProveedor"), 
+                					  rs.getString("idProveedor"));
+            }*/
+            
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        } 
+        //return  miStock;
+       
+    }
 	
 	
 	
@@ -704,8 +731,26 @@ public class Bike_Rental {
 	
 	//*****************************CONTROL STOCK****************************//
 	
-	public void incrementProducto(int id, int cantStock, int cant) throws Exception {
+	public void incrementProducto(String id, int cantStock, int cant) throws Exception {
 		
+		int cantReal = 0 ; 
+		cantReal = (cantStock + cant);
+		
+			String sql = "update Producto set cantStock = ? where idProducto = ?"; 
+			
+			try {
+				PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+				stmt.setString(1, id);
+				stmt.setInt(2, cantReal);
+				
+				stmt.execute();
+				
+			
+			}catch(SQLException e) {
+				
+				e.printStackTrace();
+				
+			} 	
 		
 	}
 	

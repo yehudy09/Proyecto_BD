@@ -73,6 +73,8 @@ public class RegistroFactura extends JDialog {
 	private JLabel lblTelefono; 
 	private JLabel lblNombre; 
 	private String cod; 
+	private String pre2;
+	private String pre;
 	private String cod2; 
 	private DefaultTableModel modelProd;
 	private static Object[] filaProd;
@@ -81,7 +83,10 @@ public class RegistroFactura extends JDialog {
 	private DefaultTableModel modelServ;
 	private static Object[] filaServ;
 	private JList<String> listCompras; 
+	private JList<String> listServ; 
+	private ArrayList<String> Items;
 	private DefaultListModel modeloCompra = new DefaultListModel();
+	private DefaultListModel modeloServ = new DefaultListModel();
 	private JSpinner spnFecha =  new JSpinner(new SpinnerDateModel());
 	private JSpinner spnCant;
 
@@ -158,10 +163,16 @@ public class RegistroFactura extends JDialog {
 		panel.add(lblPrecio);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		pnlVenta.add(scrollPane_1, BorderLayout.CENTER);
+		pnlVenta.add(scrollPane_1, BorderLayout.WEST);
 		
 		listCompras = new JList();
 		scrollPane_1.setViewportView(listCompras);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		pnlVenta.add(scrollPane_3, BorderLayout.EAST);
+		
+		listServ = new JList();
+		scrollPane_3.setViewportView(listServ);
 		
 		JPanel pnlGeneral = new JPanel();
 		pnlGeneral.setBackground(SystemColor.inactiveCaptionBorder);
@@ -278,6 +289,7 @@ public class RegistroFactura extends JDialog {
 				if (aux > -1) {
 					btnAgregar.setEnabled(true);
 					cod = (String) tableProd.getModel().getValueAt(aux, 0);
+					pre = (String) tableProd.getModel().getValueAt(aux, 3); 
 				} else {
 					btnAgregar.setEnabled(false);
 					String cod = "";
@@ -305,7 +317,7 @@ public class RegistroFactura extends JDialog {
 				if (aux > -1) {
 					btnAgregar.setEnabled(true);
 					cod2 = (String) tableServ.getModel().getValueAt(aux, 0);
-
+					pre2 = (String) tableServ.getModel().getValueAt(aux, 3);
 				} else {
 					btnAgregar.setEnabled(false);
 					String cod2 = "";
@@ -402,13 +414,23 @@ public class RegistroFactura extends JDialog {
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int aux = (int) spnCant.getValue(); 
-				if(cod == "") {
+				if(rdbtnProd.isSelected() && cod == "") {
 					JOptionPane.showMessageDialog(null, "Seleccione un producto", null, JOptionPane.WARNING_MESSAGE);
-				}else if (aux == 0 ) {
-					JOptionPane.showMessageDialog(null, "Digite la cantidad de producto", null, JOptionPane.WARNING_MESSAGE);
+				}else if (rdbtnProd.isSelected() && aux == 0 ) {
+					JOptionPane.showMessageDialog(null, "Debe digitar la cantidad del producto", null, JOptionPane.WARNING_MESSAGE);
+				} else if (rdbtnProd.isSelected()){
+					int cant = (int)spnCant.getValue(); 
+					
+					modeloCompra.add(0, String.valueOf("- Prod." + " - Id: #" + cod + " - " + "Precio: $"+pre+ "- Cant:"+ cant ));
+					listCompras.setModel(modeloCompra);
+		
+				} else {
+					modeloServ.add(0, String.valueOf("- Servicio" + " - Id: #" + cod2 + " - " + "Precio: $"+pre2));
+					listServ.setModel(modeloServ);
+				
 				}
 				
-				//ArrayList<String>
+				
 			}
 		});
 		btnAgregar.setIcon(new ImageIcon(RegistroFactura.class.getResource("/icons/add.png")));
@@ -429,6 +451,22 @@ public class RegistroFactura extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnFacturar = new JButton("Facturar");
+				btnFacturar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(lblCedula.getText().equalsIgnoreCase("**********************") ) {
+							JOptionPane.showMessageDialog(null, "Debe de agregar el cliente, antes de efectuar la compra", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					//	else if(ftxtCedula.getText().isEmpty() || ftxtTelf.getText().isEmpty() || txtName.getText().isEmpty()|| txtDir.getText().isEmpty()|| txtpTotal.getText().isEmpty()) {
+					//		JOptionPane.showMessageDialog(null, "Debe llenar los campos obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+						//}
+						
+						else {
+							int option = JOptionPane.showConfirmDialog(null, "Desea efectuar la compra? Luego de confirmar, no podrá modificar ni eliminar esta factura", "Aviso", JOptionPane.WARNING_MESSAGE);
+							if(option == JOptionPane.OK_OPTION) {
+							}
+						}
+					}
+				});
 				btnFacturar.setIcon(new ImageIcon(RegistroFactura.class.getResource("/icons/modificar.png")));
 				btnFacturar.setActionCommand("OK");
 				buttonPane.add(btnFacturar);

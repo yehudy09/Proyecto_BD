@@ -47,14 +47,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JScrollBar;
 
 public class RegistroFactura extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JFormattedTextField ftxtCedula;
 	private JLabel lblTotal;
-	private JTable tableProd;
-	private JTable table_1;
 	private JTextField textField;
 	private JTextField txtF;
 	private JRadioButton rdbtnProd; 
@@ -70,7 +69,10 @@ public class RegistroFactura extends JDialog {
 	private String cod; 
 	private DefaultTableModel modelProd;
 	private static Object[] filaProd;
-	private JScrollPane scrollPane; 
+	private JTable tableProd;
+	private JTable tableServ;
+	private DefaultTableModel modelServ;
+	private static Object[] filaServ;
 
 	/**
 	 * Launch the application.
@@ -95,6 +97,7 @@ public class RegistroFactura extends JDialog {
 			public void windowOpened(WindowEvent e) {
 				try {
 					loadProd();
+					loadServ();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -246,8 +249,7 @@ public class RegistroFactura extends JDialog {
 		pnlInventario.add(pnlProducto, "name_535546469129700");
 		pnlProducto.setLayout(new BorderLayout(0, 0));
 		
-		scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		JScrollPane scrollPane = new JScrollPane();
 		pnlProducto.add(scrollPane, BorderLayout.CENTER);
 		
 		tableProd = new JTable();
@@ -266,13 +268,10 @@ public class RegistroFactura extends JDialog {
 				}
 			}
 		});
-		tableProd.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(tableProd);
 		modelProd = new DefaultTableModel();
-		String[] columneNames = {"Id", "Tipo", "Nombre", "Precio", "Marca", "Cantidad en Stock"};
+		String[] columneNames = {"Id", "Tipo", "Nombre", "Precio", "Marca", "En Stock"};
 		modelProd.setColumnIdentifiers(columneNames);
-		tableProd.setModel(modelProd);
-		tableProd.getTableHeader().setResizingAllowed(false);
 		
 		pnlServ = new JPanel();
 		pnlInventario.add(pnlServ, "name_535633779652799");
@@ -281,8 +280,27 @@ public class RegistroFactura extends JDialog {
 		JScrollPane scrollPane_2 = new JScrollPane();
 		pnlServ.add(scrollPane_2, BorderLayout.CENTER);
 		
-		table_1 = new JTable();
-		scrollPane_2.setViewportView(table_1);
+		tableServ = new JTable();
+		tableServ.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int aux = tableServ.getSelectedRow();
+				
+				if (aux > -1) {
+					btnAgregar.setEnabled(true);
+					cod = (String) tableServ.getModel().getValueAt(aux, 0);
+
+				} else {
+					btnAgregar.setEnabled(false);
+					String cod = "";
+				}
+				
+			}
+		});
+		scrollPane_2.setViewportView(tableServ);
+		modelServ = new DefaultTableModel();
+		String[] columneNames2 = {"Id", "Empleado", "Tipo", "Precio"};
+		modelServ.setColumnIdentifiers(columneNames2);
 		
 		JPanel pnlFactura = new JPanel();
 		pnlFactura.setBackground(SystemColor.inactiveCaptionBorder);
@@ -426,17 +444,31 @@ public class RegistroFactura extends JDialog {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	
+		}
+	
+	private void loadServ() throws Exception{
+		modelServ.setRowCount(0);
+		tableServ.setModel(modelServ);
+		String sql = "select * from Servicio"; 
 		
-			tableProd.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			tableProd.getTableHeader().setReorderingAllowed(false);
-			/*TableColumnModel columnModel = tableProd.getColumnModel();
-	     	columnModel.getColumn(0).setPreferredWidth(40);
-			columnModel.getColumn(1).setPreferredWidth(90);
-			columnModel.getColumn(2).setPreferredWidth(70);
-			columnModel.getColumn(3).setPreferredWidth(80);
-			columnModel.getColumn(4).setPreferredWidth(75);
-			columnModel.getColumn(5).setPreferredWidth(80);
-			columnModel.getColumn(6).setPreferredWidth(100);*/
+			try {
+				PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sql);
+				ResultSet rs = ps.executeQuery();
+				
+				while(rs.next()) {
+					int aux = modelServ.getColumnCount();
+					filaServ = new Object[aux];
+					for(int i = 0; i<aux; i++) {
+						filaServ[i]=rs.getString(i+1);
+					}
+					modelServ.addRow(filaServ);
+				}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	
 		}
 }

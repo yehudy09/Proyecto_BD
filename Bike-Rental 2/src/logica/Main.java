@@ -69,7 +69,7 @@ public class Main {
 		//bike.insertProducto(p1);
 		
 		
-		
+		//bike.searchProductoByID("PG1");
 		
 	}
 

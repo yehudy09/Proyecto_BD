@@ -581,13 +581,74 @@ public class Bike_Rental {
                 					  rs.getString("tel"),
                 					  rs.getString("marca"),
                 					  rs.getString("Provincia"));
-         
-               
             }
+            
+            
         } catch (SQLException e) {
         	e.printStackTrace();
         } 
         return  miProv;
+    }
+	
+	public Proveedor searchProveedorByID(String id) throws SQLException, Exception {
+        Proveedor miProv = null;
+
+        try {
+            String sql = "Select * From Proveedor where idProveedor = ?";
+        	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+
+            stmt.setString(1, id);
+
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+               miProv = new Proveedor(rs.getString("idProveedor"),
+            		                  rs.getString("cedula"),
+                					  rs.getString("Fname"), 
+                					  rs.getString("Sname"),
+                					  rs.getString("Lname"), 
+                					  rs.getString("Calle"), 
+                					  rs.getString("Ciudad"),
+                					  rs.getString("codPostal"),
+                					  rs.getString("tel"),
+                					  rs.getString("marca"),
+                					  rs.getString("Provincia"));
+            }
+            
+            
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        } 
+        return  miProv;
+    }
+	
+	
+	public Producto searchProductoByID(String id) throws SQLException, Exception {
+        Producto miPro = null;
+
+        try {
+            String sql = "Select * From Producto where idProducto = ?";
+        	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+
+            stmt.setString(1, id);
+
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+               miPro = new Producto(rs.getString("idProducto"),
+            		                  rs.getString("tipo"),
+                					  rs.getString("nameProducto"), 
+                					  rs.getFloat("precioVenta"),
+                					  rs.getString("marca"), 
+                					  rs.getInt("cantidad"), 
+                					  rs.getString("idProveedor"));
+            }
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        } 
+        return  miPro;
     }
 	
 	

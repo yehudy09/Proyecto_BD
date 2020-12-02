@@ -17,8 +17,13 @@ import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SpinnerDateModel;
+
 import java.awt.Font;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+
 import javax.swing.JTable;
 import javax.swing.border.EtchedBorder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -38,6 +43,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JSpinner;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
+
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -54,7 +61,6 @@ public class RegistroFactura extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JFormattedTextField ftxtCedula;
 	private JLabel lblTotal;
-	private JTextField textField;
 	private JTextField txtF;
 	private JRadioButton rdbtnProd; 
 	private JRadioButton rdbtnServicio; 
@@ -67,12 +73,17 @@ public class RegistroFactura extends JDialog {
 	private JLabel lblTelefono; 
 	private JLabel lblNombre; 
 	private String cod; 
+	private String cod2; 
 	private DefaultTableModel modelProd;
 	private static Object[] filaProd;
 	private JTable tableProd;
 	private JTable tableServ;
 	private DefaultTableModel modelServ;
 	private static Object[] filaServ;
+	private JList<String> listCompras; 
+	private DefaultListModel modeloCompra = new DefaultListModel();
+	private JSpinner spnFecha =  new JSpinner(new SpinnerDateModel());
+	private JSpinner spnCant;
 
 	/**
 	 * Launch the application.
@@ -117,7 +128,7 @@ public class RegistroFactura extends JDialog {
 		JPanel pnlVenta = new JPanel();
 		pnlVenta.setBackground(SystemColor.inactiveCaptionBorder);
 		pnlVenta.setBorder(new TitledBorder(null, "Venta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		pnlVenta.setBounds(318, 235, 553, 204);
+		pnlVenta.setBounds(318, 263, 553, 176);
 		contentPanel.add(pnlVenta);
 		pnlVenta.setLayout(new BorderLayout(0, 0));
 		
@@ -149,8 +160,8 @@ public class RegistroFactura extends JDialog {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		pnlVenta.add(scrollPane_1, BorderLayout.CENTER);
 		
-		JList list = new JList();
-		scrollPane_1.setViewportView(list);
+		listCompras = new JList();
+		scrollPane_1.setViewportView(listCompras);
 		
 		JPanel pnlGeneral = new JPanel();
 		pnlGeneral.setBackground(SystemColor.inactiveCaptionBorder);
@@ -182,10 +193,16 @@ public class RegistroFactura extends JDialog {
 						lblTelefono.setText(cliente.getPostalCode());
 					} else {
 						JOptionPane.showMessageDialog(null, "Cliente Inexistente", null, JOptionPane.ERROR_MESSAGE);
+						lblCedula.setText("**********************");
+						lblNombre.setText("**********************");
+						lblTelefono.setText("**********************");
 						int option = JOptionPane.showConfirmDialog(null, "¿Desea Agregar un Cliente Nuevo?", "CONFIRMACIÓN", JOptionPane.WARNING_MESSAGE);
 						if (option == JOptionPane.OK_OPTION) {
 							InsertCliente agcliente = new InsertCliente("Insertar Cliente", false, null);
+							agcliente.setLocationRelativeTo(null);
 							agcliente.setVisible(true);
+						}else {
+							ftxtCedula.setText("");
 						}
 					}
 				}
@@ -261,7 +278,6 @@ public class RegistroFactura extends JDialog {
 				if (aux > -1) {
 					btnAgregar.setEnabled(true);
 					cod = (String) tableProd.getModel().getValueAt(aux, 0);
-
 				} else {
 					btnAgregar.setEnabled(false);
 					String cod = "";
@@ -288,11 +304,11 @@ public class RegistroFactura extends JDialog {
 				
 				if (aux > -1) {
 					btnAgregar.setEnabled(true);
-					cod = (String) tableServ.getModel().getValueAt(aux, 0);
+					cod2 = (String) tableServ.getModel().getValueAt(aux, 0);
 
 				} else {
 					btnAgregar.setEnabled(false);
-					String cod = "";
+					String cod2 = "";
 				}
 				
 			}
@@ -308,13 +324,6 @@ public class RegistroFactura extends JDialog {
 		pnlFactura.setBounds(10, 235, 276, 204);
 		contentPanel.add(pnlFactura);
 		pnlFactura.setLayout(null);
-		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField.setEnabled(false);
-		textField.setBounds(10, 43, 111, 20);
-		pnlFactura.add(textField);
-		textField.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Fecha:");
 		lblNewLabel_4.setBounds(10, 24, 46, 14);
@@ -342,19 +351,17 @@ public class RegistroFactura extends JDialog {
 		pnlFactura.add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("No");
+		rdbtnNewRadioButton_1.setSelected(true);
 		rdbtnNewRadioButton_1.setBackground(SystemColor.inactiveCaptionBorder);
 		rdbtnNewRadioButton_1.setBounds(143, 148, 65, 23);
 		pnlFactura.add(rdbtnNewRadioButton_1);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		spinner.setEnabled(false);
-		spinner.setBounds(151, 93, 115, 20);
-		pnlFactura.add(spinner);
-		
-		JLabel lblNewLabel_6 = new JLabel("Cantidad:");
-		lblNewLabel_6.setBounds(152, 75, 79, 14);
-		pnlFactura.add(lblNewLabel_6);
+		JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(spnFecha, "dd/MM/yyyy");
+		spnFecha.setFont(new Font("Tahoma", Font.BOLD, 11));
+		spnFecha.setEnabled(false);
+		spnFecha.setEditor(dateEditor);
+		spnFecha.setBounds(10, 43, 111, 20);
+		pnlFactura.add(spnFecha);
 		
 		JPanel pnlControl = new JPanel();
 		pnlControl.setBackground(SystemColor.inactiveCaptionBorder);
@@ -369,6 +376,7 @@ public class RegistroFactura extends JDialog {
 				rdbtnProd.setSelected(true);
 				pnlServ.setVisible(false);
 				pnlProducto.setVisible(true);
+				spnCant.setEnabled(true);
 			}
 		});
 		rdbtnProd.setSelected(true);
@@ -382,6 +390,8 @@ public class RegistroFactura extends JDialog {
 				rdbtnProd.setSelected(false);
 				pnlServ.setVisible(true);
 				pnlProducto.setVisible(false);
+				spnCant.setEnabled(false);
+				spnCant.setValue(0);
 			}
 		});
 		rdbtnServicio.setBackground(SystemColor.inactiveCaptionBorder);
@@ -391,11 +401,27 @@ public class RegistroFactura extends JDialog {
 		btnAgregar.setEnabled(false);
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int aux = (int) spnCant.getValue(); 
+				if(cod == "") {
+					JOptionPane.showMessageDialog(null, "Seleccione un producto", null, JOptionPane.WARNING_MESSAGE);
+				}else if (aux == 0 ) {
+					JOptionPane.showMessageDialog(null, "Digite la cantidad de producto", null, JOptionPane.WARNING_MESSAGE);
+				}
 				
+				//ArrayList<String>
 			}
 		});
 		btnAgregar.setIcon(new ImageIcon(RegistroFactura.class.getResource("/icons/add.png")));
 		pnlControl.add(btnAgregar);
+		
+		spnCant = new JSpinner();
+		spnCant.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		spnCant.setBounds(586, 232, 66, 20);
+		contentPanel.add(spnCant);
+		
+		JLabel lblNewLabel_6 = new JLabel("Cantidad:");
+		lblNewLabel_6.setBounds(517, 235, 79, 14);
+		contentPanel.add(lblNewLabel_6);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(SystemColor.inactiveCaptionBorder);

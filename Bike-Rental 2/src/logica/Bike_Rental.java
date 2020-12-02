@@ -120,9 +120,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
+			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -148,18 +148,12 @@ public class Bike_Rental {
 			Statement stmt = conectarSQL().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 				if (!rs.next()) {
-					/*JOptionPane.showMessageDialog(null,
-							"Usuario o contraseña incorrectos, inténtelo nuevamente.", "Error",
-							JOptionPane.ERROR_MESSAGE, null);*/
 				return login=false;
 			}
 
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		/*JOptionPane.showMessageDialog(null,
-				"Bienvenido a Bike-Rental", "Información",
-				JOptionPane.INFORMATION_MESSAGE, null);*/
 		return login;
 	}
 	

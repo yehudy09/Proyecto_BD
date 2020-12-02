@@ -133,7 +133,7 @@ public class ListCliente extends JDialog {
 				btnEliminar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (cod != "") {
-							int answer = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar la empresa?",
+							int answer = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar el cliente?",
 									"Devolver publicacion", JOptionPane.YES_NO_CANCEL_OPTION,
 									JOptionPane.QUESTION_MESSAGE, null);
 							if (answer == JOptionPane.YES_OPTION) {

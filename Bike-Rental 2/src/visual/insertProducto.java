@@ -167,7 +167,10 @@ public class insertProducto extends JDialog {
 						float precio = Float.parseFloat(textPrecio.getText());
 						int cantidad = (int) spnCantidad.getValue();
 						String marca = textMarca.getText();	
-						Producto miPro = new Producto(tipo, name, precio, marca, cantidad); 
+						String idProducto = IDProtxt.getText();
+						String idProveedor = textIDProv.getText();
+						float precioCompra = Float.parseFloat(PrecioCtxt.getText());
+						Producto miPro = new Producto(idProducto, tipo, name, precio, marca, cantidad, idProveedor); 
 						
 						if (textName.getText().isEmpty()) {
 							JOptionPane.showMessageDialog(null, "Se debe ingresar el nombre del producto a registrar","ATENCIÓN",
@@ -188,18 +191,26 @@ public class insertProducto extends JDialog {
 							JOptionPane.showMessageDialog(null, "Se debe ingresar la marca del producto a registrar", "ATENCIÓN",
 											JOptionPane.WARNING_MESSAGE, null);
 							
-						} 
+						} else if (IDProtxt.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Se debe ingresar el ID del producto a registrar", "ATENCIÓN",
+									JOptionPane.WARNING_MESSAGE, null);
+					
+				} 
 						try {
 							Bike_Rental.getInstance().insertProducto(miPro);
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+						IDProtxt.setText(null);
 						textName.setText(null);
 						textTipo.setText(null);
 						textPrecio.setText(null);
 						spnCantidad.setValue(0);
-						textMarca.setText(null);			
+						textMarca.setText(null);
+						textIDProv.setText(null);
+						PrecioCtxt.setText(null);
+						
 						
 						JOptionPane
 						.showMessageDialog(null,
@@ -218,7 +229,7 @@ public class insertProducto extends JDialog {
 						dispose();
 					}
 				});
-				btnCancelar.setIcon(new ImageIcon(Producto.class.getResource("/icons/borrar.png")));
+				btnCancelar.setIcon(new ImageIcon(insertProducto.class.getResource("/icons/cancelar.png")));
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);
 			}

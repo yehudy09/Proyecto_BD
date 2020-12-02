@@ -259,15 +259,17 @@ public class Bike_Rental {
 	public void insertProducto(Producto pro) throws Exception {
 		misProductos.add(pro);
 		    
-		String sql = "insert into Producto (tipo, nameProducto, precioVenta, marca, cantidad) values (?,?,?,?,?)";
+		String sql = "insert into Producto (idProducto, tipo, nameProducto, precioVenta, marca, cantidad,idProveedor) values (?,?,?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setString(1, pro.getTipo());
-			stmt.setString(2, pro.getNameProducto());
-			stmt.setFloat(3, pro.getPrecioUnd());
-			stmt.setString(4, pro.getMarca());
-			stmt.setInt(5, pro.getCant());
+			stmt.setString(1, pro.getIdProducto());
+			stmt.setString(2, pro.getTipo());
+			stmt.setString(3, pro.getNameProducto());
+			stmt.setFloat(4, pro.getPrecioUnd());
+			stmt.setString(5, pro.getMarca());
+			stmt.setInt(6, pro.getCant());
+			stmt.setString(7,pro.getIdProveedor());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -627,7 +629,7 @@ public class Bike_Rental {
 		} 		
 	}
 	
-	public void deleteLogUser() throws Exception {
+	/*public void deleteLogUser() throws Exception {
 		String sql = "delete from logUser"; 
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
@@ -637,7 +639,7 @@ public class Bike_Rental {
 			
 			e.printStackTrace();	
 		}
-	}
+	}*/
 	
 	//*****************************CONTROL STOCK****************************//
 	

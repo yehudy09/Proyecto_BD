@@ -10,7 +10,9 @@ public class Producto {
 	private float precioUnd; 
 	private String marca;
 	private int cant;
-	public Producto(String idProducto, String tipo, String nameProducto, float precioUnd, String marca, int cant) {
+	private String idProveedor;
+	
+	public Producto(String idProducto, String tipo, String nameProducto, float precioUnd, String marca, int cant, String idProveedor) {
 		super();
 		this.idProducto = idProducto;
 		this.tipo = tipo;
@@ -18,6 +20,8 @@ public class Producto {
 		this.precioUnd = precioUnd;
 		this.marca = marca;
 		this.cant = cant;
+		this.idProveedor = idProveedor;
+		
 	}
 	public String getIdProducto() {
 		return idProducto;
@@ -55,6 +59,13 @@ public class Producto {
 	public void setCant(int cant) {
 		this.cant = cant;
 	}
+	public String getIdProveedor() {
+		return idProveedor;
+	}
+	public void setIdProveedor(String idProveedor) {
+		this.idProveedor = idProveedor;
+	}
+	
 	
 	
 	

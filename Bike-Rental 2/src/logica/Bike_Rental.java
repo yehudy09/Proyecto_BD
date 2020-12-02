@@ -120,9 +120,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
+			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -148,12 +148,18 @@ public class Bike_Rental {
 			Statement stmt = conectarSQL().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 				if (!rs.next()) {
+					/*JOptionPane.showMessageDialog(null,
+							"Usuario o contraseña incorrectos, inténtelo nuevamente.", "Error",
+							JOptionPane.ERROR_MESSAGE, null);*/
 				return login=false;
 			}
 
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		/*JOptionPane.showMessageDialog(null,
+				"Bienvenido a Bike-Rental", "Información",
+				JOptionPane.INFORMATION_MESSAGE, null);*/
 		return login;
 	}
 	
@@ -250,20 +256,23 @@ public class Bike_Rental {
 		} 		
 	}
 	
-	public void insertProducto(Producto pro) throws Exception {
-		misProductos.add(pro);
+	public void insertProducto(Stock pro) throws Exception {
+		miStock.add(pro);
 		    
-		String sql = "insert into Producto (idProducto, tipo, nameProducto, precioVenta, marca, cantidad,idProveedor) values (?,?,?,?,?,?,?)";
+		String sql = "insert into Stock (tipo, nameProducto, precioVenta, marca, cantidad, idProveedor, fecha, precioCompra, idProducto)"
+				+ " values (?,?,?,?,?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setString(1, pro.getIdProducto());
-			stmt.setString(2, pro.getTipo());
-			stmt.setString(3, pro.getNameProducto());
-			stmt.setFloat(4, pro.getPrecioUnd());
-			stmt.setString(5, pro.getMarca());
-			stmt.setInt(6, pro.getCant());
-			stmt.setString(7,pro.getIdProveedor());
+			stmt.setString(1, pro.getTipo());
+			stmt.setString(2, pro.getNameProducto());
+			stmt.setFloat(3, pro.getPrecioVenta());
+			stmt.setString(4, pro.getMarca());
+			stmt.setInt(5, pro.getCantStock());
+			stmt.setString(6,pro.getIdProveedor());
+			stmt.setDate(7, (Date) pro.getFecha());
+			stmt.setFloat(8, pro.getPrecioCompra());
+			stmt.setString(9, pro.getIdProducto());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -321,27 +330,7 @@ public class Bike_Rental {
 		} 		
 	}
 	
-	public void insertStock(Stock st) throws Exception {
-		miStock.add(st);
-		Date fecha = new Date(st.getFecha().getTime());
-		String sql = "insert into Stock (fecha, marca, precioCompra, cantStock, idProveedor, idProducto) values (?,?,?,?,?,?)";
-			
-		try {
-			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-			stmt.setDate(1, fecha);
-			stmt.setString(2, st.getMarca());
-			stmt.setFloat(3, st.getPrecioCompra());
-			stmt.setInt(4, st.getCantStock());
-			stmt.setString(5, st.getIdProveedor());
-			stmt.setString(6, st.getIdProducto());
-			stmt.execute();
-		
-		}catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		} 		
-	}
+
 	
 	public void insertFactura(Factura fact) throws Exception {
 		misFacturas.add(fact);
@@ -519,6 +508,8 @@ public class Bike_Rental {
         	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 
             stmt.setString(1, ced);
+
+
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
@@ -531,8 +522,17 @@ public class Bike_Rental {
                 					  rs.getString("codPostal"),
                 					  rs.getString("tel"),
                 					  rs.getString("Provincia"));
+                System.out.println("IDCliente->"+rs.getString("cid"));
+                System.out.println("Cliente Encontrado = " + rs.getString("Fname")  + " "+"and"+" "+"Cedula = " + " "+ rs.getString("cedula"));
+               
             }
 
+            if (miCliente != null) {
+                System.out.println("Cliente Encontrado");
+
+            }else{
+            	 System.out.println("Cliente no Encontrado");
+            }
         } catch (SQLException e) {
         	e.printStackTrace();
         } 
@@ -548,6 +548,8 @@ public class Bike_Rental {
         	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 
             stmt.setString(1, ced);
+
+
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
@@ -579,6 +581,8 @@ public class Bike_Rental {
         	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 
             stmt.setString(1, id);
+
+
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
@@ -611,6 +615,8 @@ public class Bike_Rental {
         	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 
             stmt.setString(1, id);
+
+
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
@@ -628,33 +634,35 @@ public class Bike_Rental {
         return  miPro;
     }
 	
-	public void searchCantStock(String id) throws SQLException, Exception {
+	/*public Stock searchCantStock(String id) throws SQLException, Exception {
         Stock miStock = null;
 
         try {
-            String sql = "Select cantStock From Stock where idProducto = ?";
+            String sql = "Select * From Stock where idProducto = ?";
         	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 
             stmt.setString(1, id);
 
 
             ResultSet rs = stmt.executeQuery();
+            
+         
 
-          /*  while(rs.next()){
+          while(rs.next()){
                miStock = new Stock(rs.getDate("fecha"),
             		                  rs.getString("marca"),
                 					  rs.getFloat("precioCompra"), 
                 					  rs.getInt("cantStock"),
                 					  rs.getString("idProveedor"), 
                 					  rs.getString("idProveedor"));
-            }*/
+            }
             
         } catch (SQLException e) {
         	e.printStackTrace();
         } 
-        //return  miStock;
+        return  miStock;
        
-    }
+    }*/
 	
 	
 	

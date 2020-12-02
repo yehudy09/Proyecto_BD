@@ -4,17 +4,22 @@ import java.util.Date;
 
 public class Stock {
 	
-	private int idStock;
+	private String tipo;
+	private String nameProducto;
+	private float precioVenta;
 	private Date fecha;
 	private String marca;
 	private float precioCompra;
 	private int cantStock;
 	private String idProveedor;
 	private String idProducto;
-	public Stock(Date fecha, String marca, float precioCompra, int cantStock, String idProveedor,
-			String idProducto) {
+	
+	public Stock(String tipo, String nameProducto, float precioVenta, Date fecha, String marca,
+			float precioCompra, int cantStock, String idProveedor, String idProducto) {
 		super();
-		this.idStock = idStock;
+		this.tipo = tipo;
+		this.nameProducto = nameProducto;
+		this.precioVenta = precioVenta;
 		this.fecha = fecha;
 		this.marca = marca;
 		this.precioCompra = precioCompra;
@@ -22,12 +27,7 @@ public class Stock {
 		this.idProveedor = idProveedor;
 		this.idProducto = idProducto;
 	}
-	public int getIdStock() {
-		return idStock;
-	}
-	public void setIdStock(int idStock) {
-		this.idStock = idStock;
-	}
+	
 	public Date getFecha() {
 		return fecha;
 	}
@@ -63,6 +63,24 @@ public class Stock {
 	}
 	public void setIdProducto(String idProducto) {
 		this.idProducto = idProducto;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	public String getNameProducto() {
+		return nameProducto;
+	}
+	public void setNameProducto(String nameProducto) {
+		this.nameProducto = nameProducto;
+	}
+	public float getPrecioVenta() {
+		return precioVenta;
+	}
+	public void setPrecioVenta(float precioVenta) {
+		this.precioVenta = precioVenta;
 	}
 	
 

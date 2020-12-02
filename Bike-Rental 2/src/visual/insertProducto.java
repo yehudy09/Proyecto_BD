@@ -23,7 +23,9 @@ import java.awt.Color;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+
 import java.sql.SQLException;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
@@ -35,7 +37,7 @@ public class insertProducto extends JDialog {
 	private JTextField textName;
 	private JTextField textMarca;
 	private JTextField textTipo;
-	private Producto miPro; 
+	private Stock miPro; 
 	private JTextField textPrecio;
 	private JTextField IDProtxt;
 	private JTextField textIDProv;
@@ -44,6 +46,7 @@ public class insertProducto extends JDialog {
 	private Proveedor miprov = null;
 	private JTextField textCant;
 	private JButton btnGuardar;
+	private JTextField textFecha;
 
 	/**
 	 * Launch the application.
@@ -62,9 +65,9 @@ public class insertProducto extends JDialog {
 	 * Create the dialog.
 	 */
 	public insertProducto() {
-		setTitle("Productos");
+		setTitle("Stock");
 		setResizable(false);
-		setBounds(100, 100, 497, 551);
+		setBounds(100, 100, 497, 611);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -75,7 +78,7 @@ public class insertProducto extends JDialog {
 		pnlInformacion.setLayout(null);
 		pnlInformacion.setBorder(new TitledBorder(null, "Informaci\u00F3n:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pnlInformacion.setBackground(SystemColor.inactiveCaptionBorder);
-		pnlInformacion.setBounds(20, 28, 436, 448);
+		pnlInformacion.setBounds(20, 28, 436, 510);
 		contentPanel.add(pnlInformacion);
 		
 		JLabel lblPrecioVentaUnd = new JLabel("Precio Venta Und.:");
@@ -203,6 +206,15 @@ public class insertProducto extends JDialog {
 		textCant.setBounds(151, 232, 86, 20);
 		pnlInformacion.add(textCant);
 		textCant.setColumns(10);
+		
+		JLabel lblFecha = new JLabel("Fecha: ");
+		lblFecha.setBounds(16, 455, 63, 14);
+		pnlInformacion.add(lblFecha);
+		
+		textFecha = new JTextField();
+		textFecha.setBounds(151, 452, 86, 20);
+		pnlInformacion.add(textFecha);
+		textFecha.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(SystemColor.inactiveCaptionBorder);
@@ -221,7 +233,8 @@ public class insertProducto extends JDialog {
 						String idProducto = IDProtxt.getText();
 						String idProveedor = textIDProv.getText();
 						float precioCompra = Float.parseFloat(PrecioCtxt.getText());
-						Producto miPro = new Producto(idProducto, tipo, name, precio, marca, cantidad, idProveedor); 
+						//Date fecha = (Date) textFecha.getText();
+				        Stock mipro = new Stock(tipo, name, precio, fecha, marca, precioCompra, cantidad, idProveedor, idProducto);
 						
 						if (textName.getText().isEmpty()) {
 							JOptionPane.showMessageDialog(null, "Se debe ingresar el nombre del producto a registrar","ATENCIÓN",
@@ -272,17 +285,18 @@ public class insertProducto extends JDialog {
 				btnGuardar = new JButton("Guardar");
 				btnGuardar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						/*Stock auxs;
-						//int cantS = auxs.getCantStock();
+						Stock aux = null;
+					//	int cantS = aux.getCantStock();
 						int y = Integer.valueOf(textCant.getText());
 					
 						try {
-							Bike_Rental.getInstance().incrementProducto(textIDProv.getText(), auxs, y);
-							auxs = Bike_Rental.getInstance().searchCantStock(IDProtxt.getText());
+							//aux = Bike_Rental.getInstance().searchCantStock(IDProtxt.getText());
+							Bike_Rental.getInstance().incrementProducto(textIDProv.getText(), aux.getCantStock(), y);
+							
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						}*/
+						}
 
 					}
 				});

@@ -92,6 +92,7 @@ public class RegistroFactura extends JDialog {
 	private JSpinner spnFecha =  new JSpinner(new SpinnerDateModel());
 	private JSpinner spnCant;
 
+
 	/**
 	 * Launch the application.
 	 */
@@ -437,7 +438,6 @@ public class RegistroFactura extends JDialog {
 					
 					modeloCompra.add(0, String.valueOf("- Prod." + " - Id: #" + cod + " - " + "Precio: $"+pre+ "-Cant:" + cant ));
 					listCompras.setModel(modeloCompra);
-		
 				} else {
 					modeloServ.add(0, String.valueOf("-    Servicio" + " - Id: #" + cod2 + " -  " + "Precio: $" +pre2));
 					listServ.setModel(modeloServ);
@@ -472,8 +472,19 @@ public class RegistroFactura extends JDialog {
 						}
 				
 						else {
-							int option = JOptionPane.showConfirmDialog(null, "Desea efectuar la compra? Luego de confirmar, no podrá modificar ni eliminar esta factura", "Aviso", JOptionPane.WARNING_MESSAGE);
+							int option = JOptionPane.showConfirmDialog(null, "Desea efectuar la compra? Luego de confirmar, no podrá modificar ni "
+									+ "eliminar esta factura", "Aviso", JOptionPane.WARNING_MESSAGE);
 							if(option == JOptionPane.OK_OPTION) {
+								
+								
+								ArrayList<String> auxId = null; 
+								for (int i = 0; i < modeloCompra.getSize(); i++) {
+									auxId.add(modeloCompra.getElementAt(i).toString().substring(15,17));
+									
+									for(int j = 0; i < auxId.size() ; j++) {
+										
+									}
+									}
 							}
 						}
 					}

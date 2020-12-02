@@ -335,15 +335,14 @@ public class Bike_Rental {
 	public void insertFactura(Factura fact) throws Exception {
 		misFacturas.add(fact);
 		Date fecha = new Date(fact.getFecha().getTime());
-		String sql = "insert into Factura (comprobante, fecha, RNC, cid) values (?,?,?,?)";
+		String sql = "insert into Factura (comprobante, fecha, cid) values (?,?,?)";
 			
 		
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 			stmt.setString(1, fact.getComprobante());
 			stmt.setDate(2, fecha);
-			stmt.setString(3, fact.getRnc());
-			stmt.setInt(4, fact.getCid());
+			stmt.setInt(3, fact.getCid());
 			stmt.execute();
 		
 		}catch(SQLException e) {

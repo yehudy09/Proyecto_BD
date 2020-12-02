@@ -8,7 +8,6 @@ public class Factura {
 	private int fid; 
 	private String comprobante;
 	private Date fecha; 
-	private String rnc;
 	private int cid;
 
 	public Factura(String comprobante, Date fecha, String rnc, int cid) {
@@ -16,7 +15,6 @@ public class Factura {
 		this.fid = fid;
 		this.comprobante = comprobante;
 		this.fecha = fecha;
-		this.rnc = rnc;
 		this.cid = cid;
 	
 	}
@@ -37,13 +35,6 @@ public class Factura {
 	}
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
-	}
-	
-	public String getRnc() {
-		return rnc;
-	}
-	public void setRnc(String rnc) {
-		this.rnc = rnc;
 	}
 	
 	public int getCid() {

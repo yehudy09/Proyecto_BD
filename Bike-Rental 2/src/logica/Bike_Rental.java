@@ -270,7 +270,7 @@ public class Bike_Rental {
 			stmt.setString(4, pro.getMarca());
 			stmt.setInt(5, pro.getCantStock());
 			stmt.setString(6,pro.getIdProveedor());
-			stmt.setDate(7, (Date) pro.getFecha());
+			stmt.setString(7, pro.getFecha());
 			stmt.setFloat(8, pro.getPrecioCompra());
 			stmt.setString(9, pro.getIdProducto());
 			stmt.execute();
@@ -431,17 +431,23 @@ public class Bike_Rental {
 		} 		
 	}
 	
-	public void updateProducto(Producto prod) throws Exception {
-		String sql = "update Producto set tipo = ?, precioVenta = ?, marca =? "
-				+ " where nameProducto = ?";
+	public void updateStock(Stock prod) throws Exception {
+		String sql = "update Stock set tipo = ?, nameProducto = ?, precioVenta = ?, marca =?, cantidad= ?, idProveedor = ?, fecha = ?, precioCompra = ?"
+				+ " where idProducto = ?";
 		
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 			stmt.setString(1, prod.getTipo());
-			stmt.setFloat(2, prod.getPrecioUnd());
-			stmt.setString(3, prod.getMarca());
-			stmt.setString(4, prod.getNameProducto());
+			stmt.setString(2, prod.getNameProducto());
+			stmt.setFloat(3, prod.getPrecioVenta());
+			stmt.setString(4, prod.getMarca());
+			stmt.setInt(5, prod.getCantStock());
+			stmt.setString(6, prod.getIdProveedor());
+			stmt.setString(7, prod.getFecha());
+			stmt.setFloat(8, prod.getPrecioCompra());
+			stmt.setString(9, prod.getIdProducto());
+					
 			stmt.execute();
 			
 		
@@ -607,11 +613,11 @@ public class Bike_Rental {
     }
 	
 	
-	public Producto searchProductoByID(String id) throws SQLException, Exception {
-        Producto miPro = null;
+	public Stock searchProductoByID(String id) throws SQLException, Exception {
+        Stock miPro = null;
 
         try {
-            String sql = "Select * From Producto where idProducto = ?";
+            String sql = "Select * From Stock where idProducto = ?";
         	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 
             stmt.setString(1, id);
@@ -620,13 +626,16 @@ public class Bike_Rental {
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
-               miPro = new Producto(rs.getString("idProducto"),
-            		                  rs.getString("tipo"),
-                					  rs.getString("nameProducto"), 
+               miPro = new Stock(rs.getString("Tipo"),
+            		                  rs.getString("nameProducto"),
                 					  rs.getFloat("precioVenta"),
+                					  rs.getString("fecha"),
                 					  rs.getString("marca"), 
+                					  rs.getFloat("precioCompra"),
                 					  rs.getInt("cantidad"), 
-                					  rs.getString("idProveedor"));
+                					  rs.getString("idProveedor"),	  
+                					  rs.getString("idProducto")
+                					  );
             }
         } catch (SQLException e) {
         	e.printStackTrace();
@@ -634,7 +643,7 @@ public class Bike_Rental {
         return  miPro;
     }
 	
-	/*public Stock searchCantStock(String id) throws SQLException, Exception {
+	public Stock searchCantStock(String id) throws SQLException, Exception {
         Stock miStock = null;
 
         try {
@@ -649,12 +658,16 @@ public class Bike_Rental {
          
 
           while(rs.next()){
-               miStock = new Stock(rs.getDate("fecha"),
-            		                  rs.getString("marca"),
-                					  rs.getFloat("precioCompra"), 
-                					  rs.getInt("cantStock"),
-                					  rs.getString("idProveedor"), 
-                					  rs.getString("idProveedor"));
+               miStock = new Stock(rs.getString("Tipo"),
+		                  rs.getString("nameProducto"),
+ 					  rs.getFloat("precioVenta"),
+ 					  rs.getString("fecha"),
+ 					  rs.getString("marca"), 
+ 					  rs.getFloat("precioCompra"),
+ 					  rs.getInt("cantidad"), 
+ 					  rs.getString("idProveedor"),	  
+ 					  rs.getString("idProducto")
+ 					  );
             }
             
         } catch (SQLException e) {
@@ -662,7 +675,7 @@ public class Bike_Rental {
         } 
         return  miStock;
        
-    }*/
+    }
 	
 	
 	
@@ -721,7 +734,7 @@ public class Bike_Rental {
 		int cantReal = 0 ; 
 		cantReal = (cantStock + cant);
 		
-			String sql = "update Producto set cantStock = ? where idProducto = ?"; 
+			String sql = "update Stock set cantStock = ? where idProducto = ?"; 
 			
 			try {
 				PreparedStatement stmt = conectarSQL().prepareStatement(sql);

@@ -120,7 +120,7 @@ public class Principal extends JFrame {
 		mntmProd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				insertProducto miProd;
-				miProd = new insertProducto();
+				miProd = new insertProducto("Insertar producto", false, null);
 				miProd.setModal(true);
 				miProd.setLocationRelativeTo(null);
 				miProd.setVisible(true);

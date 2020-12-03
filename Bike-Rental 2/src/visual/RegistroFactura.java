@@ -170,12 +170,14 @@ public class RegistroFactura extends JDialog {
 		pnlVenta.add(scrollPane_1, BorderLayout.WEST);
 		
 		listCompras = new JList();
+		listCompras.setBorder(new TitledBorder(null, "Productos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		scrollPane_1.setViewportView(listCompras);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
 		pnlVenta.add(scrollPane_3, BorderLayout.EAST);
 		
 		listServ = new JList();
+		listServ.setBorder(new TitledBorder(null, "Servicios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		scrollPane_3.setViewportView(listServ);
 		
 		JPanel pnlGeneral = new JPanel();
@@ -437,10 +439,10 @@ public class RegistroFactura extends JDialog {
 				} else if (rdbtnProd.isSelected()){
 					int cant = (int)spnCant.getValue(); 
 					
-					modeloCompra.add(0, String.valueOf("- Prod." + " - Id: #" + cod + "- Cant:" + cant+ " - " + "Precio: $"+pre ));
+					modeloCompra.add(0, String.valueOf("- Id: " + cod + "- Cant:" + cant+ " - " + "Precio: $"+pre ));
 					listCompras.setModel(modeloCompra);
 				} else {
-					modeloServ.add(0, String.valueOf("-    Servicio" + " - Id: #" + cod2 + " -  " + "Precio: $" +pre2));
+					modeloServ.add(0, String.valueOf("-  Servicio" + " - Id: " + cod2 + " -  " + "Precio: $" +pre2));
 					listServ.setModel(modeloServ);
 				
 				}

@@ -243,7 +243,6 @@ public class insertProducto extends JDialog {
 
 						String currentTime = sdf.format(dt);
 						
-						//Date fecha = (Date) spnFecha.getValue();
 				        Stock mipro = new Stock(tipo, name, precio, currentTime , marca, precioCompra, cantidad, idProveedor, idProducto);
 						
 						if (textName.getText().isEmpty()) {
@@ -300,14 +299,26 @@ public class insertProducto extends JDialog {
 					
 						try {
 							aux = Bike_Rental.getInstance().searchCantStock(IDProtxt.getText());
-							Bike_Rental.getInstance().incrementProducto(textIDProv.getText(), aux.getCantStock(), y);
-							Bike_Rental.getInstance().updateStock(mipro);
+							Bike_Rental.getInstance().incrementProducto(IDProtxt.getText(), aux.getCantStock(), y);
+							//Bike_Rental.getInstance().updateStock(mipro);
 							
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
+						IDProtxt.setText(null);
+						textName.setText(null);
+						textTipo.setText(null);
+						textPrecio.setText(null);
+						textCant.setText(null);
+						textMarca.setText(null);
+						textIDProv.setText(null);
+						PrecioCtxt.setText(null);
+						
+						JOptionPane
+						.showMessageDialog(null,
+								"Producto Guardado Satisfactoriamente");
 					}
 				});
 				btnGuardar.setEnabled(false);

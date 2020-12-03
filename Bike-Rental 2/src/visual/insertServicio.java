@@ -136,7 +136,7 @@ public class insertServicio extends JFrame {
 							ssn = rs.getString(1);
 							
 							 
-							Servicio aux = new Servicio (Float.parseFloat(tfPrecio.getText()), ssn, tfTipo.getText());
+							Servicio aux = new Servicio (ssn, tfTipo.getText(), Float.parseFloat(tfPrecio.getText()));
 							Bike_Rental.getInstance().insertServicio(aux);
 							cargarServicios();
 							JOptionPane
@@ -162,7 +162,7 @@ public class insertServicio extends JFrame {
 				String ssn = model.getValueAt(filaTable, 1).toString();
 				String tipo = model.getValueAt(filaTable, 2).toString();
 				Float precio = Float.parseFloat(model.getValueAt(filaTable, 3).toString());
-				Servicio modify = new Servicio(precio, ssn, tipo);
+				Servicio modify = new Servicio(ssn, tipo, precio);
 				modificarServicio modi = new modificarServicio(modify, id);
 				modi.setUndecorated(true);
 				modi.setVisible(true);

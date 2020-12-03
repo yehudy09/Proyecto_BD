@@ -130,7 +130,7 @@ public class modificarServicio extends JFrame {
 					String ssn = tfSSN.getText();
 					String tipo = tfTipo.getText();
 					float precio = Float.parseFloat(tfPrecio.getText());
-					Servicio nuevo = new Servicio(precio, tipo, ssn);
+					Servicio nuevo = new Servicio(tipo, ssn, precio);
 					try {
 						updateServicio(id);
 						dispose();

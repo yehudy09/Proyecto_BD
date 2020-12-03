@@ -13,7 +13,6 @@ public class Bike_Rental {
 	private ArrayList<Factura> misFacturas;
 	private ArrayList<DetalleFactura> misDetallesF;
 	private ArrayList<Servicio> misServicios; 
-	private ArrayList<Stock> miStock; 
 	private ArrayList<Empleado> misEmpleados; 
 	private ArrayList<Cliente> misClientes; 
 	private ArrayList<Proveedor> misProveedores;
@@ -26,7 +25,6 @@ public class Bike_Rental {
 		super();
 		this.misFacturas = new ArrayList<>();
 		this.misServicios = new ArrayList<>();
-		this.miStock = new ArrayList<>();
 		this.misEmpleados =new ArrayList<>();
 		this.misClientes = new ArrayList<>();
 		this.misProveedores = new ArrayList<>();
@@ -50,14 +48,6 @@ public class Bike_Rental {
 
 	public void setMisServicios(ArrayList<Servicio> misServicios) {
 		this.misServicios = misServicios;
-	}
-
-	public ArrayList<Stock> getMiStock() {
-		return miStock;
-	}
-
-	public void setMiStock(ArrayList<Stock> miStock) {
-		this.miStock = miStock;
 	}
 
 	public ArrayList<Empleado> getMisEmpleados() {
@@ -120,9 +110,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
+			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center;user=yehudy;password=123;";
-			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
+			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -256,10 +246,10 @@ public class Bike_Rental {
 		} 		
 	}
 	
-	public void insertProducto(Stock pro) throws Exception {
-		miStock.add(pro);
+	public void insertProducto(Producto pro) throws Exception {
+		misProductos.add(pro);
 		    
-		String sql = "insert into Stock (tipo, nameProducto, precioVenta, marca, cantidad, idProveedor, fecha, precioCompra, idProducto)"
+		String sql = "insert into Producto (tipo, nameProducto, precioVenta, marca, cantStock, idProveedor, fecha, precioCompra, idProducto)"
 				+ " values (?,?,?,?,?,?,?,?,?)";
 			
 		try {
@@ -352,7 +342,6 @@ public class Bike_Rental {
 	}
 	
 	
-	
 	public void insertDetalleFactura(DetalleFactura df) throws Exception {
 		misDetallesF.add(df);
 		String sql = "insert into detalleFactura (fid, idProducto, cantidadVenta, idServicio) values (?,?,?,?)";
@@ -430,8 +419,8 @@ public class Bike_Rental {
 		} 		
 	}
 	
-	public void updateStock(Stock prod) throws Exception {
-		String sql = "update Stock set tipo = ?, nameProducto = ?, precioVenta = ?, marca =?, cantidad= ?, idProveedor = ?, fecha = ?, precioCompra = ?"
+	public void updateStock(Producto prod) throws Exception {
+		String sql = "update Producto set tipo = ?, nameProducto = ?, precioVenta = ?, marca =?, cantStock= ?, idProveedor = ?, fecha = ?, precioCompra = ?"
 				+ " where idProducto = ?";
 		
 			
@@ -492,18 +481,6 @@ public class Bike_Rental {
 	
 	//*************************************** SELECTS ******************************************//
 	
-	public void select(int id) throws SQLException, Exception {
-		String sql = "select precioVenta from Producto where idProducto = ?";
-		
-		PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-		try {
-			stmt.setInt(1, id);
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	public Cliente searchClienteByCed(String ced) throws SQLException, Exception {
         Cliente miCliente = null;
@@ -602,11 +579,11 @@ public class Bike_Rental {
     }
 	
 	
-	public Stock searchProductoByID(String id) throws SQLException, Exception {
-        Stock miPro = null;
+	public Producto searchProductoByID(String id) throws SQLException, Exception {
+        Producto miPro = null;
 
         try {
-            String sql = "Select * From Stock where idProducto = ?";
+            String sql = "Select * From Producto where idProducto = ?";
         	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 
             stmt.setString(1, id);
@@ -615,13 +592,13 @@ public class Bike_Rental {
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
-               miPro = new Stock(rs.getString("Tipo"),
+               miPro = new Producto(rs.getString("Tipo"),
             		                  rs.getString("nameProducto"),
                 					  rs.getFloat("precioVenta"),
                 					  rs.getString("fecha"),
                 					  rs.getString("marca"), 
                 					  rs.getFloat("precioCompra"),
-                					  rs.getInt("cantidad"), 
+                					  rs.getInt("cantStock"), 
                 					  rs.getString("idProveedor"),	  
                 					  rs.getString("idProducto")
                 					  );
@@ -632,11 +609,11 @@ public class Bike_Rental {
         return  miPro;
     }
 	
-	public Stock searchCantStock(String id) throws SQLException, Exception {
-        Stock miStock = null;
+	public Producto searchCantStock(String id) throws SQLException, Exception {
+        Producto miStock = null;
 
         try {
-            String sql = "Select * From Stock where idProducto = ?";
+            String sql = "Select * From Producto where idProducto = ?";
         	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 
             stmt.setString(1, id);
@@ -647,7 +624,7 @@ public class Bike_Rental {
          
 
           while(rs.next()){
-               miStock = new Stock(rs.getString("Tipo"),
+               miStock = new Producto(rs.getString("Tipo"),
 		                  rs.getString("nameProducto"),
  					  rs.getFloat("precioVenta"),
  					  rs.getString("fecha"),
@@ -665,7 +642,6 @@ public class Bike_Rental {
         return  miStock;
        
     }
-	
 	
 	
 	//*************************************** DELETE ******************************************//
@@ -723,7 +699,7 @@ public class Bike_Rental {
 		int cantReal = 0 ; 
 		cantReal = (cantStock + cant);
 		
-			String sql = "update Stock set cantidad = ? where idProducto = ?"; 
+			String sql = "update Producto set cantStock = ? where idProducto = ?"; 
 			
 			try {
 				PreparedStatement stmt = conectarSQL().prepareStatement(sql);

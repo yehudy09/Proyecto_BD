@@ -1,16 +1,17 @@
 package logica;
 
-public class Servicio extends Precio {
+public class Servicio {
 
 	private int id;
 	private String ssn;
 	private String tipo;
-
-	public Servicio(float precioServ, String ssn, String tipo) {
-		super(precioServ, precioProd);
+	private float precioServ;
+	public Servicio(String ssn, String tipo, float precioServ) {
+		super();
+		this.id = id;
 		this.ssn = ssn;
 		this.tipo = tipo;
-	
+		this.precioServ = precioServ;
 	}
 	public int getId() {
 		return id;
@@ -30,6 +31,13 @@ public class Servicio extends Precio {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	public float getPrecioServ() {
+		return precioServ;
+	}
+	public void setPrecioServ(float precioServ) {
+		this.precioServ = precioServ;
+	} 
 
+	
 	
 }

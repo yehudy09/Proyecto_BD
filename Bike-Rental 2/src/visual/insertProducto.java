@@ -15,7 +15,7 @@ import logica.Bike_Rental;
 import logica.Cliente;
 import logica.Producto;
 import logica.Proveedor;
-import logica.Stock;
+
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -44,7 +44,7 @@ public class insertProducto extends JDialog {
 	private JTextField IDProtxt;
 	private JTextField textIDProv;
 	private JTextField PrecioCtxt;
-	private Stock producto = null;
+	private Producto producto = null;
 	private Proveedor miprov = null;
 	private JTextField textCant;
 	private JButton btnGuardar;
@@ -67,8 +67,8 @@ public class insertProducto extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public insertProducto(String title, boolean modi, Stock mipro) {
-		setTitle("Stock");
+	public insertProducto(String title, boolean modi, Producto mipro) {
+		setTitle("Producto");
 		setResizable(false);
 		setBounds(100, 100, 497, 611);
 		getContentPane().setLayout(new BorderLayout());
@@ -243,7 +243,7 @@ public class insertProducto extends JDialog {
 
 						String currentTime = sdf.format(dt);
 						
-				        Stock mipro = new Stock(tipo, name, precio, currentTime , marca, precioCompra, cantidad, idProveedor, idProducto);
+				        Producto mipro = new Producto(tipo, name, precio, currentTime , marca, precioCompra, cantidad, idProveedor, idProducto);
 						
 						if (textName.getText().isEmpty()) {
 							JOptionPane.showMessageDialog(null, "Se debe ingresar el nombre del producto a registrar","ATENCIÓN",
@@ -294,7 +294,7 @@ public class insertProducto extends JDialog {
 				btnGuardar = new JButton("Guardar");
 				btnGuardar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						Stock aux = null;
+						Producto aux = null;
 						int y = Integer.valueOf(textCant.getText());
 					
 						try {

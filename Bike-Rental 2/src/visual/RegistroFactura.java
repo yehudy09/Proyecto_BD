@@ -32,6 +32,7 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import logica.Bike_Rental;
 import logica.Cliente;
+import logica.Factura;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -330,7 +331,7 @@ public class RegistroFactura extends JDialog {
 		});
 		scrollPane_2.setViewportView(tableServ);
 		modelServ = new DefaultTableModel();
-		String[] columneNames2 = {"Id", "Empleado", "Tipo", "Precio"};
+		String[] columneNames2 = {"Id", "SSN Empleado", "Tipo", "Precio"};
 		modelServ.setColumnIdentifiers(columneNames2);
 		
 		JPanel pnlFactura = new JPanel();
@@ -436,13 +437,15 @@ public class RegistroFactura extends JDialog {
 				} else if (rdbtnProd.isSelected()){
 					int cant = (int)spnCant.getValue(); 
 					
-					modeloCompra.add(0, String.valueOf("- Prod." + " - Id: #" + cod + " - " + "Precio: $"+pre+ "-Cant:" + cant ));
+					modeloCompra.add(0, String.valueOf("- Prod." + " - Id: #" + cod + "- Cant:" + cant+ " - " + "Precio: $"+pre ));
 					listCompras.setModel(modeloCompra);
 				} else {
 					modeloServ.add(0, String.valueOf("-    Servicio" + " - Id: #" + cod2 + " -  " + "Precio: $" +pre2));
 					listServ.setModel(modeloServ);
 				
 				}
+				
+				spnCant.setValue(0);
 				
 				
 			}
@@ -472,20 +475,45 @@ public class RegistroFactura extends JDialog {
 						}
 				
 						else {
-							int option = JOptionPane.showConfirmDialog(null, "Desea efectuar la compra? Luego de confirmar, no podrá modificar ni "
+							ArrayList<String> auxPrice = null; 
+							for(int j = 0; j < modeloCompra.getSize(); j++) {
+								System.out.println((modeloCompra.getElementAt(j).toString().substring(29,36)));
+							}
+						/*	int option = JOptionPane.showConfirmDialog(null, "Desea efectuar la compra? Luego de confirmar, no podrá modificar ni "
 									+ "eliminar esta factura", "Aviso", JOptionPane.WARNING_MESSAGE);
 							if(option == JOptionPane.OK_OPTION) {
+								String comprob; 
+								if(rdbtnSi.isSelected()) {
+									comprob = "Si"; 
+								}else {
+									comprob = "No"; 
+								}
+								java.util.Date dt = new java.util.Date();
+								java.text.SimpleDateFormat sdf = 
+								        new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+								String currentTime = sdf.format(dt);
 								
+								String sql = "Select cid from Cliente where cedula ='"+lblCedula.getText()+"'";
+								try {
+									PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sql);
+									ResultSet rs = ps.executeQuery(); 	
+									while(rs.next()) {
+										int cid = rs.getInt(1); 
+										Factura fact = new Factura(comprob, currentTime, cid); 
+										Bike_Rental.getInstance().insertFactura(fact);
+										JOptionPane.showMessageDialog(null, "Factura agregada satisfactoriamente");
+									}
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								} 
 								
 								ArrayList<String> auxId = null; 
 								for (int i = 0; i < modeloCompra.getSize(); i++) {
 									auxId.add(modeloCompra.getElementAt(i).toString().substring(15,17));
-									
-									for(int j = 0; i < auxId.size() ; j++) {
-										
 									}
-									}
-							}
+								
+							}*/
 						}
 					}
 				});

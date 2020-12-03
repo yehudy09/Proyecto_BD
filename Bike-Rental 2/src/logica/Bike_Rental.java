@@ -331,17 +331,16 @@ public class Bike_Rental {
 	}
 	
 
-	
+
 	public void insertFactura(Factura fact) throws Exception {
 		misFacturas.add(fact);
-		Date fecha = new Date(fact.getFecha().getTime());
 		String sql = "insert into Factura (comprobante, fecha, cid) values (?,?,?)";
 			
 		
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 			stmt.setString(1, fact.getComprobante());
-			stmt.setDate(2, fecha);
+			stmt.setString(2, fact.getFecha());
 			stmt.setInt(3, fact.getCid());
 			stmt.execute();
 		
@@ -351,6 +350,7 @@ public class Bike_Rental {
 			
 		} 		
 	}
+	
 	
 	
 	public void insertDetalleFactura(DetalleFactura df) throws Exception {
@@ -527,16 +527,6 @@ public class Bike_Rental {
                 					  rs.getString("codPostal"),
                 					  rs.getString("tel"),
                 					  rs.getString("Provincia"));
-                System.out.println("IDCliente->"+rs.getString("cid"));
-                System.out.println("Cliente Encontrado = " + rs.getString("Fname")  + " "+"and"+" "+"Cedula = " + " "+ rs.getString("cedula"));
-               
-            }
-
-            if (miCliente != null) {
-                System.out.println("Cliente Encontrado");
-
-            }else{
-            	 System.out.println("Cliente no Encontrado");
             }
         } catch (SQLException e) {
         	e.printStackTrace();

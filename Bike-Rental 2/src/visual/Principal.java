@@ -30,6 +30,7 @@ import java.awt.Color;
 import javax.swing.UIManager;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.ParseException;
 
 public class Principal extends JFrame {
 
@@ -155,6 +156,27 @@ public class Principal extends JFrame {
 			}
 		});
 		mnConsultas.add(mntmListProv);
+		
+		JMenu mnFacturar = new JMenu("Facturar");
+		mnFacturar.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		menuBar.add(mnFacturar);
+		
+		JMenuItem mntmFactura = new JMenuItem("Registrar Factura");
+		mntmFactura.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistroFactura rf;
+				try {
+					rf = new RegistroFactura();
+					rf.setLocationRelativeTo(null);
+					rf.setVisible(true);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		mnFacturar.add(mntmFactura);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

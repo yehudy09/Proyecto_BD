@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class Factura {
 	private int fid; 
 	private String comprobante;
-	private Date fecha; 
+	private String fecha; 
 	private int cid;
 
-	public Factura(String comprobante, Date fecha, String rnc, int cid) {
+	public Factura(String comprobante, String fecha, int cid) {
 		super();
 		this.fid = fid;
 		this.comprobante = comprobante;
@@ -30,10 +30,10 @@ public class Factura {
 	public void setComprobante(String comprobante) {
 		this.comprobante = comprobante;
 	}
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	

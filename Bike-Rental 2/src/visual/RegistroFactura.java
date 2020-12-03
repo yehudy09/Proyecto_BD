@@ -475,9 +475,13 @@ public class RegistroFactura extends JDialog {
 						}
 				
 						else {
-							ArrayList<String> auxPrice = null; 
+							ArrayList<String> idP = null; 
+							ArrayList<Integer> cantidadP = null;
+							ArrayList<Float> precioP = null; 
 							for(int j = 0; j < modeloCompra.getSize(); j++) {
-								System.out.println((modeloCompra.getElementAt(j).toString().substring(29,36)));
+								idP.add(modeloCompra.getElementAt(j).toString().substring(15,15+cod.length()));
+								
+								System.out.println((modeloCompra.getElementAt(j).toString().substring(15,15+cod.length())));
 							}
 						/*	int option = JOptionPane.showConfirmDialog(null, "Desea efectuar la compra? Luego de confirmar, no podrá modificar ni "
 									+ "eliminar esta factura", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -539,7 +543,7 @@ public class RegistroFactura extends JDialog {
 	private void loadProd() throws Exception{
 		modelProd.setRowCount(0);
 		tableProd.setModel(modelProd);
-		String sql = "select * from Producto"; 
+		String sql = "select idProducto, tipo, nameProducto, precioVenta, marca, cantStock from Producto"; 
 		
 			try {
 				PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sql);

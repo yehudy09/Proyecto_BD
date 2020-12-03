@@ -32,7 +32,7 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 
-
+//
 public class InsertCliente extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();

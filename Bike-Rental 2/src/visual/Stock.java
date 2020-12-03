@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 
 public class Stock extends JDialog {
 
@@ -29,27 +30,38 @@ public class Stock extends JDialog {
 	 * Create the dialog.
 	 */
 	public Stock() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 621, 481);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 11, 585, 387);
+		contentPanel.add(panel);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			
+			JButton btnEliminar = new JButton("Eliminar");
+			btnEliminar.setIcon(new ImageIcon(Stock.class.getResource("/icons/borrar.png")));
+			btnEliminar.setEnabled(false);
+			buttonPane.add(btnEliminar);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				JButton btnModificar = new JButton("Modificar");
+				btnModificar.setIcon(new ImageIcon(Stock.class.getResource("/icons/modificar.png")));
+				btnModificar.setEnabled(false);
+				btnModificar.setActionCommand("OK");
+				buttonPane.add(btnModificar);
+				getRootPane().setDefaultButton(btnModificar);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setIcon(new ImageIcon(Stock.class.getResource("/icons/cancelar.png")));
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
 	}
-
 }

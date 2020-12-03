@@ -76,6 +76,7 @@ public class RegistroFactura extends JDialog {
 	private JLabel lblTelefono; 
 	private JLabel lblNombre; 
 	private String cod; 
+	private int cant;
 	private String pre2;
 	private String pre;
 	private String cod2; 
@@ -170,14 +171,21 @@ public class RegistroFactura extends JDialog {
 		pnlVenta.add(scrollPane_1, BorderLayout.WEST);
 		
 		listCompras = new JList();
-		listCompras.setBorder(new TitledBorder(null, "Productos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		listCompras.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = listCompras.getSelectedIndex();           
+				System.out.println("Index Selected: " + index);          
+				String s = (String) listCompras.getSelectedValue();           
+				System.out.println("Value Selected: " + s);
+			}
+		});
 		scrollPane_1.setViewportView(listCompras);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
 		pnlVenta.add(scrollPane_3, BorderLayout.EAST);
 		
 		listServ = new JList();
-		listServ.setBorder(new TitledBorder(null, "Servicios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		scrollPane_3.setViewportView(listServ);
 		
 		JPanel pnlGeneral = new JPanel();
@@ -437,12 +445,12 @@ public class RegistroFactura extends JDialog {
 				}else if (rdbtnProd.isSelected() && aux == 0 ) {
 					JOptionPane.showMessageDialog(null, "Debe digitar la cantidad del producto", null, JOptionPane.WARNING_MESSAGE);
 				} else if (rdbtnProd.isSelected()){
-					int cant = (int)spnCant.getValue(); 
+					cant = (int)spnCant.getValue(); 
 					
-					modeloCompra.add(0, String.valueOf("- Id: " + cod + "- Cant:" + cant+ " - " + "Precio: $"+pre ));
+					modeloCompra.add(0, String.valueOf("- Prod." + " - Id: #" + cod + "- Cant:" + cant+ " - " + "Precio: $"+pre ));
 					listCompras.setModel(modeloCompra);
 				} else {
-					modeloServ.add(0, String.valueOf("-  Servicio" + " - Id: " + cod2 + " -  " + "Precio: $" +pre2));
+					modeloServ.add(0, String.valueOf("-    Servicio" + " - Id: #" + cod2 + " -  " + "Precio: $" +pre2));
 					listServ.setModel(modeloServ);
 				
 				}
@@ -477,15 +485,8 @@ public class RegistroFactura extends JDialog {
 						}
 				
 						else {
-							ArrayList<String> idP = null; 
-							ArrayList<Integer> cantidadP = null;
-							ArrayList<Float> precioP = null; 
-							for(int j = 0; j < modeloCompra.getSize(); j++) {
-								idP.add(modeloCompra.getElementAt(j).toString().substring(15,15+cod.length()));
-								
-								System.out.println((modeloCompra.getElementAt(j).toString().substring(15,15+cod.length())));
-							}
-						/*	int option = JOptionPane.showConfirmDialog(null, "Desea efectuar la compra? Luego de confirmar, no podrá modificar ni "
+
+							int option = JOptionPane.showConfirmDialog(null, "Desea efectuar la compra? Luego de confirmar, no podrá modificar ni "
 									+ "eliminar esta factura", "Aviso", JOptionPane.WARNING_MESSAGE);
 							if(option == JOptionPane.OK_OPTION) {
 								String comprob; 
@@ -513,13 +514,63 @@ public class RegistroFactura extends JDialog {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								} 
-								
+							/*	
 								ArrayList<String> auxId = null; 
 								for (int i = 0; i < modeloCompra.getSize(); i++) {
 									auxId.add(modeloCompra.getElementAt(i).toString().substring(15,17));
 									}
+							*/
+							}
+							ArrayList<String> idP = null; 
+							ArrayList<Integer> cantidadP = null;
+							ArrayList<Float> precioP = null; 
+							for(int j = 0; j < modeloCompra.getSize(); j++) {
+								String file = modeloCompra.getElementAt(j).toString();
+								String serv = modeloServ.getElementAt(j).toString();
+								int indexID = file.indexOf("Id: #");
+								int indexCant = file.indexOf("Cant:");
+								int indexPrecio = file.indexOf("Precio: $");
+								int indexIDserv = serv.indexOf("Id: #");
+								int indexPrecioServ = serv.indexOf("Precio: $");
+								String id = file.substring(indexID+5, indexCant-2);
+								int cant = Integer.parseInt(file.substring(indexCant+5, indexPrecio-3));
+								String precioAux = file.substring(indexPrecio +9, 40);
+								String precio = precioAux;
+								String idServ = serv.substring(indexIDserv+5, indexPrecioServ - 4);
+								String precioServ = serv.substring(indexPrecioServ +9, 40);
+
+								String sqlFID = "select MAX(fid) from Factura";
+								String sql = "insert into  detalleFactura (fid, precioVenta, idProducto, cantidadVenta, precioServicio, idServicio)"
+										+ "values (?,?,?,?,?,?)";
+								try {
+									//PreparedStatement psPrecio = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlPrecioVenta);
+									//ResultSet rsPrecio = psPrecio.executeQuery();
+									//float precio = rsPrecio.getFloat(1);
+									System.out.println(cant);
+
+									
+									PreparedStatement psID = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlFID);
+									ResultSet rs = psID.executeQuery();
+									while (rs.next()) {
+										int fid = Integer.parseInt(rs.getString(1));
+										PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sql);
+										ps.setInt(1, fid);
+										ps.setFloat(2, Float.parseFloat(precio));
+										ps.setString(3, id);
+										ps.setInt(4, cant);
+										ps.setFloat(5, Float.parseFloat(precioServ));
+										ps.setString(6, idServ);
+										ps.execute();
+									}
+								} catch (Exception e2) {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
 								
-							}*/
+							//	cantidadP.add(Integer.parseInt(modeloCompra.getElementAt(j).toString().substring(16+cod.length(), 16+cod.length() + Integer.toString(cant).length())));
+							//	System.out.println((modeloCompra.getElementAt(j).toString().substring(16+cod.length(), Integer.toString(cant).length())));
+							
+							}
 						}
 					}
 				});

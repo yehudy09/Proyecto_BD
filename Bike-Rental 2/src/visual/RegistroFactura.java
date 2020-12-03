@@ -545,7 +545,7 @@ public class RegistroFactura extends JDialog {
 								try {
 									//PreparedStatement psPrecio = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlPrecioVenta);
 									//ResultSet rsPrecio = psPrecio.executeQuery();
-									//float precio = rsPrecio.getFloat(1);
+									//float precio = rsPrecio.getFloat(1);aaaa
 									System.out.println(cant);
 
 									

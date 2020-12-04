@@ -2,6 +2,7 @@ package visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -76,6 +77,7 @@ public class insertProducto extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		producto = mipro;
 		
 		JPanel pnlInformacion = new JPanel();
 		pnlInformacion.setLayout(null);
@@ -214,8 +216,11 @@ public class insertProducto extends JDialog {
 		lblFecha.setBounds(16, 455, 63, 14);
 		pnlInformacion.add(lblFecha);
 		
+		JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(spnFecha, "dd/MM/yyyy");
+		spnFecha.setFont(new Font("Tahoma", Font.BOLD, 11));
 		spnFecha = new JSpinner();
 		spnFecha.setEnabled(false);
+		spnFecha.setEditor(dateEditor);
 		spnFecha.setBounds(151, 452, 86, 20);
 		pnlInformacion.add(spnFecha);
 		{
@@ -225,9 +230,13 @@ public class insertProducto extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnRegistrar = new JButton("Registrar");
+				if(modi){
+					btnRegistrar.setText("Salvar Modificaciones");
+				}
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+						if(!modi) {
+							
 						String name = textName.getText();
 						String tipo = textTipo.getText();
 						float precio = Float.parseFloat(textPrecio.getText());
@@ -268,7 +277,7 @@ public class insertProducto extends JDialog {
 							JOptionPane.showMessageDialog(null, "Se debe ingresar el ID del producto a registrar", "ATENCIÓN",
 									JOptionPane.WARNING_MESSAGE, null);
 					
-				} 
+				} else {
 						try {
 							Bike_Rental.getInstance().insertProducto(mipro);
 						} catch (Exception e1) {
@@ -289,6 +298,37 @@ public class insertProducto extends JDialog {
 						.showMessageDialog(null,
 								"Producto Agregado Satisfactoriamente");
 					}
+						}
+						
+						else {
+							String name = textName.getText();
+							String tipo = textTipo.getText();
+							float precio = Float.parseFloat(textPrecio.getText());
+							int cantidad = Integer.valueOf(textCant.getText());
+							String marca = textMarca.getText();	
+							String idProducto = IDProtxt.getText();
+							String idProveedor = textIDProv.getText();
+							float precioCompra = Float.parseFloat(PrecioCtxt.getText());
+							
+							java.util.Date dt = new java.util.Date();
+							java.text.SimpleDateFormat sdf = 
+							        new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+							String currentTime = sdf.format(dt);
+							
+					        Producto modiProd = new Producto(tipo, name, precio, currentTime , marca, precioCompra, cantidad, idProveedor, idProducto);
+					        try {
+								Bike_Rental.getInstance().updateStock(modiProd);
+								JOptionPane.showMessageDialog(null, "Proveedor Modificado");
+								dispose();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								JOptionPane.showMessageDialog(null, e1,  "No se insertaron los datos correctos" + e1.getMessage(), JOptionPane.ERROR_MESSAGE);
+								e1.printStackTrace();
+								
+							}
+						}
+				}
 				});
 				
 				btnGuardar = new JButton("Guardar");
@@ -341,5 +381,31 @@ public class insertProducto extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
+		
+		
+		if(modi){
+			loadProducto();
+		}
+		
+		
 	}
+	
+	private void loadProducto() {
+		if (producto != null) {
+			IDProtxt.setText(producto.getIdProducto());
+			textIDProv.setText(producto.getIdProveedor());
+			textName.setText(producto.getNameProducto());
+			textMarca.setText(producto.getMarca());
+			textCant.setText(Integer.toString(producto.getCantStock()));
+			textPrecio.setText(Float.toString(producto.getPrecioVenta()));
+			textTipo.setText(producto.getTipo());
+			PrecioCtxt.setText(Float.toString(producto.getPrecioCompra()));
+			
+			
+			
+		}
+
+	}
+	
+	
 }

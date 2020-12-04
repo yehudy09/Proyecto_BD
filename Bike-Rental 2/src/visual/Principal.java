@@ -196,6 +196,21 @@ public class Principal extends JFrame {
 			}
 		});
 		mnFacturar.add(mntmFactura);
+		
+		JMenu mnNewMenu = new JMenu("Stock");
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Stock");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Stock st;
+				st = new Stock();
+				st.setModal(true);
+				st.setLocationRelativeTo(null);
+				st.setVisible(true);
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

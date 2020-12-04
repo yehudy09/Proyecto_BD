@@ -104,7 +104,7 @@ public class Stock extends JDialog {
 
 							modificarbtt.setEnabled(true);
 							eliminarbtt.setEnabled(true);
-							auxi = (String) table.getModel().getValueAt(aux, 1);
+							auxi = (String) table.getModel().getValueAt(aux, 0);
 
 						} else {
 							modificarbtt.setEnabled(false);
@@ -116,7 +116,7 @@ public class Stock extends JDialog {
 				table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				scrollPane.setViewportView(table);
 				model = new DefaultTableModel();
-				String[] columneNames = {"ID Prod.", "ID Prov.", "Nombre Prod.", "Marca", "Cantidad", "Precio Venta", "Tipo", "Precio Compra", "Fecha", };
+				String[] columneNames = {"ID Prod.", "Tipo", "Nombre Prod.", "Precio Venta", "Marca", "Cantidad", "ID Prov.", "Fecha", "Precio Compra"  };
 				model.setColumnIdentifiers(columneNames);
 				table.setModel(model);
 				table.getTableHeader().setResizingAllowed(false);
@@ -133,14 +133,14 @@ public class Stock extends JDialog {
 				eliminarbtt.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if (auxi != "") {
-							int answer = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar el proveedor?",
+							int answer = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar el producto?",
 									"Devolver publicacion", JOptionPane.YES_NO_CANCEL_OPTION,
 									JOptionPane.QUESTION_MESSAGE, null);
 							if (answer == JOptionPane.YES_OPTION) {
 								modificarbtt.setEnabled(false);
 								eliminarbtt.setEnabled(false);
 								try {
-									Bike_Rental.getInstance().deleteProveedor(auxi);
+									Bike_Rental.getInstance().deleteProducto(auxi);
 									cargarProductos();;
 								} catch (Exception e1) {
 									// TODO Auto-generated catch block
@@ -168,6 +168,8 @@ public class Stock extends JDialog {
 						if (auxi != "") {
 							try {
 								miPro = Bike_Rental.getInstance().searchProductoByID(auxi);
+								
+								
 							} catch (SQLException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -237,19 +239,9 @@ public class Stock extends JDialog {
 				e.printStackTrace();
 			}
 			
-			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 			table.getTableHeader().setReorderingAllowed(false);
-			//TableColumnModel columnModel = table.getColumnModel();
-			/*columnModel.getColumn(0).setPreferredWidth(4);
-			columnModel.getColumn(1).setPreferredWidth(90);
-			columnModel.getColumn(2).setPreferredWidth(70);
-			columnModel.getColumn(3).setPreferredWidth(80);
-			columnModel.getColumn(4).setPreferredWidth(75);
-			columnModel.getColumn(5).setPreferredWidth(90);
-			columnModel.getColumn(6).setPreferredWidth(80);
-			columnModel.getColumn(7).setPreferredWidth(80);
-			columnModel.getColumn(8).setPreferredWidth(90);
-			columnModel.getColumn(9).setPreferredWidth(90);*/
+			
 		
 }
 }

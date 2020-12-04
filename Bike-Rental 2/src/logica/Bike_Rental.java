@@ -110,9 +110,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=luna;password=123luna;";
+			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=yehudy;password=123;";
-			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=dariannye;password=bikerental4;";
+			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -696,6 +696,28 @@ public class Bike_Rental {
 			e.printStackTrace();
 			
 		} 		
+	}
+	
+	public void deleteProducto(String id) throws Exception {
+		String sql = "delete PrecioComp where idProducto = ? "
+				+ "delete from Producto where idProducto = ? ";
+		
+			
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+			stmt.setString(1, id);
+			stmt.setString(2, id);
+			stmt.execute();
+			
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} 		
+		
+		
+		
 	}
 	
 	/*public void deleteLogUser() throws Exception {

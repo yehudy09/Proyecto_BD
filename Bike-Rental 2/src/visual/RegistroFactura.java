@@ -526,9 +526,7 @@ public class RegistroFactura extends JDialog {
 									}
 							*/
 							}
-							ArrayList<String> idP = null; 
-							ArrayList<Integer> cantidadP = null;
-							ArrayList<Float> precioP = null; 
+
 							for(int j = 0; j < modeloCompra.getSize(); j++) {
 								String file = modeloCompra.getElementAt(j).toString();
 							//	String serv = modeloServ.getElementAt(j).toString();
@@ -547,36 +545,63 @@ public class RegistroFactura extends JDialog {
 								String sqlFID = "select MAX(fid) from Factura";
 								String sql = "insert into  detalleFactura (fid, precioVenta, idProducto, cantidadVenta, precioServicio, idServicio)"
 										+ "values (?,?,?,?,?,?)";
-								try {
-									//PreparedStatement psPrecio = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlPrecioVenta);
-									//ResultSet rsPrecio = psPrecio.executeQuery();
-									//float precio = rsPrecio.getFloat(1);aaaa
-									System.out.println(cant);
+								
+								
+								if (id.charAt(0) == '1' || id.charAt(0) == '2' || id.charAt(0) == '3' || id.charAt(0) == '4' || id.charAt(0) == '5' 
+										|| id.charAt(0) == '6' || id.charAt(0) == '7' || id.charAt(0) == '8' || id.charAt(0) == '9' || id.charAt(0) == '0' ) {
+									try {
+										//PreparedStatement psPrecio = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlPrecioVenta);
+										//ResultSet rsPrecio = psPrecio.executeQuery();
+										//float precio = rsPrecio.getFloat(1);aaaa
+										System.out.println(cant);
 
-									
-									PreparedStatement psID = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlFID);
-									ResultSet rs = psID.executeQuery();
-									while (rs.next()) {
-										int fid = Integer.parseInt(rs.getString(1));
-										PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sql);
-										ps.setInt(1, fid);
-										ps.setFloat(2, Float.parseFloat(precio));
-										ps.setString(3, id);
-										ps.setInt(4, cant);
-										ps.setFloat(5, Float.parseFloat(precioServ));
-										ps.setString(6, idServ);
-										ps.execute();
+										
+										PreparedStatement psID = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlFID);
+										ResultSet rs = psID.executeQuery();
+										while (rs.next()) {
+											int fid = Integer.parseInt(rs.getString(1));
+											PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sql);
+											ps.setInt(1, fid);
+											ps.setFloat(2, Float.parseFloat(precio));
+											ps.setString(3, id);
+											ps.setInt(4, cant);
+											ps.setFloat(5, 1);
+											ps.setString(6, "1");
+											ps.execute();
+										}
+									} catch (Exception e2) {
+										// TODO Auto-generated catch block
+										e2.printStackTrace();
 									}
-								} catch (Exception e2) {
-									// TODO Auto-generated catch block
-									e2.printStackTrace();
 								}
+								else {
+									try {
+										PreparedStatement psID = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlFID);
+										ResultSet rs = psID.executeQuery();
+										while (rs.next()) {
+											int fid = Integer.parseInt(rs.getString(1));
+											PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sql);
+											ps.setInt(1, fid);
+											ps.setFloat(2, 1);
+											ps.setString(3, "1");
+											ps.setInt(4, 1);
+											ps.setFloat(5, Float.parseFloat(precioServ));
+											ps.setString(6, idServ);
+											ps.execute();
+									}
+									}catch (Exception e2) {
+										// TODO Auto-generated catch block
+										e2.printStackTrace();
+									}
+									
+								
 								
 							//	cantidadP.add(Integer.parseInt(modeloCompra.getElementAt(j).toString().substring(16+cod.length(), 16+cod.length() + Integer.toString(cant).length())));
 							//	System.out.println((modeloCompra.getElementAt(j).toString().substring(16+cod.length(), Integer.toString(cant).length())));
 							
 							}
 						}
+					  }
 					}
 				});
 				btnFacturar.setIcon(new ImageIcon(RegistroFactura.class.getResource("/icons/modificar.png")));

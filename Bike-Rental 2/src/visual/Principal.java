@@ -102,6 +102,14 @@ public class Principal extends JFrame {
 		mnRegistrar.add(mntmCliente);
 		
 		JMenuItem mntmEmpleado = new JMenuItem("Empleado");
+		mntmEmpleado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tablaEmpleados e1;
+				e1 = new tablaEmpleados();
+				e1.setLocationRelativeTo(null);
+				e1.setVisible(true);
+			}
+		});
 		mnRegistrar.add(mntmEmpleado);
 		
 		JMenuItem mntmProv = new JMenuItem("Proveedor");
@@ -128,6 +136,17 @@ public class Principal extends JFrame {
 			}
 		});
 		mnRegistrar.add(mntmProd);
+		
+		JMenuItem mntmServicio = new JMenuItem("Servicio");
+		mntmServicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertServicio s1;
+				s1 = new insertServicio();
+				s1.setLocationRelativeTo(null);
+				s1.setVisible(true);
+			}
+		});
+		mnRegistrar.add(mntmServicio);
 		
 		JMenu mnConsultas = new JMenu("Consultas");
 		mnConsultas.setFont(new Font("Segoe UI", Font.BOLD, 13));

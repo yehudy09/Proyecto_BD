@@ -69,6 +69,7 @@ public class tablaEmpleados extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -83,11 +84,12 @@ public class tablaEmpleados extends JFrame {
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the frame.
 	 */
 	public tablaEmpleados() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -102,7 +104,7 @@ public class tablaEmpleados extends JFrame {
 		});
 		setTitle("EMPLEADOS");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1085, 566);
+		setBounds(100, 100, 1085, 587);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));

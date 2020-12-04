@@ -2,21 +2,21 @@ package logica;
 
 public class Servicio {
 
-	private int id;
+	private String id;
 	private String ssn;
 	private String tipo;
 	private float precioServ;
-	public Servicio(String ssn, String tipo, float precioServ) {
+	public Servicio(String ssn, String tipo, float precioServ, String id) {
 		super();
 		this.id = id;
 		this.ssn = ssn;
 		this.tipo = tipo;
 		this.precioServ = precioServ;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getSsn() {

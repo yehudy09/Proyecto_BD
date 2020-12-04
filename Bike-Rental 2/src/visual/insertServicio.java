@@ -50,12 +50,14 @@ public class insertServicio extends JFrame {
 	private static JButton btnModificar;
 	private static JButton btnEliminar;
 	private static JComboBox cbxEmpleados;
+	private JTextField tfIDServ;
 
 
 
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -68,7 +70,7 @@ public class insertServicio extends JFrame {
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the frame.
 	 */
@@ -91,7 +93,7 @@ public class insertServicio extends JFrame {
 		});
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 611, 399);
+		setBounds(100, 100, 611, 461);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -101,7 +103,7 @@ public class insertServicio extends JFrame {
 		JPanel panelInsercion = new JPanel();
 		panelInsercion.setBackground(SystemColor.inactiveCaptionBorder);
 		panelInsercion.setBorder(new TitledBorder(null, "Servicio", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelInsercion.setBounds(8, 10, 180, 342);
+		panelInsercion.setBounds(8, 10, 180, 413);
 		contentPane.add(panelInsercion);
 		
 		JLabel lblSsn = new JLabel("SSN (Empleado)");
@@ -136,7 +138,7 @@ public class insertServicio extends JFrame {
 							ssn = rs.getString(1);
 							
 							 
-							Servicio aux = new Servicio (ssn, tfTipo.getText(), Float.parseFloat(tfPrecio.getText()));
+							Servicio aux = new Servicio (ssn, tfTipo.getText(), Float.parseFloat(tfPrecio.getText()), tfIDServ.getText());
 							Bike_Rental.getInstance().insertServicio(aux);
 							cargarServicios();
 							JOptionPane
@@ -161,8 +163,9 @@ public class insertServicio extends JFrame {
 				String id = model.getValueAt(filaTable, 0).toString();
 				String ssn = model.getValueAt(filaTable, 1).toString();
 				String tipo = model.getValueAt(filaTable, 2).toString();
+				
 				Float precio = Float.parseFloat(model.getValueAt(filaTable, 3).toString());
-				Servicio modify = new Servicio(ssn, tipo, precio);
+				Servicio modify = new Servicio(ssn, tipo, precio, id);
 				modificarServicio modi = new modificarServicio(modify, id);
 				modi.setUndecorated(true);
 				modi.setVisible(true);
@@ -204,6 +207,17 @@ public class insertServicio extends JFrame {
 		
 		cbxEmpleados = new JComboBox();
 		cbxEmpleados.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+		
+		JLabel lblIDServ = new JLabel("ID");
+		lblIDServ.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		tfIDServ = new JTextField();
+		tfIDServ.setColumns(10);
+		
+		JButton btnNewButton = new JButton("CERRAR");
+		btnNewButton.setBackground(SystemColor.inactiveCaption);
+		btnNewButton.setForeground(Color.BLACK);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		GroupLayout gl_panelInsercion = new GroupLayout(panelInsercion);
 		gl_panelInsercion.setHorizontalGroup(
 			gl_panelInsercion.createParallelGroup(Alignment.LEADING)
@@ -211,22 +225,37 @@ public class insertServicio extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_panelInsercion.createParallelGroup(Alignment.LEADING)
 						.addGroup(Alignment.TRAILING, gl_panelInsercion.createSequentialGroup()
+							.addGroup(gl_panelInsercion.createParallelGroup(Alignment.TRAILING)
+								.addComponent(cbxEmpleados, Alignment.LEADING, 0, 152, Short.MAX_VALUE)
+								.addComponent(lblSsn, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
+							.addContainerGap())
+						.addGroup(Alignment.TRAILING, gl_panelInsercion.createSequentialGroup()
 							.addComponent(lblTipo, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
 							.addGap(60))
+						.addGroup(Alignment.TRAILING, gl_panelInsercion.createSequentialGroup()
+							.addComponent(tfTipo, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+							.addContainerGap())
 						.addGroup(Alignment.TRAILING, gl_panelInsercion.createSequentialGroup()
 							.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
 							.addGap(60))
 						.addGroup(Alignment.TRAILING, gl_panelInsercion.createSequentialGroup()
+							.addComponent(lblIDServ, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(118, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, gl_panelInsercion.createSequentialGroup()
 							.addGroup(gl_panelInsercion.createParallelGroup(Alignment.TRAILING)
-								.addComponent(cbxEmpleados, Alignment.LEADING, 0, 152, Short.MAX_VALUE)
-								.addComponent(tfPrecio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-								.addComponent(btnEliminar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-								.addComponent(btnModificar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-								.addComponent(btnInsertar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-								.addComponent(lblSsn, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
+								.addComponent(tfIDServ, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+								.addComponent(tfPrecio, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
 							.addContainerGap())
 						.addGroup(gl_panelInsercion.createSequentialGroup()
-							.addComponent(tfTipo, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+							.addComponent(btnInsertar, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(gl_panelInsercion.createSequentialGroup()
+							.addComponent(btnModificar, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(Alignment.TRAILING, gl_panelInsercion.createSequentialGroup()
+							.addGroup(gl_panelInsercion.createParallelGroup(Alignment.TRAILING)
+								.addComponent(btnNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+								.addComponent(btnEliminar, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
 							.addContainerGap())))
 		);
 		gl_panelInsercion.setVerticalGroup(
@@ -236,28 +265,34 @@ public class insertServicio extends JFrame {
 					.addComponent(lblSsn)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(cbxEmpleados, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(20)
-					.addComponent(lblTipo)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblTipo)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(tfTipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(26)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblNewLabel)
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(tfPrecio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblIDServ)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tfIDServ, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnInsertar)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnModificar)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnEliminar)
-					.addContainerGap())
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnNewButton)
+					.addContainerGap(22, Short.MAX_VALUE))
 		);
 		panelInsercion.setLayout(gl_panelInsercion);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.inactiveCaptionBorder);
 		panel.setBorder(new TitledBorder(null, "Servicios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(196, 10, 393, 342);
+		panel.setBounds(196, 10, 393, 413);
 		contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		

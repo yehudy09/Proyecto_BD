@@ -50,6 +50,7 @@ public class modificarServicio extends JFrame {
 	private static JButton btnModificar;
 	private JButton btnCancelar;
 	private JTextField tfSSN;
+	private JTextField tfIDServ;
 
 
 
@@ -130,7 +131,7 @@ public class modificarServicio extends JFrame {
 					String ssn = tfSSN.getText();
 					String tipo = tfTipo.getText();
 					float precio = Float.parseFloat(tfPrecio.getText());
-					Servicio nuevo = new Servicio(tipo, ssn, precio);
+					Servicio nuevo = new Servicio(tipo, ssn, precio, tfIDServ.getText());
 					try {
 						updateServicio(id);
 						dispose();
@@ -164,6 +165,16 @@ public class modificarServicio extends JFrame {
 		panelInsercion.add(lblSsn);
 		panelInsercion.add(tfSSN);
 		panelInsercion.add(tfTipo);
+		
+		tfIDServ = new JTextField();
+		tfIDServ.setBounds(14, 245, 152, 19);
+		panelInsercion.add(tfIDServ);
+		tfIDServ.setColumns(10);
+		tfIDServ.setText(id);
+		
+		JLabel lblIDServ = new JLabel("ID");
+		lblIDServ.setBounds(14, 222, 42, 13);
+		panelInsercion.add(lblIDServ);
 		model = new DefaultTableModel(
 			new Object[][] {
 			},

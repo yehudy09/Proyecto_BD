@@ -33,6 +33,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import logica.Bike_Rental;
 import logica.Cliente;
 import logica.Factura;
+import logica.Producto;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -88,9 +89,7 @@ public class RegistroFactura extends JDialog {
 	private DefaultTableModel modelServ;
 	private static Object[] filaServ;
 	private JList<String> listCompras; 
-	private ArrayList<String> Items;
 	private DefaultListModel modeloCompra = new DefaultListModel();
-	private DefaultListModel modeloServ = new DefaultListModel();
 	private JSpinner spnFecha =  new JSpinner(new SpinnerDateModel());
 	private JSpinner spnCant;
 	private float precioTotal = 0;
@@ -184,12 +183,6 @@ public class RegistroFactura extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 					btnDevolver.setEnabled(true);
-			
-			
-				/*int index = listCompras.getSelectedIndex();           
-				System.out.println("Index Selected: " + index);          
-				String s = (String) listCompras.getSelectedValue();           
-				System.out.println("Value Selected: " + s);*/
 			}
 		});
 		scrollPane_1.setViewportView(listCompras);
@@ -514,92 +507,96 @@ public class RegistroFactura extends JDialog {
 										int cid = rs.getInt(1); 
 										Factura fact = new Factura(comprob, currentTime, cid); 
 										Bike_Rental.getInstance().insertFactura(fact);
-										JOptionPane.showMessageDialog(null, "Factura agregada satisfactoriamente");
 									}
 								} catch (Exception e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								} 
-							/*	
-								ArrayList<String> auxId = null; 
-								for (int i = 0; i < modeloCompra.getSize(); i++) {
-									auxId.add(modeloCompra.getElementAt(i).toString().substring(15,17));
-									}
-							*/
-							}
-
-							for(int j = 0; j < modeloCompra.getSize(); j++) {
-								String file = modeloCompra.getElementAt(j).toString();
-								int indexID = file.indexOf("Id: #");
-								int indexCant = file.indexOf("Cant:");
-								int indexPrecio = file.indexOf("Precio: $");
-								String precioAux = file.substring(indexPrecio +9);
-								String precio = precioAux;
-								String sqlFID = "select MAX(fid) from Factura";
-								String sqlProd = "insert into  ProductoFact (fid, precioVenta, idProducto, cantidadVenta)"
-										+ "values (?,?,?,?)";
-								String sqlServ = "insert into  ServiciosFact (fid, idServicio, precioServicio)"
-										+"values (?,?,?)";
 								
-							//	if (id.charAt(0) == '1' || id.charAt(0) == '2' || id.charAt(0) == '3' || id.charAt(0) == '4' || id.charAt(0) == '5' 
-							//			|| id.charAt(0) == '6' || id.charAt(0) == '7' || id.charAt(0) == '8' || id.charAt(0) == '9' || id.charAt(0) == '0' ) 
-								if (file.substring(0, indexID).contains("Prod."))
-								{
-									try {
-										int cant = Integer.parseInt(file.substring(indexCant+5, indexPrecio-3));
-										String id = file.substring(indexID+5, indexCant-2);
-										//PreparedStatement psPrecio = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlPrecioVenta);
-										//ResultSet rsPrecio = psPrecio.executeQuery();
-										//float precio = rsPrecio.getFloat(1);aaaa								
-										PreparedStatement psID = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlFID);
-										ResultSet rs = psID.executeQuery();
-										while (rs.next()) {
-											int fid = Integer.parseInt(rs.getString(1));
-											PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlProd);
-											ps.setInt(1, fid);
-											ps.setFloat(2, Float.parseFloat(precio));
-											ps.setString(3, id);
-											ps.setInt(4, cant);
-											ps.execute();
-											precioTotal = precioTotal + Float.parseFloat(precio) * cant;
+								for(int j = 0; j < modeloCompra.getSize(); j++) {
+									String file = modeloCompra.getElementAt(j).toString();
+									int indexID = file.indexOf("Id: #");
+									int indexCant = file.indexOf("Cant:");
+									int indexPrecio = file.indexOf("Precio: $");
+									String precioAux = file.substring(indexPrecio +9);
+									String precio = precioAux;
+									String sqlFID = "select MAX(fid) from Factura";
+									String sqlProd = "insert into  ProductoFact (fid, precioVenta, idProducto, cantidadVenta)"
+											+ "values (?,?,?,?)";
+									String sqlServ = "insert into  ServiciosFact (fid, idServicio, precioServicio)"
+											+"values (?,?,?)";
+									
+									if (file.substring(0, indexID).contains("Prod."))
+									{
+										try {
+											int cant = Integer.parseInt(file.substring(indexCant+5, indexPrecio-3));
+											String id = file.substring(indexID+5, indexCant-2);							
+											PreparedStatement psID = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlFID);
+											ResultSet rs = psID.executeQuery();
+											while (rs.next()) {
+												int fid = Integer.parseInt(rs.getString(1));
+												PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlProd);
+												ps.setInt(1, fid);
+												ps.setFloat(2, Float.parseFloat(precio));
+												ps.setString(3, id);
+												ps.setInt(4, cant);
+												ps.execute();
+												precioTotal = precioTotal + Float.parseFloat(precio) * cant;
+												Producto aux = Bike_Rental.getInstance().searchProductoByID(id); 
+												int cantStock = aux.getCantStock();
+												Bike_Rental.getInstance().decrementProducto(id, cantStock, cant);
+											}
+										} catch (Exception e2) {
+											// TODO Auto-generated catch block
+											e2.printStackTrace();
 										}
-									} catch (Exception e2) {
-										// TODO Auto-generated catch block
-										e2.printStackTrace();
 									}
+									else {
+										try {
+											int indexPrecioServ = file.indexOf("Precio: $");
+
+											int indexIDserv = file.indexOf("Id: #");
+											String idServ = file.substring(indexIDserv+5, indexPrecioServ - 4);
+											String id = file.substring(indexID+5, indexPrecio-4);
+											PreparedStatement psID = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlFID);
+											ResultSet rs = psID.executeQuery();
+											String precioServ = file.substring(indexPrecioServ +9);
+											System.out.println(precioServ);
+											precioTotal = precioTotal + Float.parseFloat(precioServ);
+											while (rs.next()) {
+												int fid = Integer.parseInt(rs.getString(1));
+												PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlServ);
+												ps.setInt(1, fid);
+												ps.setString(2, idServ);
+												ps.setFloat(3, Float.parseFloat(precioServ));
+												ps.execute();
+											}
+										}catch (Exception e2) {
+											// TODO Auto-generated catch block
+											e2.printStackTrace();
+										}
+								
 								}
-								else {
-									try {
-										int indexPrecioServ = file.indexOf("Precio: $");
-
-										int indexIDserv = file.indexOf("Id: #");
-										String idServ = file.substring(indexIDserv+5, indexPrecioServ - 4);
-										String id = file.substring(indexID+5, indexPrecio-4);
-										PreparedStatement psID = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlFID);
-										ResultSet rs = psID.executeQuery();
-										String precioServ = file.substring(indexPrecioServ +9);
-										System.out.println(precioServ);
-										precioTotal = precioTotal + Float.parseFloat(precioServ);
-										while (rs.next()) {
-											int fid = Integer.parseInt(rs.getString(1));
-											PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlServ);
-											ps.setInt(1, fid);
-											ps.setString(2, idServ);
-											ps.setFloat(3, Float.parseFloat(precioServ));
-											ps.execute();
-										}
-									}catch (Exception e2) {
-										// TODO Auto-generated catch block
-										e2.printStackTrace();
-									}
-									lblPrecio.setText(Float.toString(precioTotal));
-
-							//	cantidadP.add(Integer.parseInt(modeloCompra.getElementAt(j).toString().substring(16+cod.length(), 16+cod.length() + Integer.toString(cant).length())));
-							//	System.out.println((modeloCompra.getElementAt(j).toString().substring(16+cod.length(), Integer.toString(cant).length())));
-							
 							}
-						}
+								
+								JOptionPane.showMessageDialog(null, "Factura agregada satisfactoriamente");
+								lblCedula.setText("**********************");
+								lblNombre.setText("**********************");
+								lblTelefono.setText("**********************");
+								modeloCompra.removeAllElements();
+								ftxtCedula.setText(null);
+								try {
+									loadProd();
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+						
+							}
+
+					
 					  }
+						
 					}
 				});
 				btnFacturar.setIcon(new ImageIcon(RegistroFactura.class.getResource("/icons/modificar.png")));

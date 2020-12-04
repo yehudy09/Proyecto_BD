@@ -101,6 +101,7 @@ public class Principal extends JFrame {
 		mnRegistrar.add(mntmCliente);
 		
 		JMenuItem mntmEmpleado = new JMenuItem("Empleado");
+		mntmEmpleado.setIcon(new ImageIcon(Principal.class.getResource("/icons/agregarSolicitante.png")));
 		mntmEmpleado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tablaEmpleados e1;
@@ -125,6 +126,7 @@ public class Principal extends JFrame {
 		mnRegistrar.add(mntmProv);
 		
 		JMenuItem mntmProd = new JMenuItem("Producto");
+		mntmProd.setIcon(new ImageIcon(Principal.class.getResource("/icons/add.png")));
 		mntmProd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				insertProducto miProd;
@@ -137,6 +139,7 @@ public class Principal extends JFrame {
 		mnRegistrar.add(mntmProd);
 		
 		JMenuItem mntmServicio = new JMenuItem("Servicio");
+		mntmServicio.setIcon(new ImageIcon(Principal.class.getResource("/icons/add.png")));
 		mntmServicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				insertServicio s1;
@@ -152,6 +155,7 @@ public class Principal extends JFrame {
 		menuBar.add(mnConsultas);
 		
 		JMenuItem mntmListClientes = new JMenuItem("Listado Clientes");
+		mntmListClientes.setIcon(new ImageIcon(Principal.class.getResource("/icons/Listas.png")));
 		mntmListClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListCliente ll;
@@ -164,6 +168,7 @@ public class Principal extends JFrame {
 		mnConsultas.add(mntmListClientes);
 		
 		JMenuItem mntmListProv = new JMenuItem("Listado Proveedores");
+		mntmListProv.setIcon(new ImageIcon(Principal.class.getResource("/icons/Listas.png")));
 		mntmListProv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ListProveedor lp;
@@ -176,6 +181,7 @@ public class Principal extends JFrame {
 		mnConsultas.add(mntmListProv);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listado de Ventas");
+		mntmNewMenuItem_1.setIcon(new ImageIcon(Principal.class.getResource("/icons/Listas.png")));
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListFacturas lf;
@@ -192,6 +198,7 @@ public class Principal extends JFrame {
 		menuBar.add(mnFacturar);
 		
 		JMenuItem mntmFactura = new JMenuItem("Registrar Factura");
+		mntmFactura.setIcon(new ImageIcon(Principal.class.getResource("/icons/Money.png")));
 		mntmFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegistroFactura rf;
@@ -213,6 +220,7 @@ public class Principal extends JFrame {
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Stock");
+		mntmNewMenuItem.setIcon(new ImageIcon(Principal.class.getResource("/icons/ver.png")));
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Stock st;

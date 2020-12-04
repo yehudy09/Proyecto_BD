@@ -111,9 +111,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=luna;password=123luna;";
+			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=yehudy;password=123;";
-			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=dariannye;password=bikerental4;";
+			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
@@ -318,8 +318,8 @@ public class Bike_Rental {
 	public void insertProveedor(Proveedor p) throws Exception {
 		misProveedores.add(p);
 		    
-		String sql = "insert into Proveedor (idProveedor, cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel, marca, provincia) "
-				+ "values (?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into Proveedor (idProveedor, cedula, Fname, Sname, Lname, Calle, Ciudad, CodPostal, Tel, provincia) "
+				+ "values (?,?,?,?,?,?,?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
@@ -332,8 +332,7 @@ public class Bike_Rental {
 			stmt.setString(7, p.getCiudad());
 			stmt.setString(8, p.getPostalCode());
 			stmt.setString(9, p.getTel());
-			stmt.setString(10, p.getMarca());
-			stmt.setString(11, p.getProvincia());
+			stmt.setString(10, p.getProvincia());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -464,7 +463,7 @@ public class Bike_Rental {
 	}
 	
 	public void updateProveedor(Proveedor prov) throws Exception {
-		String sql = "update Proveedor set idProveedor = ?, Fname = ?, Sname = ?, Lname =?, Calle = ?, Ciudad =?, codPostal =?, tel =?, marca = ?, provincia =?"
+		String sql = "update Proveedor set idProveedor = ?, Fname = ?, Sname = ?, Lname =?, Calle = ?, Ciudad =?, codPostal =?, tel =?, provincia =?"
 				+ " where cedula = ? ";
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
@@ -476,9 +475,8 @@ public class Bike_Rental {
 			stmt.setString(6, prov.getCiudad());
 			stmt.setString(7, prov.getPostalCode());
 			stmt.setString(8, prov.getTel());
-			stmt.setString(9, prov.getMarca());
-			stmt.setString(10, prov.getProvincia());
-			stmt.setString(11, prov.getCedula());
+			stmt.setString(9, prov.getProvincia());
+			stmt.setString(10, prov.getCedula());
 			stmt.execute();
 			
 		
@@ -545,8 +543,7 @@ public class Bike_Rental {
                 					  rs.getString("Ciudad"),
                 					  rs.getString("codPostal"),
                 					  rs.getString("tel"),
-                					  rs.getString("marca"),
-                					  rs.getString("Provincia"));
+                				      rs.getString("Provincia"));
             }
             
             
@@ -578,7 +575,6 @@ public class Bike_Rental {
                 					  rs.getString("Ciudad"),
                 					  rs.getString("codPostal"),
                 					  rs.getString("tel"),
-                					  rs.getString("marca"),
                 					  rs.getString("Provincia"));
             }
             

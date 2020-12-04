@@ -32,7 +32,6 @@ public class InsertProveedor extends JDialog {
 	private JTextField Fnametxt;
 	private JTextField Snametxt;
 	private JTextField Lnametxt;
-	private JTextField Marcatxt;
 	private JTextField Ciudadtxt;
 	private JTextField Calletxt;
 	private JFormattedTextField cedulaJF;
@@ -213,26 +212,13 @@ public class InsertProveedor extends JDialog {
 		panel.setBounds(10, 207, 624, 106);
 		contentPanel.add(panel);
 		panel.setLayout(null);
-		
-		JLabel marcalbl = new JLabel("Marca a suplir:");
-		marcalbl.setBounds(10, 43, 97, 14);
-		panel.add(marcalbl);
-		
-					
-					
-					Marcatxt = new JTextField();
-					Marcatxt.setBounds(107, 40, 136, 20);
-					panel.add(Marcatxt);
-					Marcatxt.setBackground(Color.WHITE);
-					Marcatxt.setText("");
-					Marcatxt.setColumns(10);
 					
 					JLabel lblIDProv = new JLabel("ID Proveedor: ");
-					lblIDProv.setBounds(313, 43, 86, 14);
+					lblIDProv.setBounds(27, 43, 86, 14);
 					panel.add(lblIDProv);
 					
 					IDPtxt = new JTextField();
-					IDPtxt.setBounds(421, 40, 136, 20);
+					IDPtxt.setBounds(123, 40, 136, 20);
 					panel.add(IDPtxt);
 					IDPtxt.setColumns(10);
 		{
@@ -258,9 +244,8 @@ public class InsertProveedor extends JDialog {
 						String Cod = CodPostJF.getText();
 						String Ciudad = Ciudadtxt.getText();
 						String Calle = Calletxt.getText();
-						String Marca = Marcatxt.getText();
 						String Provincia = Provinciacbx.getSelectedItem().toString();
-						Proveedor miProveedor = new Proveedor(IDProv, cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, Marca, Provincia);
+						Proveedor miProveedor = new Proveedor(IDProv, cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, Provincia);
 						
 						
 						
@@ -288,10 +273,6 @@ public class InsertProveedor extends JDialog {
 							JOptionPane.showMessageDialog(null,"Se debe ingresar el telefono del proveedor a registrar", "ATENCIÓN",
 											JOptionPane.WARNING_MESSAGE, null);
 							
-						}else if(Marcatxt.getText().isEmpty()) {
-							
-							JOptionPane.showMessageDialog(null,"Se debe ingresar la marca que va a suplir el proveedor a registrar", "ATENCIÓN",
-									JOptionPane.WARNING_MESSAGE, null);
 							
 						
 						}else if(IDPtxt.getText().isEmpty()) {
@@ -318,7 +299,6 @@ public class InsertProveedor extends JDialog {
 						CodPostJF.setText(null);
 						Ciudadtxt.setText(null);
 						Calletxt.setText(null);
-						Marcatxt.setText(null);
 						JOptionPane
 								.showMessageDialog(null,
 										"Proveedor Agregado Satisfactoriamente");
@@ -333,9 +313,8 @@ public class InsertProveedor extends JDialog {
 								String Cod = CodPostJF.getText();
 								String Ciudad = Ciudadtxt.getText();
 								String Calle = Calletxt.getText();
-								String marca = Marcatxt.getText();
 								String Provincia = Provinciacbx.getSelectedItem().toString();
-								Proveedor modiProv = new Proveedor(IDProv, cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, marca, Provincia);
+								Proveedor modiProv = new Proveedor(IDProv, cedula, Fname, Sname, Lname, Calle, Ciudad, tel, Cod, Provincia);
 								try {
 									Bike_Rental.getInstance().updateProveedor(modiProv);
 									JOptionPane.showMessageDialog(null, "Proveedor Modificado");
@@ -385,7 +364,6 @@ public class InsertProveedor extends JDialog {
 			CodPostJF.setText(miProv.getTel());
 			Ciudadtxt.setText(miProv.getCiudad());
 			Calletxt.setText(miProv.getCalle());
-			Marcatxt.setText(miProv.getMarca());
 			Provinciacbx.setSelectedItem(miProv.getProvincia());
 		}
 

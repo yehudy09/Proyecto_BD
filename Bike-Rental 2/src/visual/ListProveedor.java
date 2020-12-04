@@ -112,7 +112,7 @@ public class ListProveedor extends JDialog {
 				table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				scrollPane.setViewportView(table);
 				model = new DefaultTableModel();
-				String[] columneNames = {"ID", "Cédula", "Nombre", "Seg. Nombre", "Apellido", "Calle", "Ciudad",  "Cod. Postal", "Télefono", "Marca a suplir",  "Provincia", };
+				String[] columneNames = {"ID", "Cédula", "Nombre", "Seg. Nombre", "Apellido", "Calle", "Ciudad",  "Cod. Postal", "Télefono",  "Provincia", };
 				model.setColumnIdentifiers(columneNames);
 				table.setModel(model);
 				table.getTableHeader().setResizingAllowed(false);

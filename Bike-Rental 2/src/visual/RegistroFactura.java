@@ -71,6 +71,7 @@ public class RegistroFactura extends JDialog {
 	private JPanel pnlServ; 
 	private JButton btnVerificar; 
 	private JButton btnAgregar; 
+	private JButton btnDevolver;
 	private Cliente cliente = null; 
 	private JLabel lblCedula; 
 	private JLabel lblTelefono; 
@@ -87,7 +88,6 @@ public class RegistroFactura extends JDialog {
 	private DefaultTableModel modelServ;
 	private static Object[] filaServ;
 	private JList<String> listCompras; 
-	private JList<String> listServ; 
 	private ArrayList<String> Items;
 	private DefaultListModel modeloCompra = new DefaultListModel();
 	private DefaultListModel modeloServ = new DefaultListModel();
@@ -142,10 +142,18 @@ public class RegistroFactura extends JDialog {
 		contentPanel.add(pnlVenta);
 		pnlVenta.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnDevolver = new JButton("Eliminar");
+		btnDevolver = new JButton("Eliminar");
 		btnDevolver.setEnabled(false);
 		btnDevolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int option = JOptionPane.showConfirmDialog(null, "¿Desea eliminar este elemento?", "CONFIRMACIÓN", JOptionPane.WARNING_MESSAGE);
+				if (option == JOptionPane.OK_OPTION) {
+					if(listCompras.getSelectedValue() != null) {
+						modeloCompra.removeElement(listCompras.getSelectedValue());
+						listCompras.setModel(modeloCompra); 
+					}
+				}
+				
 			}
 		});
 		btnDevolver.setIcon(new ImageIcon(RegistroFactura.class.getResource("/icons/borrar.png")));
@@ -168,25 +176,22 @@ public class RegistroFactura extends JDialog {
 		panel.add(lblPrecio);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		pnlVenta.add(scrollPane_1, BorderLayout.WEST);
+		pnlVenta.add(scrollPane_1, BorderLayout.CENTER);
 		
 		listCompras = new JList();
 		listCompras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int index = listCompras.getSelectedIndex();           
+					btnDevolver.setEnabled(true);
+			
+			
+				/*int index = listCompras.getSelectedIndex();           
 				System.out.println("Index Selected: " + index);          
 				String s = (String) listCompras.getSelectedValue();           
-				System.out.println("Value Selected: " + s);
+				System.out.println("Value Selected: " + s);*/
 			}
 		});
 		scrollPane_1.setViewportView(listCompras);
-		
-		JScrollPane scrollPane_3 = new JScrollPane();
-		pnlVenta.add(scrollPane_3, BorderLayout.EAST);
-		
-		listServ = new JList();
-		scrollPane_3.setViewportView(listServ);
 		
 		JPanel pnlGeneral = new JPanel();
 		pnlGeneral.setBackground(SystemColor.inactiveCaptionBorder);
@@ -447,11 +452,11 @@ public class RegistroFactura extends JDialog {
 				} else if (rdbtnProd.isSelected()){
 					cant = (int)spnCant.getValue(); 
 					
-					modeloCompra.add(0, String.valueOf("- Prod." + " - Id: #" + cod + "- Cant:" + cant+ " - " + "Precio: $"+pre ));
+					modeloCompra.add(modeloCompra.getSize(), String.valueOf("- Prod." + " - Id: #" + cod + "- Cant:" + cant+ " - " + "Precio: $"+pre ));
 					listCompras.setModel(modeloCompra);
 				} else {
-					modeloServ.add(0, String.valueOf("-    Servicio" + " - Id: #" + cod2 + " -  " + "Precio: $" +pre2));
-					listServ.setModel(modeloServ);
+					modeloCompra.add(modeloCompra.getSize(), String.valueOf("-    Servicio" + " - Id: #" + cod2 + " -  " + "Precio: $" +pre2));
+					listCompras.setModel(modeloCompra);
 				
 				}
 				
@@ -526,18 +531,18 @@ public class RegistroFactura extends JDialog {
 							ArrayList<Float> precioP = null; 
 							for(int j = 0; j < modeloCompra.getSize(); j++) {
 								String file = modeloCompra.getElementAt(j).toString();
-								String serv = modeloServ.getElementAt(j).toString();
+							//	String serv = modeloServ.getElementAt(j).toString();
 								int indexID = file.indexOf("Id: #");
 								int indexCant = file.indexOf("Cant:");
 								int indexPrecio = file.indexOf("Precio: $");
-								int indexIDserv = serv.indexOf("Id: #");
-								int indexPrecioServ = serv.indexOf("Precio: $");
+								int indexIDserv = file.indexOf("Id: #");
+								int indexPrecioServ = file.indexOf("Precio: $");
 								String id = file.substring(indexID+5, indexCant-2);
 								int cant = Integer.parseInt(file.substring(indexCant+5, indexPrecio-3));
 								String precioAux = file.substring(indexPrecio +9, 40);
 								String precio = precioAux;
-								String idServ = serv.substring(indexIDserv+5, indexPrecioServ - 4);
-								String precioServ = serv.substring(indexPrecioServ +9, 40);
+								String idServ = file.substring(indexIDserv+5, indexPrecioServ - 4);
+								String precioServ = file.substring(indexPrecioServ +9, 40);
 
 								String sqlFID = "select MAX(fid) from Factura";
 								String sql = "insert into  detalleFactura (fid, precioVenta, idProducto, cantidadVenta, precioServicio, idServicio)"

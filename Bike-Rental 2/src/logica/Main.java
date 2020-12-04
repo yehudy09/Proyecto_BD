@@ -71,7 +71,8 @@ public class Main {
 		
 		//bike.searchProductoByID("PG1");
 		
-		bike.incrementProducto("PG1", 50, 5);
+	//	bike.incrementProducto("PG1", 50, 5);
+		bike.decrementProducto("BG001", 5, 1);
 	}
 
 }

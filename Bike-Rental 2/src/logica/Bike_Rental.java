@@ -630,7 +630,7 @@ public class Bike_Rental {
  					  rs.getString("fecha"),
  					  rs.getString("marca"), 
  					  rs.getFloat("precioCompra"),
- 					  rs.getInt("cantidad"), 
+ 					  rs.getInt("cantStock"), 
  					  rs.getString("idProveedor"),	  
  					  rs.getString("idProducto")
  					  );
@@ -703,8 +703,8 @@ public class Bike_Rental {
 			
 			try {
 				PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-				stmt.setString(1, id);
-				stmt.setInt(2, cantReal);
+				stmt.setInt(1, cantReal);
+				stmt.setString(2, id);
 				
 				stmt.execute();
 				
@@ -717,16 +717,16 @@ public class Bike_Rental {
 		
 	}
 	
-	public void decrementProducto(int id, int cantStock, int cant) throws Exception {
+	public void decrementProducto(String id, int cantStock, int cantVenta) throws Exception {
 		
 		int cantReal = 0 ; 
-		cantReal = (cantStock - cant);
+		cantReal = (cantStock - cantVenta);
 		
 		if(cantReal == 0 ){
 			String sql = "delete Producto where idProducto = ?"; 
 			try {
 				PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-				stmt.setInt(1, id);
+				stmt.setString(1, id);
 				stmt.execute();
 				
 			
@@ -739,8 +739,8 @@ public class Bike_Rental {
 			
 			try {
 				PreparedStatement stmt = conectarSQL().prepareStatement(sql);
-				stmt.setInt(1, id);
-				stmt.setInt(2, cantReal);
+				stmt.setInt(1, cantReal);
+				stmt.setString(2, id);
 				
 				stmt.execute();
 				

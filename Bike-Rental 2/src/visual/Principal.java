@@ -63,7 +63,7 @@ public class Principal extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				try {
-					//Bike_Rental.getInstance().deleteLogUser();
+					Bike_Rental.getInstance().deleteLogUser();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

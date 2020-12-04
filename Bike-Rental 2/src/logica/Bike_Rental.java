@@ -111,10 +111,9 @@ public class Bike_Rental {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=luna;password=123luna;";
+			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=yehudy;password=123;";
-			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=dariannye;password=bikerental4;";
-			
+			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=dariannye;password=bikerental4;";
 			
 			connect = DriverManager.getConnection(Url);
 			
@@ -182,6 +181,31 @@ public class Bike_Rental {
 		}
 		
 	}
+	
+	public String tipologUser() throws Exception {
+
+		String sql = "select tipo from Usuario where username in (select username from logUser)"; 
+		String tipo = null; 
+			try {
+				PreparedStatement stmt = conectarSQL().prepareStatement(sql);
+	            ResultSet rs = stmt.executeQuery(); 
+	            
+	            while(rs.next()) {
+	            	tipo = rs.getString(1);
+	            	
+	            }
+	            
+	          
+			}catch(SQLException e) {
+				
+				e.printStackTrace();
+				
+			}
+			System.out.println(tipo);
+			return tipo;
+		
+			
+		}
 
 	public void insertCliente(Cliente c) throws Exception {
 		misClientes.add(c);
@@ -594,8 +618,6 @@ public class Bike_Rental {
         	PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 
             stmt.setString(1, id);
-
-
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){

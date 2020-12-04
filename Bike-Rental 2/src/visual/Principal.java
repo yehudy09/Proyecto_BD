@@ -63,7 +63,11 @@ public class Principal extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				try {
+					load load = new load(1); 
+					load.setVisible(true);
+					load.setLocationRelativeTo(null);
 					Bike_Rental.getInstance().deleteLogUser();
+					dispose();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -74,6 +78,7 @@ public class Principal extends JFrame {
 		setTitle("BIKE-RENTAL, STORE MANAGER");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		dim = super.getToolkit().getScreenSize();
 		super.setSize(dim.width, (dim.height-50));
@@ -101,6 +106,16 @@ public class Principal extends JFrame {
 		mnRegistrar.add(mntmCliente);
 		
 		JMenuItem mntmEmpleado = new JMenuItem("Empleado");
+		try {
+			if(Bike_Rental.getInstance().tipologUser().equalsIgnoreCase("Empleado")) {
+				mntmEmpleado.setEnabled(false);
+			}else {
+				mntmEmpleado.setEnabled(true);
+			}
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		mntmEmpleado.setIcon(new ImageIcon(Principal.class.getResource("/icons/agregarSolicitante.png")));
 		mntmEmpleado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -231,6 +246,33 @@ public class Principal extends JFrame {
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenu mnUtili = new JMenu("Utilidades");
+		mnUtili.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		menuBar.add(mnUtili);
+		
+		JMenuItem mntmUser = new JMenuItem("Nuevo Usuario");
+		try {
+			if(Bike_Rental.getInstance().tipologUser().equalsIgnoreCase("Empleado")) {
+				mntmUser.setEnabled(false);
+			}else {
+				mntmUser.setEnabled(true);
+			}
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		mntmUser.setIcon(new ImageIcon(Principal.class.getResource("/icons/add.png")));
+		mntmUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Usuarios us;
+				us = new Usuarios();
+				us.setModal(true);
+				us.setLocationRelativeTo(null);
+				us.setVisible(true);
+			}
+		});
+		mnUtili.add(mntmUser);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

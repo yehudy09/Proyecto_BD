@@ -87,15 +87,15 @@ public class insertProducto extends JDialog {
 		contentPanel.add(pnlInformacion);
 		
 		JLabel lblPrecioVentaUnd = new JLabel("Precio Venta Und.:");
-		lblPrecioVentaUnd.setBounds(24, 288, 174, 14);
+		lblPrecioVentaUnd.setBounds(23, 288, 174, 14);
 		pnlInformacion.add(lblPrecioVentaUnd);
 		
 		JLabel lblNombre = new JLabel("Nombre Producto:");
-		lblNombre.setBounds(16, 142, 107, 14);
+		lblNombre.setBounds(23, 142, 107, 14);
 		pnlInformacion.add(lblNombre);
 		
 		JLabel lblMarca = new JLabel("Marca:");
-		lblMarca.setBounds(24, 192, 55, 14);
+		lblMarca.setBounds(23, 192, 55, 14);
 		pnlInformacion.add(lblMarca);
 		
 		textName = new JTextField();
@@ -111,11 +111,11 @@ public class insertProducto extends JDialog {
 		pnlInformacion.add(textMarca);
 		
 		JLabel lblCantidad = new JLabel("Cantidad:");
-		lblCantidad.setBounds(24, 235, 62, 14);
+		lblCantidad.setBounds(23, 235, 62, 14);
 		pnlInformacion.add(lblCantidad);
 		
 		JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
-		lblDescripcion.setBounds(24, 341, 117, 14);
+		lblDescripcion.setBounds(23, 341, 117, 14);
 		pnlInformacion.add(lblDescripcion);
 		
 		textTipo = new JTextField();
@@ -132,7 +132,7 @@ public class insertProducto extends JDialog {
 		pnlInformacion.add(textPrecio);
 		
 		JLabel lblIDProd = new JLabel("ID Producto:");
-		lblIDProd.setBounds(24, 47, 107, 14);
+		lblIDProd.setBounds(23, 47, 107, 14);
 		pnlInformacion.add(lblIDProd);
 		
 		IDProtxt = new JTextField();
@@ -190,7 +190,7 @@ public class insertProducto extends JDialog {
 		pnlInformacion.add(btnSearchIDProd);
 		
 		JLabel IDProvlbl = new JLabel("ID Proveedor: ");
-		IDProvlbl.setBounds(16, 95, 92, 14);
+		IDProvlbl.setBounds(23, 95, 92, 14);
 		pnlInformacion.add(IDProvlbl);
 		
 		textIDProv = new JTextField();
@@ -199,7 +199,7 @@ public class insertProducto extends JDialog {
 		textIDProv.setColumns(10);
 		
 		JLabel PrecioClbl = new JLabel("Precio Compra:");
-		PrecioClbl.setBounds(22, 399, 86, 14);
+		PrecioClbl.setBounds(23, 399, 101, 14);
 		pnlInformacion.add(PrecioClbl);
 		
 		PrecioCtxt = new JTextField();
@@ -213,7 +213,7 @@ public class insertProducto extends JDialog {
 		textCant.setColumns(10);
 		
 		JLabel lblFecha = new JLabel("Fecha: ");
-		lblFecha.setBounds(16, 455, 63, 14);
+		lblFecha.setBounds(23, 455, 63, 14);
 		pnlInformacion.add(lblFecha);
 		
 		JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(spnFecha, "dd/MM/yyyy");

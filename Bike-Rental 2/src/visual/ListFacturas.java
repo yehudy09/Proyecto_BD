@@ -20,6 +20,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.ImageIcon;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
 
 public class ListFacturas extends JDialog {
 
@@ -90,7 +94,8 @@ public class ListFacturas extends JDialog {
 		scrollPane.setViewportView(tableF);
 		
 		JPanel pnlProducto = new JPanel();
-		pnlProducto.setBounds(10, 227, 329, 219);
+		pnlProducto.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Productos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pnlProducto.setBounds(10, 227, 351, 219);
 		contentPanel.add(pnlProducto);
 		pnlProducto.setLayout(new BorderLayout(0, 0));
 		
@@ -98,13 +103,15 @@ public class ListFacturas extends JDialog {
 		pnlProducto.add(scrollPane_1, BorderLayout.CENTER);
 		
 		tableP = new JTable();
-		String[] columneNamesP = {"Id Factura", "Precio Venta", "Id Producto", "Cantidad Venta"};
+		modelP = new DefaultTableModel();
+		String[] columneNamesP = {"Id Factura", "Precio Venta", "Id Producto", "Cant. Venta"};
 		modelP.setColumnIdentifiers(columneNamesP);
 		tableP.setModel(modelP);
 		scrollPane_1.setViewportView(tableP);
 		
 		JPanel pnlServicio = new JPanel();
-		pnlServicio.setBounds(349, 229, 309, 219);
+		pnlServicio.setBorder(new TitledBorder(null, "Servicios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnlServicio.setBounds(371, 229, 287, 219);
 		contentPanel.add(pnlServicio);
 		pnlServicio.setLayout(new BorderLayout(0, 0));
 		
@@ -112,6 +119,7 @@ public class ListFacturas extends JDialog {
 		pnlServicio.add(scrollPane_2, BorderLayout.CENTER);
 		
 		tableS = new JTable();
+		modelS = new DefaultTableModel();
 		String[] columneNamesS = {"Id Factura", "Id Servicio", "Precio"};
 		modelS.setColumnIdentifiers(columneNamesS);
 		tableS.setModel(modelS);
@@ -123,6 +131,7 @@ public class ListFacturas extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.setIcon(new ImageIcon(ListFacturas.class.getResource("/icons/cancelar.png")));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose(); 

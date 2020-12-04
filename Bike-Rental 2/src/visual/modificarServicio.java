@@ -90,6 +90,7 @@ public class modificarServicio extends JFrame {
 		});
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setBounds(100, 100, 202, 353);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);

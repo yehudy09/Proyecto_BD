@@ -57,6 +57,7 @@ import java.sql.ResultSet;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JScrollBar;
+import javax.swing.SpinnerNumberModel;
 
 public class RegistroFactura extends JDialog {
 
@@ -443,15 +444,18 @@ public class RegistroFactura extends JDialog {
 					JOptionPane.showMessageDialog(null, "Seleccione un producto", null, JOptionPane.WARNING_MESSAGE);
 				}else if (rdbtnProd.isSelected() && aux == 0 ) {
 					JOptionPane.showMessageDialog(null, "Debe digitar la cantidad del producto", null, JOptionPane.WARNING_MESSAGE);
+					
 				} else if (rdbtnProd.isSelected()){
 					cant = (int)spnCant.getValue(); 
-					
+					precioTotal +=  Float.parseFloat(pre)*cant;
 					modeloCompra.add(modeloCompra.getSize(), String.valueOf("- Prod." + " - Id: #" + cod + "- Cant:" + cant+ " - " + "Precio: $"+pre ));
 					listCompras.setModel(modeloCompra);
+					lblPrecio.setText(Float.toString(precioTotal)); 
 				} else {
+					precioTotal = precioTotal + Float.parseFloat(pre2);
 					modeloCompra.add(modeloCompra.getSize(), String.valueOf("-    Servicio" + " - Id: #" + cod2 + " -  " + "Precio: $" +pre2));
 					listCompras.setModel(modeloCompra);
-				
+					lblPrecio.setText(Float.toString(precioTotal)); 
 				}
 				
 				spnCant.setValue(0);
@@ -459,10 +463,12 @@ public class RegistroFactura extends JDialog {
 				
 			}
 		});
-		btnAgregar.setIcon(new ImageIcon(RegistroFactura.class.getResource("/icons/add.png")));
+
+		btnAgregar.setIcon(new ImageIcon(RegistroFactura.class.getResource("/icons/add.png")));	
 		pnlControl.add(btnAgregar);
 		
 		spnCant = new JSpinner();
+		spnCant.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spnCant.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spnCant.setBounds(586, 232, 66, 20);
 		contentPanel.add(spnCant);
@@ -541,7 +547,6 @@ public class RegistroFactura extends JDialog {
 												ps.setString(3, id);
 												ps.setInt(4, cant);
 												ps.execute();
-												precioTotal = precioTotal + Float.parseFloat(precio) * cant;
 												Producto aux = Bike_Rental.getInstance().searchProductoByID(id); 
 												int cantStock = aux.getCantStock();
 												Bike_Rental.getInstance().decrementProducto(id, cantStock, cant);
@@ -562,7 +567,6 @@ public class RegistroFactura extends JDialog {
 											ResultSet rs = psID.executeQuery();
 											String precioServ = file.substring(indexPrecioServ +9);
 											System.out.println(precioServ);
-											precioTotal = precioTotal + Float.parseFloat(precioServ);
 											while (rs.next()) {
 												int fid = Integer.parseInt(rs.getString(1));
 												PreparedStatement ps = Bike_Rental.getInstance().conectarSQL().prepareStatement(sqlServ);

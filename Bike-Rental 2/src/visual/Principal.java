@@ -84,7 +84,6 @@ public class Principal extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu mnRegistrar = new JMenu("Registrar");
-		mnRegistrar.setIcon(new ImageIcon(Principal.class.getResource("/icons/add.png")));
 		mnRegistrar.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		menuBar.add(mnRegistrar);
 		
@@ -176,6 +175,18 @@ public class Principal extends JFrame {
 		});
 		mnConsultas.add(mntmListProv);
 		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listado de Ventas");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListFacturas lf;
+				lf = new ListFacturas();
+				lf.setModal(true);
+				lf.setLocationRelativeTo(null);
+				lf.setVisible(true);
+			}
+		});
+		mnConsultas.add(mntmNewMenuItem_1);
+		
 		JMenu mnFacturar = new JMenu("Facturar");
 		mnFacturar.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		menuBar.add(mnFacturar);
@@ -198,6 +209,7 @@ public class Principal extends JFrame {
 		mnFacturar.add(mntmFactura);
 		
 		JMenu mnNewMenu = new JMenu("Stock");
+		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Stock");

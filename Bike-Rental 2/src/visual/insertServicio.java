@@ -169,6 +169,7 @@ public class insertServicio extends JFrame {
 				modificarServicio modi = new modificarServicio(modify, id);
 				modi.setUndecorated(true);
 				modi.setVisible(true);
+				modi.setLocationRelativeTo(null);
 				modi.addWindowListener(new WindowAdapter() {
 					public void windowClosed(WindowEvent e) {
 						try {

@@ -84,6 +84,7 @@ public class ModificarEmpleado extends JFrame {
 	 * Create the frame.
 	 */
 	public ModificarEmpleado(Empleado emp) {
+		setResizable(false);
 		addWindowStateListener(new WindowStateListener() {
 			public void windowStateChanged(WindowEvent e) {
 				

@@ -5,7 +5,6 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-
 import java.sql.*;
 
 
@@ -20,6 +19,7 @@ public class Bike_Rental {
 	private ArrayList<User> misUsers; 
 	public static Bike_Rental bike;
 	private static Connection connect = null;
+	private static User loginUser;
 	
 	public Bike_Rental() {
 		super();
@@ -49,6 +49,15 @@ public class Bike_Rental {
 	public void setMisServicios(ArrayList<Servicio> misServicios) {
 		this.misServicios = misServicios;
 	}
+	
+	public static User getLoginUser() {
+		return loginUser;
+	}
+
+	public static void setLoginUser(User loginUser) {
+		Bike_Rental.loginUser = loginUser;
+	}
+
 
 	public ArrayList<Empleado> getMisEmpleados() {
 		return misEmpleados;
@@ -97,34 +106,23 @@ public class Bike_Rental {
 		return bike;
 	}
 	
-/*	public float totalPrice(ArrayList<Precio> aux) {
-		float total = 0; 
-				for (Precio p : aux) {
-					total += p.totalPrice();
-				}
-			return total; 
-	}*/
-	
 	
 	public Connection conectarSQL() throws Exception{
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			//String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=luna;password=123luna;";
+			String Url = "jdbc:sqlserver://EZEQUIEL-PC\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=luna;password=123luna;";
 			//String Url = "jdbc:sqlserver://DESKTOP-Q5G1B41\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=yehudy;password=123;";
-			String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=dariannye;password=bikerental4;";
+			//String Url = "jdbc:sqlserver://DESKTOP-H6TG0VV\\SQLEXPRESS:1433;databaseName=Bike_Center_;user=dariannye;password=bikerental4;";
 			
 			
 			connect = DriverManager.getConnection(Url);
-			
-		//	JOptionPane.showMessageDialog(null, "Conectado");
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, e,  "Error de conexión" + e.getMessage(), JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
-		
 		
 		return connect;
 		
@@ -138,18 +136,13 @@ public class Bike_Rental {
 			Statement stmt = conectarSQL().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 				if (!rs.next()) {
-					/*JOptionPane.showMessageDialog(null,
-							"Usuario o contraseña incorrectos, inténtelo nuevamente.", "Error",
-							JOptionPane.ERROR_MESSAGE, null);*/
 				return login=false;
 			}
 
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		/*JOptionPane.showMessageDialog(null,
-				"Bienvenido a Bike-Rental", "Información",
-				JOptionPane.INFORMATION_MESSAGE, null);*/
+		
 		return login;
 	}
 	
@@ -720,7 +713,7 @@ public class Bike_Rental {
 		
 	}
 	
-	/*public void deleteLogUser() throws Exception {
+	public void deleteLogUser() throws Exception {
 		String sql = "delete from logUser"; 
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
@@ -730,7 +723,7 @@ public class Bike_Rental {
 			
 			e.printStackTrace();	
 		}
-	}*/
+	}
 	
 	//*****************************CONTROL STOCK****************************//
 	

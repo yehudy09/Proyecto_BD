@@ -93,7 +93,7 @@ public class insertServicio extends JFrame {
 		});
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 611, 461);
+		setBounds(100, 100, 611, 451);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -103,7 +103,7 @@ public class insertServicio extends JFrame {
 		JPanel panelInsercion = new JPanel();
 		panelInsercion.setBackground(SystemColor.inactiveCaptionBorder);
 		panelInsercion.setBorder(new TitledBorder(null, "Servicio", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelInsercion.setBounds(8, 10, 180, 413);
+		panelInsercion.setBounds(8, 10, 180, 436);
 		contentPane.add(panelInsercion);
 		
 		JLabel lblSsn = new JLabel("SSN (Empleado)");
@@ -215,6 +215,11 @@ public class insertServicio extends JFrame {
 		tfIDServ.setColumns(10);
 		
 		JButton btnNewButton = new JButton("CERRAR");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnNewButton.setBackground(SystemColor.inactiveCaption);
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -292,7 +297,7 @@ public class insertServicio extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.inactiveCaptionBorder);
 		panel.setBorder(new TitledBorder(null, "Servicios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(196, 10, 393, 413);
+		panel.setBounds(196, 10, 393, 436);
 		contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		

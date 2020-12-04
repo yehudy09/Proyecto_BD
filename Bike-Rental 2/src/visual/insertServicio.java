@@ -152,6 +152,9 @@ public class insertServicio extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				tfTipo.setText(null); 
+				tfPrecio.setText(null); 
+				tfIDServ.setText(null); 
 			}
 		});
 		btnInsertar.setBackground(SystemColor.inactiveCaption);

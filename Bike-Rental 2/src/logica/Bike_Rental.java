@@ -313,7 +313,7 @@ public class Bike_Rental {
 			stmt.setString(1, s.getSsn());
 			stmt.setString(2, s.getTipo());
 			stmt.setFloat(3, s.getPrecioServ());
-			stmt.setString(3, s.getId());
+			stmt.setString(4, s.getId());
 			stmt.execute();
 		
 		}catch(SQLException e) {
@@ -322,7 +322,7 @@ public class Bike_Rental {
 			
 		}
 		
-		String sql2 = "insert into Empr_Serv (idServicio, ssn, precio) values (?,?,?)";
+		String sql2 = "insert into Emp_Serv (idServicio, ssn, precio) values (?,?,?)";
 		
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql2);

@@ -587,6 +587,7 @@ public class RegistroFactura extends JDialog {
 								lblCedula.setText("**********************");
 								lblNombre.setText("**********************");
 								lblTelefono.setText("**********************");
+								lblTotal.setText("0.0");
 								modeloCompra.removeAllElements();
 								ftxtCedula.setText(null);
 								try {

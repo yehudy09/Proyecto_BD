@@ -97,13 +97,13 @@ public class Bike_Rental {
 		return bike;
 	}
 	
-	public float totalPrice(ArrayList<Precio> aux) {
+/*	public float totalPrice(ArrayList<Precio> aux) {
 		float total = 0; 
 				for (Precio p : aux) {
 					total += p.totalPrice();
 				}
 			return total; 
-	}
+	}*/
 	
 	
 	public Connection conectarSQL() throws Exception{
@@ -268,19 +268,49 @@ public class Bike_Rental {
 		}catch(SQLException e) {
 			
 			e.printStackTrace();
-			
 		} 		
+		
+		String sql2 = "insert into PrrcioComp (idProveedor, idProducto, precioCompra)"
+				+ " values (?,?,?)";
+			
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql2);
+			stmt.setString(1,pro.getIdProveedor());
+			stmt.setString(2, pro.getIdProducto());
+			stmt.setFloat(3, pro.getPrecioCompra());
+			stmt.execute();
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+		} 	
 	}
 	
 	public void insertServicio(Servicio s) throws Exception {
 		misServicios.add(s);
 		    
-		String sql = "insert into Servicio (ssn, tipo, precio) values (?,?,?)";
+		String sql = "insert into Servicio (ssn, tipo, precio, idServicio) values (?,?,?,?)";
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 			stmt.setString(1, s.getSsn());
 			stmt.setString(2, s.getTipo());
+			stmt.setFloat(3, s.getPrecioServ());
+			stmt.setString(3, s.getId());
+			stmt.execute();
+		
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		String sql2 = "insert into Empr_Serv (idServicio, ssn, precio) values (?,?,?)";
+		
+		try {
+			PreparedStatement stmt = conectarSQL().prepareStatement(sql2);
+			stmt.setString(1, s.getId());
+			stmt.setString(2, s.getSsn());
 			stmt.setFloat(3, s.getPrecioServ());
 			stmt.execute();
 		
@@ -319,14 +349,12 @@ public class Bike_Rental {
 			
 		} 		
 	}
-	
 
 
 	public void insertFactura(Factura fact) throws Exception {
 		misFacturas.add(fact);
 		String sql = "insert into Factura (comprobante, fecha, cid) values (?,?,?)";
 			
-		
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 			stmt.setString(1, fact.getComprobante());
@@ -345,7 +373,6 @@ public class Bike_Rental {
 	public void insertDetalleFactura(DetalleFactura df) throws Exception {
 		misDetallesF.add(df);
 		String sql = "insert into detalleFactura (fid, idProducto, cantidadVenta, idServicio) values (?,?,?,?)";
-			
 		
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
@@ -363,12 +390,12 @@ public class Bike_Rental {
 	}
 	
 	
+	
 	 //*************************************** UPDATES ******************************************//
 	
 	public void updateCliente(Cliente c) throws Exception {
 		String sql = "update Cliente set Fname = ?, Sname = ?, Lname = ?, Calle = ?, Ciudad = ?, codPostal = ?, tel = ?, provincia =?" 
 					 + " where cedula = ?";
-			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 			stmt.setString(1, c.getFname());
@@ -393,8 +420,6 @@ public class Bike_Rental {
 	public void updateEmpleado(Empleado emp) throws Exception {
 		String sql = "update Empleado set ssn = ?, Fname = ?, Sname = ?, Lname = ?, Calle = ?, Ciudad = ?, codPostal = ?, tel = ?, posicion = ?, salario = ?, provincia =?"
 				+ " where cedula = ?";
-				
-			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 			stmt.setString(1, emp.getSsn());
@@ -422,7 +447,6 @@ public class Bike_Rental {
 	public void updateStock(Producto prod) throws Exception {
 		String sql = "update Producto set tipo = ?, nameProducto = ?, precioVenta = ?, marca =?, cantStock= ?, idProveedor = ?, fecha = ?, precioCompra = ?"
 				+ " where idProducto = ?";
-		
 			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
@@ -449,9 +473,6 @@ public class Bike_Rental {
 	public void updateProveedor(Proveedor prov) throws Exception {
 		String sql = "update Proveedor set idProveedor = ?, Fname = ?, Sname = ?, Lname =?, Calle = ?, Ciudad =?, codPostal =?, tel =?, marca = ?, provincia =?"
 				+ " where cedula = ? ";
-				
-		
-			
 		try {
 			PreparedStatement stmt = conectarSQL().prepareStatement(sql);
 			stmt.setString(1, prov.getIdProveedor());
@@ -474,9 +495,6 @@ public class Bike_Rental {
 			
 		} 		
 	}
-	
-	
-	
 	
 	
 	//*************************************** SELECTS ******************************************//

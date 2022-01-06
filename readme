@@ -1,0 +1,22 @@
+This project is based on the following problem:
+
+Elite Bike Rental is a new bike shop located in a suburb in NY, offering a wide 
+range of bicycles and related accessories. John, the shop’s owner, has been 
+conducting his daily business mostly on paper. 
+The company records sales on preprinted forms, which contains the invoice 
+number and date of the sale, the customer and the employee involved in the sale 
+and the product being sold. Employee and customer information is maintained on 
+sheets of paper.
+For each employee, this includes his/her social insurance number, first and last 
+name, and home phone number. For each customer, the company records the 
+first, middle (if any) and last name, as well as at least one phone number and 
+home address (consisting of street number and post code). To keep track of the 
+product inventory, John uses a spreadsheet program to record the number, 
+name, price and quantity of the products in stock. For each product, a range of 
+services is offered. 
+The spreadsheet program is also used to list the type (e.g., repair, exchange) and 
+charge for each service. Multiple types of service may be offered to one product 
+(e.g., repair and exchange for bikes) and a service may be offered to multiple 
+products (e.g., repair for bikes and accessories) at different prices. 
+John spends a lot of time maintaining this information. Recently, he has decided 
+to use database to manage all this data
